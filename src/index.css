@@ -11,3 +11,28 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+textarea {
+  width: 50vw; /* Use a percentage for dynamic width */
+  height: 5vh; /* Use a percentage of viewport height for dynamic height */
+  border: none;
+  background: #1e2b53;
+  color: #fff;
+  font-size: 20px;
+  padding: 2rem;
+  resize: none;
+  border-radius: 5px;
+  border: 2px solid white; /* Adding a white solid border */
+}
+
+button {
+  background: #9c5419;
+  color: #fff;
+  font-size: 20px;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 1rem;
+}
+
