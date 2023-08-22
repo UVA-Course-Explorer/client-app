@@ -7,13 +7,11 @@ export default function SearchComponent() {
 
 
 
-  const [members, setMembers] = useState([]);
   useEffect(() => {
     async function fetchMembers() {
       try {
-        const response = await fetch('/members'); // Adjust the URL to your Flask backend URL
+        const response = await fetch('https://server-app.fly.dev/members'); // Adjust the URL to your Flask backend URL
         const data = await response.json();
-        setMembers(data.members);
         console.log('Members fetched:', data.members);
       } catch (error) {
         console.error('Error fetching members:', error);
@@ -44,7 +42,7 @@ export default function SearchComponent() {
 
   const handleSubmit = async () => {
       setIsLoading(true);
-      const response = await fetch("/search", {
+      const response = await fetch("https://server-app.fly.dev/search", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

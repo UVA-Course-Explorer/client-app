@@ -10,9 +10,9 @@ subject
 */
 
 const CourseResultComponent = (props) => {
-  const [isActive, setIsActive] = useState(false);
-  const [sessions, setSessions] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isActive] = useState(false);
+  const [sessions] = useState([]);
+  const [isLoading] = useState(false);
 
 
   const handleClick = async () => {
