@@ -37,5 +37,6 @@
   },
   "devDependencies": {
     "netlify-cli": "^16.1.0"
-  }
+  },
+  "proxy": "https://server-app.fly.dev"
 }
