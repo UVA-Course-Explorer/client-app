@@ -11,3 +11,70 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+textarea {
+  width: 50vw; /* Use a percentage for dynamic width */
+  height: 5vh; /* Use a percentage of viewport height for dynamic height */
+  border: none;
+  background: #1e2b53;
+  color: #fff;
+  font-size: 20px;
+  padding: 2rem;
+  resize: none;
+  border-radius: 5px;
+  border: 2px solid white; /* Adding a white solid border */
+}
+
+button {
+  background: #9c5419;
+  color: #fff;
+  font-size: 20px;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 1rem;
+}
+
+
+.accordion {
+  max-width: 80%;
+  margin: 2rem auto;
+}
+
+.accordion-title {
+  display: flex;
+  text-align: center;
+  flex-direction: row;
+  justify-content: space-between;
+  cursor: pointer;
+  background-color: #184276;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.accordion-title:hover {
+  background-color: #45648a;
+}
+
+.accordion-title,
+.accordion-content {
+  padding: 1rem;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.accordion-content {
+  background-color: #162246;
+  
+}
+
+@media screen and (max-width: 80%) {
+  body {
+    font-size: 12px;
+  }
+
+  .accordion {
+    width: 90%;
+  }
+}
