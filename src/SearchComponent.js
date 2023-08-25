@@ -54,7 +54,7 @@ function SearchComponent() {
   const handleSearch = async () => {
     if(searchInput.length === 0) return; 
     setIsLoading(true);
-    const response = await fetch("/search", {
+    const response = await fetch("https://server-app.fly.dev/search", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -72,7 +72,7 @@ function SearchComponent() {
   const handleMoreLikeThisRequest = async(mnemonicInput, catalogNumberInput) => {
     setSearchInput(`More like ${mnemonicInput} ${catalogNumberInput}`);
     setIsLoading(true);
-    const response = await fetch("/similar_courses", {
+    const response = await fetch("https://server-app.fly.dev/similar_courses", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
