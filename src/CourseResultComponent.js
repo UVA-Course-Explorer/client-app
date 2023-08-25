@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 // TODO: move this to an environment variable that gets automatically changed
 const latestSem = "1238"; // var used to get link to SIS
@@ -52,7 +52,7 @@ const CourseResultComponent = (props) => {
     <React.Fragment>
       <div className="accordion" style={{paddingBottom:'20px'}}>
         <div className="accordion-item">
-        <a href={getSisLink()} target="_blank">
+        <a href={getSisLink()} target="_blank" rel="noopener noreferrer">
           <div className="accordion-title">
             <div>
               {props.mnemonic} {props.catalog_number}: {props.name} ({props.level})
