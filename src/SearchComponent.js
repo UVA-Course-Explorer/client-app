@@ -62,12 +62,13 @@ const scrollToTop = () => {
   const handleSearch = async () => {
     if(searchInput.length === 0) return; 
     setIsLoading(true);
+    console.log(process.env.SERVER_APP_API_KEY)
     const response = await fetch("https://server-app.fly.dev/search", {
     // const response = await fetch("/search", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        'X-API-Key': process.env.SERVER_APP_API_KEY
+        'X-API-Key': "M0nK3yAreC00l"
       },
       body: JSON.stringify({ 
         searchInput: searchInput ,
