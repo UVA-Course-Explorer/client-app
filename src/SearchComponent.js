@@ -86,7 +86,8 @@ const scrollToTop = () => {
     // const response = await fetch("/similar_courses", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json", 
+        'X-API-Key': process.env.SERVER_APP_API_KEY
       },
       body: JSON.stringify({
         mnemonic: mnemonicInput,
