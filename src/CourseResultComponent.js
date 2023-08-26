@@ -35,8 +35,9 @@ function mapNumberToSeasonWithMiddleDigits(number) {
 
 const CourseResultComponent = (props) => {
 
+
   const handleMoreLikeThisButtonClick = () => {
-      props.onMoreLikeThisClick(props.mnemonic, props.catalog_number);
+    props.onMoreLikeThisClick(props.mnemonic, props.catalog_number);
   }
 
   const getSisLink = () => {

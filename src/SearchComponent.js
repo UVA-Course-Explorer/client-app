@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState, useRef} from "react";
 import CourseResultComponent from './CourseResultComponent';
 
 import sabreImage from './sabre.png';
@@ -9,8 +9,10 @@ function SearchComponent() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [academicLevelFilter, setAcademicLevelFilter] = useState("all");
-
   const [semesterFilter, setSemesterFilter] = useState("all");
+
+  const stateRef = useRef();
+
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
@@ -44,7 +46,8 @@ const scrollToTop = () => {
             similarity_score={result.similarity_score}
             credits={result.credits}
             onMoreLikeThisClick={handleMoreLikeThisRequest}
-          />
+            academicLevelFilter={academicLevelFilter}
+            semesterFilter={semesterFilter}/>
         </div>
       ));
       setIsLoading(false);
@@ -59,6 +62,8 @@ const scrollToTop = () => {
     setSearchInput(event.target.value);
   };
 
+
+
   const handleSearch = async () => {
     if(searchInput.length === 0) return; 
     setIsLoading(true);
@@ -69,7 +74,7 @@ const scrollToTop = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ 
-        searchInput: searchInput ,
+        searchInput: searchInput,
         academicLevelFilter: academicLevelFilter,
         semesterFilter: semesterFilter
       }),
@@ -78,9 +83,16 @@ const scrollToTop = () => {
       setSearchResults(getSearchResults(data)); 
   };
 
+    stateRef.semesterFilter = semesterFilter;
+    stateRef.academicLevelFilter = academicLevelFilter;
+
+
+
   const handleMoreLikeThisRequest = async (mnemonicInput, catalogNumberInput) => {
+    scrollToTop();
     setSearchInput(`More like ${mnemonicInput} ${catalogNumberInput}`);
     setIsLoading(true);
+
     const response = await fetch("https://server-app.fly.dev/similar_courses", {
     // const response = await fetch("/similar_courses", {
       method: "POST",
@@ -90,15 +102,20 @@ const scrollToTop = () => {
       body: JSON.stringify({
         mnemonic: mnemonicInput,
         catalog_number: catalogNumberInput,
-        academicLevelFilter: academicLevelFilter,
-        semesterFilter: semesterFilter
+        academicLevelFilter: stateRef.academicLevelFilter,
+        semesterFilter: stateRef.semesterFilter
       })
     });
 
     const data = await response.json();
     setSearchResults(getSearchResults(data));
-    scrollToTop();
   };
+
+
+
+
+
+
 
 
 
@@ -130,11 +147,12 @@ const scrollToTop = () => {
   return (
     <div>
       <div><textarea placeholder="What do you want to learn about?" value={searchInput} onKeyDown={handleKeyPress} onChange={handleSearchInputChange} /></div>
+      {/* <div><button onClick={handleSearch} style={{fontFamily:'Courier New', fontWeight:'bold'}}>Search</button></div> */}
       <div><button onClick={handleSearch} style={{fontFamily:'Courier New', fontWeight:'bold'}}>Search</button></div>
 
       <div>
                 <label htmlFor="dropdown">Academic Level:</label>
-                <select id="dropdown" value={academicLevelFilter} onChange={handleAcademicLevelFiterChange}>
+                <select id="academicLevelDropdown" value={academicLevelFilter} onChange={handleAcademicLevelFiterChange}>
                 {academicLevelFilterOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                   {option.label}
@@ -143,7 +161,7 @@ const scrollToTop = () => {
                 </select>
 
                 <label htmlFor="dropdown">Semester:</label>
-                <select id="dropdown" value={semesterFilter} onChange={handleSemesterFilterChange}>
+                <select id="semesterDropdown" value={semesterFilter} onChange={handleSemesterFilterChange}>
                     {semesterFilterOptions.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
