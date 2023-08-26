@@ -67,6 +67,7 @@ const scrollToTop = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        'X-API-Key': process.env.SERVER_APP_API_KEY
       },
       body: JSON.stringify({ 
         searchInput: searchInput ,
