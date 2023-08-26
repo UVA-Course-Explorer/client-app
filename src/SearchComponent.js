@@ -1,4 +1,4 @@
-import React, { useState, useCallback} from "react";
+import React, { useState} from "react";
 import CourseResultComponent from './CourseResultComponent';
 
 import sabreImage from './sabre.png';
