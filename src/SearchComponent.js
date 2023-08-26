@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useCallback} from "react";
 import CourseResultComponent from './CourseResultComponent';
 
 import sabreImage from './sabre.png';
-
 
 function SearchComponent() {
   const [searchInput, setSearchInput] = useState("");
@@ -19,6 +18,15 @@ function SearchComponent() {
       handleSearch();
     }
 };
+
+
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth' // Optional: Adds smooth scrolling animation
+  });
+};
+
 
   function getSearchResults(data) {
     if (data && Array.isArray(data)) {
@@ -55,6 +63,7 @@ function SearchComponent() {
     if(searchInput.length === 0) return; 
     setIsLoading(true);
     const response = await fetch("https://server-app.fly.dev/search", {
+    // const response = await fetch("/search", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -69,16 +78,17 @@ function SearchComponent() {
       setSearchResults(getSearchResults(data)); 
   };
 
-  const handleMoreLikeThisRequest = async(mnemonicInput, catalogNumberInput) => {
+  const handleMoreLikeThisRequest = async (mnemonicInput, catalogNumberInput) => {
     setSearchInput(`More like ${mnemonicInput} ${catalogNumberInput}`);
     setIsLoading(true);
     const response = await fetch("https://server-app.fly.dev/similar_courses", {
+    // const response = await fetch("/similar_courses", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        mnemonic: mnemonicInput, 
+        mnemonic: mnemonicInput,
         catalog_number: catalogNumberInput,
         academicLevelFilter: academicLevelFilter,
         semesterFilter: semesterFilter
@@ -86,25 +96,23 @@ function SearchComponent() {
     });
 
     const data = await response.json();
-    setSearchResults(getSearchResults(data)); 
+    setSearchResults(getSearchResults(data));
+    scrollToTop();
   };
 
 
 
   const handleAcademicLevelFiterChange = (event) => {
     setAcademicLevelFilter(event.target.value);
-    console.log(`changed semester to ${semesterFilter}`);
   }
 
   const handleSemesterFilterChange = (event) => {
     setSemesterFilter(event.target.value);
-    console.log(`changed semester to ${semesterFilter}`);
   }
 
 
   const academicLevelFilterOptions = [
     { value: 'all', label: 'All' },
-
     { value: 'Undergraduate', label: 'Undergraduate' },
     { value: 'Graduate', label: 'Graduate' },
     { value: 'Law', label: 'Law' },
@@ -133,7 +141,6 @@ function SearchComponent() {
                   </option>))}
 
                 </select>
-
 
                 <label htmlFor="dropdown">Semester:</label>
                 <select id="dropdown" value={semesterFilter} onChange={handleSemesterFilterChange}>
