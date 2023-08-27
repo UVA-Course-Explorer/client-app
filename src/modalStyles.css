@@ -1,0 +1,78 @@
+
+  
+  /* Modal Content */
+.modal {
+    background-color: #282c34;
+    color: white;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding-left: 4em;
+    padding-right: 4em;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    border-radius: 8px;
+    width: 60%;
+    height: 80%;
+    font-size: 100%;
+
+
+    align-items: center; /* Vertical centering */
+  justify-content: center; /* Horizontal centering */
+
+  }
+
+
+  .fixed-button {
+    background: #9c5419;;
+    color: white;
+    position: fixed;
+    top: 1em;
+    right: 1em;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    font-size: 100%;
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
+    font-weight: bold;
+  }
+  
+/* Close Button */
+.close-button {
+    color: white;
+    position: fixed;
+    top: 1em;
+    right: 1em;
+    background: none;
+    border: none;
+    font-size: 100%;
+    cursor: pointer;
+  }
+
+
+
+
+
+
+/* modalStyles.css */
+.custom-modal-content {
+    width: 60%; /* Set the width of the modal content */
+    max-height: 80vh; /* Set the maximum height of the modal content */
+    overflow: auto; /* Add scrollbars if the content exceeds the height */
+    /* Additional styling for the modal content */
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+
+  }
+
+
+  a {
+    color: white; /* Set the text color to white */
+  }
+  
+  

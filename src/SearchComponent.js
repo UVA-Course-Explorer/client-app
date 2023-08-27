@@ -2,14 +2,16 @@ import React, { useState, useRef} from "react";
 import CourseResultComponent from './CourseResultComponent';
 
 import sabreImage from './sabre.png';
+import './index.css'
 
 function SearchComponent() {
   const [searchInput, setSearchInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
   const [academicLevelFilter, setAcademicLevelFilter] = useState("all");
   const [semesterFilter, setSemesterFilter] = useState("all");
+
+
 
   const stateRef = useRef();
 
@@ -122,7 +124,6 @@ const scrollToTop = () => {
     setSemesterFilter(event.target.value);
   }
 
-
   const academicLevelFilterOptions = [
     { value: 'all', label: 'All Academic Levels' },
     { value: 'Undergraduate', label: 'Undergraduate' },
@@ -172,6 +173,8 @@ const scrollToTop = () => {
       <div>{isLoading && <img src={sabreImage} className="App-logo" alt="logo" />}</div>
       <div>{isLoading && <h5>Loading...</h5>}</div>
       <div>{searchResults}</div>
+
+
     </div>
   );
 
