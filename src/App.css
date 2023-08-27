@@ -25,6 +25,10 @@
   color: white;
 }
 
+body {
+  background-color: #282c34;
+}
+
 .App-link {
   color: #61dafb;
 }
@@ -37,3 +41,22 @@
     transform: rotate(360deg);
   }
 }
+
+
+.github-icon {
+  /* position: fixed; */
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding-bottom: 0.5rem;
+  /* transform: translateX(-50%); */
+  z-index: 1000; 
+}
+
+.github-icon img {
+  width: 1.5em; /* Adjust the size as needed */
+  height: 1.5em;
+  padding-bottom: 0.1em;
+}
+
+
