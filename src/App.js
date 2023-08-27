@@ -41,18 +41,16 @@ function App() {
         contentLabel="Example Modal"
         className = "modal">
 
-      <div>
+
+      <div className='scroll-div'>
         <h2 className="modal-content">UVA Course Explorer Info</h2>
         <p className="modal-content">
           This is an AI-powered semantic search engine for UVA courses. With it, you can search for courses using regular natural language and get results similar to your query.        
         </p>
 
         <p>Example queries include: </p>
-
-
           <li>How has music evolved over time? 🎹</li>
           <li>What happened before the Big Bang? 💥</li>
-          <li>Learn to build a rocket to go to Mars 🚀</li>
           <li>Famous explorers across the ages 🌎</li>
           <li>How will artificial intelligence impact society? 🤖</li>
           <li>What is the meaning of life? 🤔</li>
@@ -61,8 +59,6 @@ function App() {
 
 
           If you have any questions or feedback, please reach out to us through this <a href="https://forms.gle/Jq2di8Zji4tDNKZF8">form</a>. We hope you find this tool useful 😊. 
-
-
           </div>
 
 <div>
