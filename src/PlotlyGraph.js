@@ -3,7 +3,6 @@ import Plot from 'react-plotly.js';
 
 const PlotlyGraph = (props) => {
 
-
   const trace1XData = props.data.resultData.map((result) => result.PCATransformedCoord[0]);
   const trace1YData = props.data.resultData.map((result) => result.PCATransformedCoord[1]);
   const trace1ZData = props.data.resultData.map((result) => result.PCATransformedCoord[2]);

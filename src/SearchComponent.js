@@ -12,8 +12,7 @@ function SearchComponent() {
   const [academicLevelFilter, setAcademicLevelFilter] = useState("all");
   const [semesterFilter, setSemesterFilter] = useState("all");
   const [graph, setGraph] = useState(null); // state variable to store plotly graph
-  const [isAboveThreshold, setIsAboveThreshold] = useState(false);
-
+  
   const stateRef = useRef();
 
   const threshold = 768;
@@ -21,8 +20,7 @@ function SearchComponent() {
 
   const checkScreenSize = () => {
     const screenWidth = window.innerWidth;
-    // const threshold = 768; // Adjust this threshold as needed
-    setIsAboveThreshold(screenWidth > threshold);
+    return screenWidth > threshold
   };
 
   const handleKeyPress = (event) => {
@@ -30,20 +28,14 @@ function SearchComponent() {
       event.preventDefault(); // Prevent the default Enter key behavior (usually adding a new line)
       handleSearch();
     }
-};
+  };
 
-const scrollToTop = () => {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth' // Optional: Adds smooth scrolling animation
-  });
-};
-
-
-// function generateGraph(data, queryCoordinates) {
-//   return <PlotlyGraph>data={data} queryCoordinates={queryCoordinates}</PlotlyGraph>;
-// }
-
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' // Optional: Adds smooth scrolling animation
+    });
+  };
 
   function generateSearchResults(data) {
     if (data && Array.isArray(data)) {
@@ -80,16 +72,12 @@ const scrollToTop = () => {
 
 
   const handleSearch = async () => {
-
-    // setGetGraph(window.innerWidth > threshold);
-    // console.log("getGraph", getGraph);
-    checkScreenSize();
-
+    
+    const loadGraph = checkScreenSize();
 
     if(searchInput.length === 0) return; 
     setIsLoading(true);
     const response = await fetch("https://server-app.fly.dev/search", {
-    // const response = await fetch("/search", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -98,31 +86,33 @@ const scrollToTop = () => {
         searchInput: searchInput,
         academicLevelFilter: academicLevelFilter,
         semesterFilter: semesterFilter,
-        getGraphData: isAboveThreshold 
+        getGraphData: loadGraph 
       }),
     });
-
-
 
     const data = await response.json();
     const resultData = data["resultData"];
     setSearchResults(generateSearchResults(resultData));
 
-    if (isAboveThreshold) {
-      setGraph(
-        <PlotlyGraph data={data} />)
+
+
+    // setGraph(<PlotlyGraph data={data}/>)
+    
+    if (loadGraph) {
+      setGraph(<PlotlyGraph data={data}/>)
     }
     else {
       setGraph(null);
     }
   };
 
-    stateRef.semesterFilter = semesterFilter;
-    stateRef.academicLevelFilter = academicLevelFilter;
+  stateRef.semesterFilter = semesterFilter;
+  stateRef.academicLevelFilter = academicLevelFilter;
 
 
   const handleMoreLikeThisRequest = async (mnemonicInput, catalogNumberInput) => {
-    checkScreenSize();
+    const loadGraph = checkScreenSize();
+
     // setGetGraph(window.innerWidth > threshold);
     scrollToTop();
     setSearchInput(`More like ${mnemonicInput} ${catalogNumberInput}`);
@@ -139,7 +129,7 @@ const scrollToTop = () => {
         catalog_number: catalogNumberInput,
         academicLevelFilter: stateRef.academicLevelFilter,
         semesterFilter: stateRef.semesterFilter,
-        getGraphData: isAboveThreshold 
+        getGraphData: loadGraph 
       })
     });
 
@@ -147,16 +137,13 @@ const scrollToTop = () => {
     const resultData = data["resultData"];
     setSearchResults(generateSearchResults(resultData));
 
-    if (isAboveThreshold) {
+    if (loadGraph) {
       setGraph(<PlotlyGraph data={data} />);
     }
     else {
       setGraph(null);
     }
-
   };
-
-
 
 
   const handleAcademicLevelFiterChange = (event) => {
@@ -183,7 +170,6 @@ const scrollToTop = () => {
     { value: "latest", label: "Only Fall 23"}
   ]
   
-
 
   return (
     <div>
