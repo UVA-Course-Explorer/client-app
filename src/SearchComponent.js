@@ -114,11 +114,6 @@ const scrollToTop = () => {
 
 
 
-
-
-
-
-
   const handleAcademicLevelFiterChange = (event) => {
     setAcademicLevelFilter(event.target.value);
   }
@@ -129,7 +124,7 @@ const scrollToTop = () => {
 
 
   const academicLevelFilterOptions = [
-    { value: 'all', label: 'All' },
+    { value: 'all', label: 'All Academic Levels' },
     { value: 'Undergraduate', label: 'Undergraduate' },
     { value: 'Graduate', label: 'Graduate' },
     { value: 'Law', label: 'Law' },
@@ -147,28 +142,32 @@ const scrollToTop = () => {
   return (
     <div>
       <div><textarea placeholder="What do you want to learn about?" value={searchInput} onKeyDown={handleKeyPress} onChange={handleSearchInputChange} /></div>
-      {/* <div><button onClick={handleSearch} style={{fontFamily:'Courier New', fontWeight:'bold'}}>Search</button></div> */}
-      <div><button onClick={handleSearch} style={{fontFamily:'Courier New', fontWeight:'bold'}}>Search</button></div>
+      <div><button className={"searchButton"} onClick={handleSearch}>Search</button></div>
 
-      <div>
-                <label htmlFor="dropdown">Academic Level:</label>
-                <select id="academicLevelDropdown" value={academicLevelFilter} onChange={handleAcademicLevelFiterChange}>
-                {academicLevelFilterOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                  {option.label}
-                  </option>))}
+      <div style={{ display: 'flex' , flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center'}}>
+        <div>
+          <select id="academicLevelDropdown" value={academicLevelFilter} onChange={handleAcademicLevelFiterChange}>
+          {academicLevelFilterOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+            {option.label}
+            </option>))}
 
-                </select>
+          </select>        
+        </div>
 
-                <label htmlFor="dropdown">Semester:</label>
-                <select id="semesterDropdown" value={semesterFilter} onChange={handleSemesterFilterChange}>
-                    {semesterFilterOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-                  ))}
-                </select>
+        <div>
+          <select id="semesterDropdown" value={semesterFilter} onChange={handleSemesterFilterChange}>
+              {semesterFilterOptions.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+            ))}
+          </select>
+        </div>
       </div>
+
+
+
 
       <div>{isLoading && <img src={sabreImage} className="App-logo" alt="logo" />}</div>
       <div>{isLoading && <h5>Loading...</h5>}</div>
