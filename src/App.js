@@ -55,7 +55,7 @@ function App() {
           <li>How will artificial intelligence impact society? 🤖</li>
           <li>What is the meaning of life? 🤔</li>
 
-          <p>You can also filter based on academic level and semester. Currently, we have indexed courses from previous semesters dataing back to Fall 2021.</p>
+          <p>You can also filter based on academic level and semester. Currently, we have indexed courses from previous semesters dating back to Fall 2021.</p>
 
 
           If you have any questions or feedback, please reach out to us through this <a href="https://forms.gle/Jq2di8Zji4tDNKZF8">form</a>. We hope you find this tool useful 😊. 
