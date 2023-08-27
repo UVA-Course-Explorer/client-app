@@ -1,4 +1,6 @@
 import React from 'react'
+import './index.css'; // Import the CSS file
+
 
 // TODO: move this to an environment variable that gets automatically changed
 const latestSem = "1238"; // var used to get link to SIS
@@ -53,25 +55,21 @@ const CourseResultComponent = (props) => {
     <React.Fragment>
       <div className="accordion" style={{paddingBottom:'20px'}}>
         <div className="accordion-item">
-        <a href={getSisLink()} target="_blank" rel="noopener noreferrer">
-          <div className="accordion-title">
-            <div>
-              {props.mnemonic} {props.catalog_number}: {props.name} ({props.level})
+          <a href={getSisLink()} target="_blank" rel="noopener noreferrer" style={{color:'white'}}>
+            <div className="accordion-title">
+              <div>
+                {props.mnemonic} {props.catalog_number}: {props.name} ({props.level})
+              </div>
             </div>
-          </div>
           </a>
-
           <div className="accordion-content">
-          <body>{props.description}</body>
-
-    <div>
-            <body style={{fontWeight:'bold'}}>Similarity Score: {props.similarity_score.toFixed(3)}</body>
-            <body style={{fontWeight:'bold'}}>Credits: {props.credits}</body>
-
-            <body style={{fontWeight:'bold'}}>Latest Offerring: {mapNumberToSeasonWithMiddleDigits(props.strm)}</body>
+            <div style={{marginBottom: '1.5rem', textAlign:'left', paddingLeft:'1rem', paddingRight:'1rem'}}>{props.description}</div>
+            <div style={{display: 'flex' , flexDirection: 'row', flexWrap: 'nowrap', justifyContent: 'space-between', alignItems: 'center'}}>
+              <div style={{fontSize: '70%', fontWeight:'bold', marginLeft:'1rem', marginRight:'1rem'}}>Similarity Score: {props.similarity_score.toFixed(3)}</div>
+              <div style={{fontSize: '70%', fontWeight:'bold', marginLeft:'1rem', marginRight:'1rem'}}>Credits: {props.credits}</div>
+              <div style={{fontSize: '70%', fontWeight:'bold', marginLeft:'1rem', marginRight:'1rem'}}>Latest Sem: {mapNumberToSeasonWithMiddleDigits(props.strm)}</div>
             </div>
-        
-            <button onClick={handleMoreLikeThisButtonClick}>More like this</button>
+            <button className="moreLikeThisButton" onClick={handleMoreLikeThisButtonClick}>More like this</button>
           </div>
         </div>        
       </div>
@@ -80,4 +78,3 @@ const CourseResultComponent = (props) => {
 }
 
 export default CourseResultComponent
-
