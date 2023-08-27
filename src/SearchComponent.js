@@ -88,8 +88,8 @@ const scrollToTop = () => {
 
     if(searchInput.length === 0) return; 
     setIsLoading(true);
-    // const response = await fetch("https://server-app.fly.dev/search", {
-    const response = await fetch("/search", {
+    const response = await fetch("https://server-app.fly.dev/search", {
+    // const response = await fetch("/search", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -128,8 +128,8 @@ const scrollToTop = () => {
     setSearchInput(`More like ${mnemonicInput} ${catalogNumberInput}`);
     setIsLoading(true);
 
-    // const response = await fetch("https://server-app.fly.dev/similar_courses", {
-    const response = await fetch("/similar_courses", {
+    const response = await fetch("https://server-app.fly.dev/similar_courses", {
+    // const response = await fetch("/similar_courses", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
