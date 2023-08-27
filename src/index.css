@@ -38,6 +38,9 @@ textarea {
   font-weight: bold;
 }
 
+.searchButton:hover {
+  background: #c9732c;
+}
 
 
 .moreLikeThisButton {
@@ -56,6 +59,10 @@ textarea {
   font-weight: 600;
   /* font-size: 17px; */
   font-size: 70%
+}
+
+.moreLikeThisButton:hover {
+  background: #c9732c;
 }
 
 
