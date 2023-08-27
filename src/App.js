@@ -3,7 +3,6 @@ import React, { useState} from "react";
 import Modal from 'react-modal';
 import './modalStyles.css'
 import './App.css';
-import logo from './logo.svg';
 
 
 
