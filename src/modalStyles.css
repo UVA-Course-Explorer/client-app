@@ -40,10 +40,10 @@
     font-weight: bold;
   }
 
-
     .fixed-button:hover {
         background: #c9732c;
     }
+
   
 /* Close Button */
 .close-button {
@@ -57,10 +57,10 @@
     cursor: pointer;
   }
 
+
   .close-button:hover {
     color: #c9732c;
   }
-
 
   .scroll-div{
     height: 100%;

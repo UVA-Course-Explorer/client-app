@@ -41,6 +41,7 @@ function App() {
         contentLabel="Example Modal"
         className = "modal">
 
+
       <div className='scroll-div'>
         <h2 className="modal-content">UVA Course Explorer Info</h2>
         <p className="modal-content">
