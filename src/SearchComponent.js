@@ -1,5 +1,6 @@
 import React, { useState, useRef} from "react";
 import CourseResultComponent from './CourseResultComponent';
+import PlotlyGraph from './PlotlyGraph';
 
 import sabreImage from './sabre.png';
 import './index.css'
@@ -10,11 +11,19 @@ function SearchComponent() {
   const [isLoading, setIsLoading] = useState(false);
   const [academicLevelFilter, setAcademicLevelFilter] = useState("all");
   const [semesterFilter, setSemesterFilter] = useState("all");
-
-
+  const [graph, setGraph] = useState(null); // state variable to store plotly graph
+  const [isAboveThreshold, setIsAboveThreshold] = useState(false);
 
   const stateRef = useRef();
 
+  const threshold = 768;
+
+
+  const checkScreenSize = () => {
+    const screenWidth = window.innerWidth;
+    // const threshold = 768; // Adjust this threshold as needed
+    setIsAboveThreshold(screenWidth > threshold);
+  };
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
@@ -22,7 +31,6 @@ function SearchComponent() {
       handleSearch();
     }
 };
-
 
 const scrollToTop = () => {
   window.scrollTo({
@@ -32,7 +40,12 @@ const scrollToTop = () => {
 };
 
 
-  function getSearchResults(data) {
+// function generateGraph(data, queryCoordinates) {
+//   return <PlotlyGraph>data={data} queryCoordinates={queryCoordinates}</PlotlyGraph>;
+// }
+
+
+  function generateSearchResults(data) {
     if (data && Array.isArray(data)) {
       const searchResults = data.map((result, index) => (
         <div key={index}>
@@ -67,10 +80,16 @@ const scrollToTop = () => {
 
 
   const handleSearch = async () => {
+
+    // setGetGraph(window.innerWidth > threshold);
+    // console.log("getGraph", getGraph);
+    checkScreenSize();
+
+
     if(searchInput.length === 0) return; 
     setIsLoading(true);
-    const response = await fetch("https://server-app.fly.dev/search", {
-    // const response = await fetch("/search", {
+    // const response = await fetch("https://server-app.fly.dev/search", {
+    const response = await fetch("/search", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -78,25 +97,39 @@ const scrollToTop = () => {
       body: JSON.stringify({ 
         searchInput: searchInput,
         academicLevelFilter: academicLevelFilter,
-        semesterFilter: semesterFilter
+        semesterFilter: semesterFilter,
+        getGraphData: isAboveThreshold 
       }),
     });
-      const data = await response.json();
-      setSearchResults(getSearchResults(data)); 
+
+
+
+    const data = await response.json();
+    const resultData = data["resultData"];
+    setSearchResults(generateSearchResults(resultData));
+
+    if (isAboveThreshold) {
+      setGraph(
+        <PlotlyGraph data={data} />)
+    }
+    else {
+      setGraph(null);
+    }
   };
 
     stateRef.semesterFilter = semesterFilter;
     stateRef.academicLevelFilter = academicLevelFilter;
 
 
-
   const handleMoreLikeThisRequest = async (mnemonicInput, catalogNumberInput) => {
+    checkScreenSize();
+    // setGetGraph(window.innerWidth > threshold);
     scrollToTop();
     setSearchInput(`More like ${mnemonicInput} ${catalogNumberInput}`);
     setIsLoading(true);
 
-    const response = await fetch("https://server-app.fly.dev/similar_courses", {
-    // const response = await fetch("/similar_courses", {
+    // const response = await fetch("https://server-app.fly.dev/similar_courses", {
+    const response = await fetch("/similar_courses", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -105,12 +138,22 @@ const scrollToTop = () => {
         mnemonic: mnemonicInput,
         catalog_number: catalogNumberInput,
         academicLevelFilter: stateRef.academicLevelFilter,
-        semesterFilter: stateRef.semesterFilter
+        semesterFilter: stateRef.semesterFilter,
+        getGraphData: isAboveThreshold 
       })
     });
 
     const data = await response.json();
-    setSearchResults(getSearchResults(data));
+    const resultData = data["resultData"];
+    setSearchResults(generateSearchResults(resultData));
+
+    if (isAboveThreshold) {
+      setGraph(<PlotlyGraph data={data} />);
+    }
+    else {
+      setGraph(null);
+    }
+
   };
 
 
@@ -140,6 +183,8 @@ const scrollToTop = () => {
     { value: "latest", label: "Only Fall 23"}
   ]
   
+
+
   return (
     <div>
       <div><textarea placeholder="What do you want to learn about?" value={searchInput} onKeyDown={handleKeyPress} onChange={handleSearchInputChange} /></div>
@@ -169,9 +214,12 @@ const scrollToTop = () => {
 
 
 
-
       <div>{isLoading && <img src={sabreImage} className="App-logo" alt="logo" />}</div>
       <div>{isLoading && <h5>Loading...</h5>}</div>
+
+      <div className="plotlyContainer">
+        <div className="plotlyContainer">{graph}</div>
+      </div>
       <div>{searchResults}</div>
 
 
