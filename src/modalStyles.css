@@ -17,8 +17,6 @@
     width: 60%;
     height: 80%;
     font-size: 100%;
-
-
     align-items: center; /* Vertical centering */
   justify-content: center; /* Horizontal centering */
 
@@ -79,7 +77,7 @@
     max-height: 80vh; /* Set the maximum height of the modal content */
     overflow: auto; /* Add scrollbars if the content exceeds the height */
     /* Additional styling for the modal content */
-    background-color: white;
+    background-color: rgb(13, 10, 54);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);

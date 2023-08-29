@@ -1,5 +1,6 @@
 import React, { useState, useRef} from "react";
 import CourseResultComponent from './CourseResultComponent';
+import PlotlyGraph from './PlotlyGraph';
 
 import sabreImage from './sabre.png';
 import './index.css'
@@ -10,29 +11,33 @@ function SearchComponent() {
   const [isLoading, setIsLoading] = useState(false);
   const [academicLevelFilter, setAcademicLevelFilter] = useState("all");
   const [semesterFilter, setSemesterFilter] = useState("all");
-
-
-
+  const [graph, setGraph] = useState(null); // state variable to store plotly graph
+  
   const stateRef = useRef();
 
+  const threshold = 768;
+
+
+  const checkScreenSize = () => {
+    const screenWidth = window.innerWidth;
+    return screenWidth > threshold
+  };
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault(); // Prevent the default Enter key behavior (usually adding a new line)
       handleSearch();
     }
-};
+  };
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' // Optional: Adds smooth scrolling animation
+    });
+  };
 
-const scrollToTop = () => {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth' // Optional: Adds smooth scrolling animation
-  });
-};
-
-
-  function getSearchResults(data) {
+  function generateSearchResults(data) {
     if (data && Array.isArray(data)) {
       const searchResults = data.map((result, index) => (
         <div key={index}>
@@ -67,10 +72,12 @@ const scrollToTop = () => {
 
 
   const handleSearch = async () => {
+    
+    const loadGraph = checkScreenSize();
+
     if(searchInput.length === 0) return; 
     setIsLoading(true);
     const response = await fetch("https://server-app.fly.dev/search", {
-    // const response = await fetch("/search", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -78,19 +85,35 @@ const scrollToTop = () => {
       body: JSON.stringify({ 
         searchInput: searchInput,
         academicLevelFilter: academicLevelFilter,
-        semesterFilter: semesterFilter
+        semesterFilter: semesterFilter,
+        getGraphData: loadGraph 
       }),
     });
-      const data = await response.json();
-      setSearchResults(getSearchResults(data)); 
+
+    const data = await response.json();
+    const resultData = data["resultData"];
+    setSearchResults(generateSearchResults(resultData));
+
+
+
+    // setGraph(<PlotlyGraph data={data}/>)
+    
+    if (loadGraph) {
+      setGraph(<PlotlyGraph data={data}/>)
+    }
+    else {
+      setGraph(null);
+    }
   };
 
-    stateRef.semesterFilter = semesterFilter;
-    stateRef.academicLevelFilter = academicLevelFilter;
-
+  stateRef.semesterFilter = semesterFilter;
+  stateRef.academicLevelFilter = academicLevelFilter;
 
 
   const handleMoreLikeThisRequest = async (mnemonicInput, catalogNumberInput) => {
+    const loadGraph = checkScreenSize();
+
+    // setGetGraph(window.innerWidth > threshold);
     scrollToTop();
     setSearchInput(`More like ${mnemonicInput} ${catalogNumberInput}`);
     setIsLoading(true);
@@ -105,15 +128,22 @@ const scrollToTop = () => {
         mnemonic: mnemonicInput,
         catalog_number: catalogNumberInput,
         academicLevelFilter: stateRef.academicLevelFilter,
-        semesterFilter: stateRef.semesterFilter
+        semesterFilter: stateRef.semesterFilter,
+        getGraphData: loadGraph 
       })
     });
 
     const data = await response.json();
-    setSearchResults(getSearchResults(data));
+    const resultData = data["resultData"];
+    setSearchResults(generateSearchResults(resultData));
+
+    if (loadGraph) {
+      setGraph(<PlotlyGraph data={data} />);
+    }
+    else {
+      setGraph(null);
+    }
   };
-
-
 
 
   const handleAcademicLevelFiterChange = (event) => {
@@ -140,6 +170,7 @@ const scrollToTop = () => {
     { value: "latest", label: "Only Fall 23"}
   ]
   
+
   return (
     <div>
       <div><textarea placeholder="What do you want to learn about?" value={searchInput} onKeyDown={handleKeyPress} onChange={handleSearchInputChange} /></div>
@@ -169,9 +200,12 @@ const scrollToTop = () => {
 
 
 
-
       <div>{isLoading && <img src={sabreImage} className="App-logo" alt="logo" />}</div>
       <div>{isLoading && <h5>Loading...</h5>}</div>
+
+      <div className="plotlyContainer">
+        <div className="plotlyContainer">{graph}</div>
+      </div>
       <div>{searchResults}</div>
 
 
