@@ -69,7 +69,7 @@ const CourseResultComponent = (props) => {
               <div style={{fontSize: '70%', fontWeight:'bold', marginLeft:'1rem', marginRight:'1rem'}}>Credits: {props.credits}</div>
               <div style={{fontSize: '70%', fontWeight:'bold', marginLeft:'1rem', marginRight:'1rem'}}>Latest Sem: {mapNumberToSeasonWithMiddleDigits(props.strm)}</div>
             </div>
-            <button className="moreLikeThisButton" onClick={handleMoreLikeThisButtonClick}>More like this</button>
+            <button className="moreLikeThisButton" onClick={handleMoreLikeThisButtonClick}>Find more like this</button>
           </div>
         </div>        
       </div>
