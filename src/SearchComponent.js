@@ -77,6 +77,9 @@ function SearchComponent() {
 
     if(searchInput.length === 0) return; 
     setIsLoading(true);
+
+
+    // const response = await fetch("/search", {
     const response = await fetch("https://server-app.fly.dev/search", {
       method: "POST",
       headers: {
@@ -115,7 +118,7 @@ function SearchComponent() {
 
     // setGetGraph(window.innerWidth > threshold);
     scrollToTop();
-    setSearchInput(`More like ${mnemonicInput} ${catalogNumberInput}`);
+    setSearchInput(`${mnemonicInput} ${catalogNumberInput}`);
     setIsLoading(true);
 
     const response = await fetch("https://server-app.fly.dev/similar_courses", {
