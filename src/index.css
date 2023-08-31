@@ -77,6 +77,17 @@ textarea {
   background: #c9732c;
 }
 
+.graphSwitchContainer {
+  margin-left: 2rem;
+  margin-right: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
 
 
 select {
@@ -87,7 +98,10 @@ select {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin: 1rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   text-align: center;
   border: 2px solid white; /* Adding a white solid border */
 }

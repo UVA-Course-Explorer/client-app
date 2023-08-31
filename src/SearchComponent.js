@@ -184,6 +184,16 @@ function SearchComponent() {
 
       <div style={{ display: 'flex' , flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center'}}>
         <div>
+          <select id="semesterDropdown" value={semesterFilter} onChange={handleSemesterFilterChange}>
+              {semesterFilterOptions.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+            ))}
+          </select>
+        </div>
+        
+        <div>
           <select id="academicLevelDropdown" value={academicLevelFilter} onChange={handleAcademicLevelFiterChange}>
           {academicLevelFilterOptions.map((option) => (
             <option key={option.value} value={option.value}>
@@ -193,20 +203,20 @@ function SearchComponent() {
           </select>        
         </div>
 
-        <div>
-          <select id="semesterDropdown" value={semesterFilter} onChange={handleSemesterFilterChange}>
-              {semesterFilterOptions.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-            ))}
-          </select>
-        </div>
 
-        <Switch
-          isOn={showGraph}
-          handleToggle={() => setShowGraph(!showGraph)}
-        />
+        <div className="graphSwitchContainer">
+
+          <p>Show Graph: </p>
+          <Switch
+            isOn={showGraph}
+            handleToggle={() => setShowGraph(!showGraph)}
+          />
+        </div>
+        
+
+
+
+
       </div>
 
 

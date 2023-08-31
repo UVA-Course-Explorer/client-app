@@ -15,6 +15,7 @@
     border-radius: 100px;
     position: relative;
     transition: background-color .2s;
+
   }
   
   .react-switch-label .react-switch-button {
@@ -35,6 +36,4 @@
     transform: translateX(-100%);
   }
   
-  .react-switch-label:active .react-switch-button {
-    width: 60px;
-  }
+ 
