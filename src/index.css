@@ -52,6 +52,7 @@ textarea {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1000; /* Adjust the z-index as needed */
+  border: 2px solid white; /* Adding a white solid border */
 }
 
 .moreLikeThisButton {
@@ -93,8 +94,10 @@ select {
 
 
 .accordion {
-  max-width: 80%;
+  width: 80%;
+  max-width: 2000px;
   margin: 2rem auto;
+  padding-bottom: 20px;
 }
 
 .accordion-title {

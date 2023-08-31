@@ -1,6 +1,7 @@
 import React, { useState, useRef} from "react";
 import CourseResultComponent from './CourseResultComponent';
 import PlotlyGraph from './PlotlyGraph';
+import Switch from "./Switch";
 
 import sabreImage from './sabre.png';
 import './index.css'
@@ -12,6 +13,8 @@ function SearchComponent() {
   const [academicLevelFilter, setAcademicLevelFilter] = useState("all");
   const [semesterFilter, setSemesterFilter] = useState("all");
   const [graph, setGraph] = useState(null); // state variable to store plotly graph
+
+  const [showGraph, setShowGraph] = useState(false);
   
   const stateRef = useRef();
 
@@ -199,6 +202,11 @@ function SearchComponent() {
             ))}
           </select>
         </div>
+
+        <Switch
+          isOn={showGraph}
+          handleToggle={() => setShowGraph(!showGraph)}
+        />
       </div>
 
 
@@ -206,11 +214,10 @@ function SearchComponent() {
       <div>{isLoading && <img src={sabreImage} className="App-logo" alt="logo" />}</div>
       <div>{isLoading && <h5>Loading...</h5>}</div>
 
-      <div className="plotlyContainer">
-        <div className="plotlyContainer">{graph}</div>
-      </div>
+      <p style={{paddingBottom: '0px'}}>Your Query and Results Visualized</p>
+      <div className="plotlyContainer">{graph}</div>
+  
       <div>{searchResults}</div>
-
 
     </div>
   );

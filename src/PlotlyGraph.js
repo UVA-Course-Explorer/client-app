@@ -82,7 +82,6 @@ function arraysEqualWithTolerance(arr1, arr2, decimalPlaces) {
 
   const layout = {
     title: {
-      text: '3D Principal Component Analysis Visualization of Search',
       font: {
         size: 24, // Adjust the font size as needed
       },

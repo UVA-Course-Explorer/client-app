@@ -53,7 +53,7 @@ const CourseResultComponent = (props) => {
 
   return (
     <React.Fragment>
-      <div className="accordion" style={{paddingBottom:'20px'}}>
+      <div className="accordion">
         <div className="accordion-item">
           <a href={getSisLink()} target="_blank" rel="noopener noreferrer" style={{color:'white'}}>
             <div className="accordion-title">
