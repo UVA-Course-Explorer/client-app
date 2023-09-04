@@ -1,6 +1,5 @@
 import React, { useState, useRef} from "react";
 import CourseResultComponent from './CourseResultComponent';
-import PlotlyGraph from './PlotlyGraph';
 
 import sabreImage from './sabre.png';
 import './index.css'
@@ -11,17 +10,9 @@ function SearchComponent() {
   const [isLoading, setIsLoading] = useState(false);
   const [academicLevelFilter, setAcademicLevelFilter] = useState("all");
   const [semesterFilter, setSemesterFilter] = useState("all");
-  const [graph, setGraph] = useState(null); // state variable to store plotly graph
   
   const stateRef = useRef();
-
-  const threshold = 768;
-
-
-  const checkScreenSize = () => {
-    const screenWidth = window.innerWidth;
-    return screenWidth > threshold
-  };
+  const maxLength = 1000;
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
@@ -30,12 +21,14 @@ function SearchComponent() {
     }
   };
 
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth' // Optional: Adds smooth scrolling animation
     });
   };
+
 
   function generateSearchResults(data) {
     if (data && Array.isArray(data)) {
@@ -65,19 +58,18 @@ function SearchComponent() {
     }
   }
 
+
   const handleSearchInputChange = (event) => {
-    setSearchInput(event.target.value);
+    const inputText = event.target.value;
+    if (inputText.length <= maxLength) {
+      setSearchInput(event.target.value);
+    }
+    
   };
 
-
-
   const handleSearch = async () => {
-    
-    const loadGraph = checkScreenSize();
-
     if(searchInput.length === 0) return; 
     setIsLoading(true);
-
 
     // const response = await fetch("/search", {
     const response = await fetch("https://server-app.fly.dev/search", {
@@ -89,34 +81,19 @@ function SearchComponent() {
         searchInput: searchInput,
         academicLevelFilter: academicLevelFilter,
         semesterFilter: semesterFilter,
-        getGraphData: loadGraph 
+        getGraphData: false 
       }),
     });
 
     const data = await response.json();
     const resultData = data["resultData"];
     setSearchResults(generateSearchResults(resultData));
-
-
-
-    // setGraph(<PlotlyGraph data={data}/>)
-    
-    if (loadGraph) {
-      setGraph(<PlotlyGraph data={data}/>)
-    }
-    else {
-      setGraph(null);
-    }
   };
 
   stateRef.semesterFilter = semesterFilter;
   stateRef.academicLevelFilter = academicLevelFilter;
-
-
   const handleMoreLikeThisRequest = async (mnemonicInput, catalogNumberInput) => {
-    const loadGraph = checkScreenSize();
 
-    // setGetGraph(window.innerWidth > threshold);
     scrollToTop();
     setSearchInput(`${mnemonicInput} ${catalogNumberInput}`);
     setIsLoading(true);
@@ -132,7 +109,7 @@ function SearchComponent() {
         catalog_number: catalogNumberInput,
         academicLevelFilter: stateRef.academicLevelFilter,
         semesterFilter: stateRef.semesterFilter,
-        getGraphData: loadGraph 
+        getGraphData: false 
       })
     });
 
@@ -140,12 +117,6 @@ function SearchComponent() {
     const resultData = data["resultData"];
     setSearchResults(generateSearchResults(resultData));
 
-    if (loadGraph) {
-      setGraph(<PlotlyGraph data={data} />);
-    }
-    else {
-      setGraph(null);
-    }
   };
 
 
@@ -176,7 +147,12 @@ function SearchComponent() {
 
   return (
     <div>
-      <div><textarea placeholder="What do you want to learn about?" value={searchInput} onKeyDown={handleKeyPress} onChange={handleSearchInputChange} /></div>
+      <div style={{position: 'relative'}}>
+        <textarea placeholder="What do you want to learn about?" value={searchInput} onKeyDown={handleKeyPress} onChange={handleSearchInputChange} />
+        <div className="character-count">
+          {searchInput.length}/{maxLength}
+        </div>
+      </div>
       <div><button className={"searchButton"} onClick={handleSearch}>Search</button></div>
 
       <div style={{ display: 'flex' , flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center'}}>
@@ -201,17 +177,9 @@ function SearchComponent() {
         </div>
       </div>
 
-
-
       <div>{isLoading && <img src={sabreImage} className="App-logo" alt="logo" />}</div>
       <div>{isLoading && <h5>Loading...</h5>}</div>
-
-      <div className="plotlyContainer">
-        <div className="plotlyContainer">{graph}</div>
-      </div>
       <div>{searchResults}</div>
-
-
     </div>
   );
 
