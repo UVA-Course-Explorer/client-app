@@ -42,18 +42,6 @@ textarea {
   background: #c9732c;
 }
 
-.plotly-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  width: 50%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1000; /* Adjust the z-index as needed */
-}
-
 .moreLikeThisButton {
   background: #9c5419;
   color: #fff;
@@ -76,8 +64,6 @@ textarea {
   background: #c9732c;
 }
 
-
-
 select {
   background: #1e2b53;
   color: #fff;
@@ -91,10 +77,41 @@ select {
   border: 2px solid white; /* Adding a white solid border */
 }
 
+.course-description {
+  font-size: 4vw;
+  margin-bottom: 1.5rem;
+  text-align: left;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Use media queries to adjust the font size based on screen width */
+@media (min-width: 600px) {
+  .course-description {
+    font-size: calc(14px + 1vw); /* Adjust the formula as needed */
+  }
+}
+
+@media (min-width: 1200px) {
+  .course-description {
+    font-size: calc(10px + 1vw); /* Adjust the formula as needed */
+  }
+}
+
+@media (min-width: 2000px) {
+  .course-description {
+    font-size: calc(1vw); /* Adjust the formula as needed */
+  }
+}
+
+
+
 
 .accordion {
-  max-width: 80%;
+  width: 80%;
+  max-width: 2000px;
   margin: 2rem auto;
+  padding-bottom: 20px;
 }
 
 .accordion-title {

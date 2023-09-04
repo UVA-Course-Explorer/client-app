@@ -63,7 +63,7 @@ const CourseResultComponent = (props) => {
             </div>
           </a>
           <div className="accordion-content">
-            <div style={{marginBottom: '1.5rem', textAlign:'left', paddingLeft:'1rem', paddingRight:'1rem'}}>{props.description}</div>
+            <div className='course-description'>{props.description}</div>
             <div style={{display: 'flex' , flexDirection: 'row', flexWrap: 'nowrap', justifyContent: 'space-between', alignItems: 'center'}}>
               <div style={{fontSize: '70%', fontWeight:'bold', marginLeft:'1rem', marginRight:'1rem'}}>Similarity Score: {props.similarity_score.toFixed(3)}</div>
               <div style={{fontSize: '70%', fontWeight:'bold', marginLeft:'1rem', marginRight:'1rem'}}>Credits: {props.credits}</div>
