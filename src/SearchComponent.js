@@ -12,6 +12,7 @@ function SearchComponent() {
   const [semesterFilter, setSemesterFilter] = useState("all");
   
   const stateRef = useRef();
+  const maxLength = 1000;
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
@@ -59,7 +60,11 @@ function SearchComponent() {
 
 
   const handleSearchInputChange = (event) => {
-    setSearchInput(event.target.value);
+    const inputText = event.target.value;
+    if (inputText.length <= maxLength) {
+      setSearchInput(event.target.value);
+    }
+    
   };
 
   const handleSearch = async () => {
@@ -142,7 +147,12 @@ function SearchComponent() {
 
   return (
     <div>
-      <div><textarea placeholder="What do you want to learn about?" value={searchInput} onKeyDown={handleKeyPress} onChange={handleSearchInputChange} /></div>
+      <div style={{position: 'relative'}}>
+        <textarea placeholder="What do you want to learn about?" value={searchInput} onKeyDown={handleKeyPress} onChange={handleSearchInputChange} />
+        <div className="character-count">
+          {searchInput.length}/{maxLength}
+        </div>
+      </div>
       <div><button className={"searchButton"} onClick={handleSearch}>Search</button></div>
 
       <div style={{ display: 'flex' , flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center'}}>

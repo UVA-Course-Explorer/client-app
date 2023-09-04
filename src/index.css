@@ -104,13 +104,20 @@ select {
   }
 }
 
-
-
+.character-count {
+  position: relative;
+  /* bottom: 20px;
+  right: 28vw; */
+  bottom: 28px; 
+  left: 25vw;
+  color: gray;
+  font-size: 12px;
+}
 
 .accordion {
   width: 80%;
   max-width: 2000px;
-  margin: 2rem auto;
+  margin: 2rem auto;  
   padding-bottom: 20px;
 }
 
