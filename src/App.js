@@ -66,9 +66,7 @@ function App() {
         </div>
 
       </Modal>
-
-
-        <p style={{fontFamily:'Courier', fontSize:'60px'}}>UVA Course Explorer</p>
+        <p className="App-Title">UVA Course Explorer</p>
         <SearchComponent />
       </header>
       <GitHubIcon />

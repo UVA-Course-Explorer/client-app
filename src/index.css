@@ -57,7 +57,8 @@ textarea {
   font-family: 'Courier New';
   font-weight: 600;
   /* font-size: 17px; */
-  font-size: 70%
+  font-size: 70%;
+  border: 1px solid white; /* Adding a white solid border */
 }
 
 .moreLikeThisButton:hover {
@@ -161,6 +162,42 @@ select {
 
   .accordion {
     width: 90%;
+  }
+}
+
+
+@media (prefers-color-scheme: light) {
+  textarea {
+    background: #e0fbfc;
+    border: 2px solid black; /* Adding a white solid border */
+    color: #000000;
+  }
+  .searchButton{
+    background: #ee6c4d;
+    border: 2px solid black; /* Adding a white solid border */
+  }
+  .searchButton:hover {
+    background: #f48b70;
+  } 
+  select{
+    background: #e0fbfc;
+    color: #000000;
+    border: 2px solid black; /* Adding a white solid border */
+  }
+  .accordion-title {
+    background-color: #219ebc;
+    color: #000000;
+  }
+  .accordion-content {
+    background-color: #78c5e8;
+    color: #000000;
+  }
+  .moreLikeThisButton {
+    background: #ee6c4d;
+    border: 2px solid black; /* Adding a white solid border */
+  }
+  .moreLikeThisButton:hover {
+    background: #f48b70;
   }
 }
 

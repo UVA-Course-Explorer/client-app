@@ -10,7 +10,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 1s linear;
+    animation: App-logo-spin infinite 0.8s linear;
   }
 }
 
@@ -28,6 +28,24 @@
 
 body {
   background-color: #191c21;
+}
+
+.App-Title {
+  color: #ffffff;
+  font-family: Courier;
+  font-size: 60px;
+}
+
+@media (prefers-color-scheme: light) {
+  .App-header {
+    background-color: #fffbf6;
+  }
+  body {
+    background-color: #fffbf6;
+  }
+  .App-Title {
+    color: #191c21;
+  }
 }
 
 .App-link {

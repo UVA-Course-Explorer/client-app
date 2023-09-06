@@ -1,92 +1,111 @@
 
-  
-  /* Modal Content */
+
+/* Modal Content */
 .modal {
-    background-color: #282c34;
-    color: white;
+  background-color: #282c34;
+  color: white;
 
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding-left: 4em;
-    padding-right: 4em;
-    padding-top: 2em;
-    padding-bottom: 2em;
-    border-radius: 8px;
-    width: 60%;
-    height: 80%;
-    font-size: 100%;
-    align-items: center; /* Vertical centering */
-  justify-content: center; /* Horizontal centering */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding-left: 4em;
+  padding-right: 4em;
+  padding-top: 2em;
+  padding-bottom: 2em;
+  border-radius: 8px;
+  width: 60%;
+  height: 80%;
+  font-size: 100%;
+  align-items: center; /* Vertical centering */
+justify-content: center; /* Horizontal centering */
 
-  }
+}
 
 
-  .fixed-button {
-    background: #9c5419;;
-    color: white;
-    position: fixed;
-    top: 1em;
-    right: 1em;
-    font-size: 1em;
-    border: none;
-    border-radius: 5px;
-    font-size: 100%;
-    padding-top: 0.25em;
-    padding-bottom: 0.25em;
-    font-weight: bold;
-  }
+.fixed-button {
+  background: #9c5419;;
+  color: white;
+  position: fixed;
+  top: 1em;
+  right: 1em;
+  font-size: 1em;
+  border: none;
+  border-radius: 5px;
+  font-size: 100%;
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
+  font-weight: bold;
+  border: 2px solid white; /* Adding a white solid border */
+}
 
-    .fixed-button:hover {
-        background: #c9732c;
-    }
+.fixed-button:hover {
+    background: #c9732c;
+}
 
-  
+
 /* Close Button */
 .close-button {
-    color: white;
-    position: fixed;
-    top: 1em;
-    right: 1em;
-    background: none;
-    border: none;
-    font-size: 100%;
-    cursor: pointer;
-  }
+  color: white;
+  position: fixed;
+  top: 1em;
+  right: 1em;
+  background: none;
+  border: none;
+  font-size: 100%;
+  cursor: pointer;
+}
 
 
-  .close-button:hover {
-    color: #c9732c;
-  }
+.close-button:hover {
+  color: #c9732c;
+}
 
-  .scroll-div{
-    height: 100%;
-    width: 100%;
-    overflow-y: scroll;
-    justify-content: center; /* Horizontal centering */
-    padding-right: 10%;
-  }
-
-
-
+.scroll-div{
+  height: 100%;
+  width: 100%;
+  overflow-y: scroll;
+  justify-content: center; /* Horizontal centering */
+  padding-right: 10%;
+}
 
 /* modalStyles.css */
 .custom-modal-content {
-    width: 60%; /* Set the width of the modal content */
-    max-height: 80vh; /* Set the maximum height of the modal content */
-    overflow: auto; /* Add scrollbars if the content exceeds the height */
-    /* Additional styling for the modal content */
-    background-color: rgb(13, 10, 54);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  width: 60%; /* Set the width of the modal content */
+  max-height: 80vh; /* Set the maximum height of the modal content */
+  overflow: auto; /* Add scrollbars if the content exceeds the height */
+  /* Additional styling for the modal content */
+  background-color: rgb(13, 10, 54);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 
+}
+
+a {
+  color: white; /* Set the text color to white */
+}
+
+@media (prefers-color-scheme: light) {
+  .fixed-button {
+    background: #ee6c4d;
+    color: white;
+    border: 2px solid black; /* Adding a white solid border */
   }
-
-
-  a {
-    color: white; /* Set the text color to white */
+  .fixed-button:hover {
+    background: #f48b70;
   }
+  .close-button {
+    color: black;
+  }
+  .close-button:hover {
+    color: #ee6c4d;
+  }
+  .modal {
+    background-color: #fffbf6;
+    color: black;
+    border: 2px solid black; /* Adding a white solid border */
+  }
+}
   
   
