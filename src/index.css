@@ -118,16 +118,25 @@ select {
 }
 
 .accordion-title {
-  display: flex;
+  display: block; /* Change to block to stack elements */
   text-align: center;
-  flex-direction: row;
-  justify-content: space-between;
   cursor: pointer;
   background-color: #184276;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   padding: 1rem;
+  text-decoration: none; /* Remove underline for links */
+  color: white;
+}
 
+.accordion-title-content {
+  white-space: wrap; /* Prevent text from wrapping */
+  overflow: hidden; /* Hide text that overflows the container */
+  text-overflow: ellipsis; /* Display ellipsis (...) for overflowed text */
+}
+
+.title-text {
+  flex: 1; /* Allow the text to take up available space */
 }
 
 .accordion-title:hover {

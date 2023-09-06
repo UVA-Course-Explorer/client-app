@@ -55,9 +55,9 @@ const CourseResultComponent = (props) => {
     <React.Fragment>
       <div className="accordion" style={{paddingBottom:'20px'}}>
         <div className="accordion-item">
-          <a href={getSisLink()} target="_blank" rel="noopener noreferrer" style={{color:'white'}}>
-            <div className="accordion-title">
-              <div>
+          <a href={getSisLink()} target="_blank" rel="noopener noreferrer" className="accordion-title" style={{color:'white'}}>
+            <div>
+              <div className="accordion-title-content">
                 {props.mnemonic} {props.catalog_number}: {props.name} ({props.level})
               </div>
             </div>
