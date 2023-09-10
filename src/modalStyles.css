@@ -4,7 +4,6 @@
 .modal {
   background-color: #282c34;
   color: white;
-
   position: absolute;
   top: 50%;
   left: 50%;
@@ -18,7 +17,7 @@
   height: 80%;
   font-size: 100%;
   align-items: center; /* Vertical centering */
-justify-content: center; /* Horizontal centering */
+  justify-content: center; /* Horizontal centering */
 
 }
 
@@ -86,6 +85,8 @@ a {
   color: white; /* Set the text color to white */
 }
 
+
+
 @media (prefers-color-scheme: light) {
   .fixed-button {
     background: #ee6c4d;
@@ -105,6 +106,9 @@ a {
     background-color: #fffbf6;
     color: black;
     border: 2px solid black; /* Adding a white solid border */
+  }
+  a {
+    color: black;
   }
 }
   

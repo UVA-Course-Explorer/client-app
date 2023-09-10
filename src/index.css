@@ -86,24 +86,6 @@ select {
   padding-right: 1rem;
 }
 
-/* Use media queries to adjust the font size based on screen width */
-@media (min-width: 600px) {
-  .course-description {
-    font-size: calc(14px + 1vw); /* Adjust the formula as needed */
-  }
-}
-
-@media (min-width: 1200px) {
-  .course-description {
-    font-size: calc(10px + 1vw); /* Adjust the formula as needed */
-  }
-}
-
-@media (min-width: 2000px) {
-  .course-description {
-    font-size: calc(1vw); /* Adjust the formula as needed */
-  }
-}
 
 .character-count {
   position: relative;
@@ -116,6 +98,7 @@ select {
   max-width: 2000px;
   margin: 2rem auto;  
   /* padding-bottom: 20px; */
+  
 }
 
 .accordion-title {
@@ -128,26 +111,35 @@ select {
   padding: 1rem;
   text-decoration: none; /* Remove underline for links */
   color: white;
+  border: 2px solid white; /* Adding a white solid border */
+  border-bottom: none;
 }
 
 .accordion-title-content {
   white-space: wrap; /* Prevent text from wrapping */
   overflow: hidden; /* Hide text that overflows the container */
   text-overflow: ellipsis; /* Display ellipsis (...) for overflowed text */
+  font-size: 1.5rem; 
+  font-weight: bolder;
+  
 }
 
 .title-text {
   flex: 1; /* Allow the text to take up available space */
+  
 }
 
 .accordion-title:hover {
   background-color: #45648a;
+  text-decoration: underline;
 }
 
 .accordion-content {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   padding: 1rem 1rem;
+  border: 2px solid white; /* Adding a white solid border */
+  border-top: none;
 }
 
 .accordion-content {
@@ -166,10 +158,36 @@ select {
 }
 
 
+/* Use media queries to adjust the font size based on screen width */
+@media (min-width: 600px) {
+  .course-description {
+    font-size: calc(14px + 1vw); /* Adjust the formula as needed */
+  }
+}
+
+@media (min-width: 1000px) {
+  .course-description {
+    font-size: calc(8px + 1vw); /* Adjust the formula as needed */
+  }
+  .accordion {
+    width: 70%;
+  }
+}
+
+@media (min-width: 2000px) {
+  .course-description {
+    font-size: calc(1vw); /* Adjust the formula as needed */
+  }
+  .accordion {
+    width: 70%;
+  }
+}
+
+
 @media (prefers-color-scheme: light) {
   textarea {
-    background: #e0fbfc;
-    border: 2px solid black; /* Adding a white solid border */
+    background: #fff;
+    border: 3px solid black; /* Adding a white solid border */
     color: #000000;
   }
   .searchButton{
@@ -180,17 +198,24 @@ select {
     background: #f48b70;
   } 
   select{
-    background: #e0fbfc;
+    background: #fff;
     color: #000000;
     border: 2px solid black; /* Adding a white solid border */
   }
   .accordion-title {
-    background-color: #219ebc;
+    background-color: #fff4e6;
     color: #000000;
+    border: 2px solid black; /* Adding a white solid border */
+    border-bottom: none;
+  }
+  .accordion-title:hover {
+    background-color: #ffdeb3;
   }
   .accordion-content {
-    background-color: #78c5e8;
+    background-color: #fff;
     color: #000000;
+    border: 2px solid black; /* Adding a white solid border */
+    border-top: none;
   }
   .moreLikeThisButton {
     background: #ee6c4d;
