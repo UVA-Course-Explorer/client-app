@@ -13,8 +13,8 @@ function SearchComponent() {
 
   const [placeholderText, setPlaceholderText] = useState('');
   const [currentOptionIndex, setCurrentOptionIndex] = useState(0);
-  const searchOptions = ["React", "JavaScript"];
-  const typingSpeed = 100; // Adjust the typing speed (milliseconds per character)
+  const searchOptions = ["How has music evolved over time? 🎹", "What happened before the Big Bang? 💥", "Famous explorers across the ages 🌎", "How will artificial intelligence impact society? 🤖", "What is the meaning of life? 🤔"];
+  const typingSpeed = 50; // Adjust the typing speed (milliseconds per character)
 
 
   // Function to simulate typing for the current placeholder option
@@ -41,17 +41,16 @@ function SearchComponent() {
   const eraseCurrentOption = () => {
     const currentOption = searchOptions[currentOptionIndex];
     let currentIndex = currentOption.length;
-    
     const interval = setInterval(() => {
       if (currentIndex > 0) {
         const currentText = currentOption.substring(0, currentIndex - 1);
         setPlaceholderText(currentText);
       } else {
         clearInterval(interval);
-        setCurrentOptionIndex((prevIndex) => (prevIndex + 1) % searchOptions.length); // Cycle to the next option
+        const prevIndex = currentOptionIndex;
+        setCurrentOptionIndex((prevIndex + 1) % searchOptions.length); // Cycle to the next option
         setTimeout(() => {
-          typeCurrentOption();
-        }, 500); // Delay before typing the next option
+        }, 800); // Delay before typing the next option
       }
       currentIndex--;
     }, typingSpeed);
