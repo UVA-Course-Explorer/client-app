@@ -56,8 +56,14 @@ function SearchComponent() {
     }, typingSpeed);
   };
 
+  // Define a ref to store the function
+  const typeCurrentOptionRef = useRef();
+
+  // Assign the function to the ref
+  typeCurrentOptionRef.current = typeCurrentOption;
+
   useEffect(() => {
-    typeCurrentOption();
+    typeCurrentOptionRef.current();
   }, [currentOptionIndex]);
 
   
