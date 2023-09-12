@@ -1,4 +1,4 @@
-import React, { useState, useRef} from "react";
+import React, { useState, useRef, useEffect} from "react";
 import CourseResultComponent from './CourseResultComponent';
 
 import sabreImage from './sabre.png';
@@ -10,6 +10,62 @@ function SearchComponent() {
   const [isLoading, setIsLoading] = useState(false);
   const [academicLevelFilter, setAcademicLevelFilter] = useState("all");
   const [semesterFilter, setSemesterFilter] = useState("all");
+
+  const [placeholderText, setPlaceholderText] = useState('');
+  const [currentOptionIndex, setCurrentOptionIndex] = useState(0);
+  const searchOptions = ["How has music evolved over time? 🎹", "What happened before the Big Bang? 💥", "Famous explorers across the ages 🌎", "How will artificial intelligence impact society? 🤖", "What is the meaning of life? 🤔"];
+  const typingSpeed = 50; // Adjust the typing speed (milliseconds per character)
+
+
+  // Function to simulate typing for the current placeholder option
+  const typeCurrentOption = () => {
+    const currentOption = searchOptions[currentOptionIndex];
+    let currentText = '';
+    let currentIndex = 0;
+    
+    const interval = setInterval(() => {
+      if (currentIndex < currentOption.length) {
+        currentText = currentOption.substring(0, currentIndex + 1);
+        setPlaceholderText(currentText);
+      } else {
+        clearInterval(interval);
+        setTimeout(() => {
+          eraseCurrentOption();
+        }, 1000); // Delay before erasing
+      }
+      currentIndex++;
+    }, typingSpeed);
+  };
+
+  // Function to erase the current placeholder option
+  const eraseCurrentOption = () => {
+    const currentOption = searchOptions[currentOptionIndex];
+    let currentIndex = currentOption.length;
+    const interval = setInterval(() => {
+      if (currentIndex > 0) {
+        const currentText = currentOption.substring(0, currentIndex - 1);
+        setPlaceholderText(currentText);
+      } else {
+        clearInterval(interval);
+        const prevIndex = currentOptionIndex;
+        setCurrentOptionIndex((prevIndex + 1) % searchOptions.length); // Cycle to the next option
+        setTimeout(() => {
+        }, 800); // Delay before typing the next option
+      }
+      currentIndex--;
+    }, typingSpeed);
+  };
+
+  // Define a ref to store the function
+  const typeCurrentOptionRef = useRef();
+
+  // Assign the function to the ref
+  typeCurrentOptionRef.current = typeCurrentOption;
+
+  useEffect(() => {
+    typeCurrentOptionRef.current();
+  }, [currentOptionIndex]);
+
   
   const stateRef = useRef();
   const maxLength = 1000;
@@ -148,7 +204,7 @@ function SearchComponent() {
   return (
     <div>
       <div style={{position: 'relative'}}>
-        <textarea placeholder="What do you want to learn about?" value={searchInput} onKeyDown={handleKeyPress} onChange={handleSearchInputChange} />
+        <textarea placeholder={placeholderText} value={searchInput} onKeyDown={handleKeyPress} onChange={handleSearchInputChange} />
         <div className="character-count">
           {searchInput.length}/{maxLength}
         </div>

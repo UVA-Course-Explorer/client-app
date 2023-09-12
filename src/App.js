@@ -34,7 +34,7 @@ function App() {
 
     <div className="App">
       <header className="App-header">
-      <button onClick={openModal} className="fixed-button">ⓘ</button>
+      <button onClick={openModal} className="fixed-button" style={{textAlign: "center"}}>ⓘ</button>
       <Modal
         isOpen={isModalOpen}
         onRequestClose={closeModal}
@@ -66,9 +66,7 @@ function App() {
         </div>
 
       </Modal>
-
-
-        <p style={{fontFamily:'Courier', fontSize:'60px'}}>UVA Course Explorer</p>
+        <p className="App-Title">UVA Course Explorer</p>
         <SearchComponent />
       </header>
       <GitHubIcon />

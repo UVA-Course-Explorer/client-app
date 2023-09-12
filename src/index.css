@@ -57,7 +57,8 @@ textarea {
   font-family: 'Courier New';
   font-weight: 600;
   /* font-size: 17px; */
-  font-size: 70%
+  font-size: 70%;
+  border: 1px solid white; /* Adding a white solid border */
 }
 
 .moreLikeThisButton:hover {
@@ -85,24 +86,6 @@ select {
   padding-right: 1rem;
 }
 
-/* Use media queries to adjust the font size based on screen width */
-@media (min-width: 600px) {
-  .course-description {
-    font-size: calc(14px + 1vw); /* Adjust the formula as needed */
-  }
-}
-
-@media (min-width: 1200px) {
-  .course-description {
-    font-size: calc(10px + 1vw); /* Adjust the formula as needed */
-  }
-}
-
-@media (min-width: 2000px) {
-  .course-description {
-    font-size: calc(1vw); /* Adjust the formula as needed */
-  }
-}
 
 .character-count {
   position: relative;
@@ -115,6 +98,7 @@ select {
   max-width: 2000px;
   margin: 2rem auto;  
   /* padding-bottom: 20px; */
+  
 }
 
 .accordion-title {
@@ -133,14 +117,19 @@ select {
   white-space: wrap; /* Prevent text from wrapping */
   overflow: hidden; /* Hide text that overflows the container */
   text-overflow: ellipsis; /* Display ellipsis (...) for overflowed text */
+  font-size: 1.5rem; 
+  font-weight: bolder;
+  
 }
 
 .title-text {
   flex: 1; /* Allow the text to take up available space */
+  
 }
 
 .accordion-title:hover {
   background-color: #45648a;
+  text-decoration: underline;
 }
 
 .accordion-content {
@@ -161,6 +150,75 @@ select {
 
   .accordion {
     width: 90%;
+  }
+}
+
+
+/* Use media queries to adjust the font size based on screen width */
+@media (min-width: 600px) {
+  .course-description {
+    font-size: calc(14px + 1vw); /* Adjust the formula as needed */
+  }
+}
+
+@media (min-width: 1000px) {
+  .course-description {
+    font-size: calc(8px + 1vw); /* Adjust the formula as needed */
+  }
+  .accordion {
+    width: 70%;
+  }
+}
+
+@media (min-width: 2000px) {
+  .course-description {
+    font-size: calc(1vw); /* Adjust the formula as needed */
+  }
+  .accordion {
+    width: 70%;
+  }
+}
+
+
+@media (prefers-color-scheme: light) {
+  textarea {
+    background: #fff;
+    border: 3px solid black; /* Adding a white solid border */
+    color: #000000;
+  }
+  .searchButton{
+    background: #ee6c4d;
+    border: 2px solid black; /* Adding a white solid border */
+  }
+  .searchButton:hover {
+    background: #f48b70;
+  } 
+  select{
+    background: #fff;
+    color: #000000;
+    border: 2px solid black; /* Adding a white solid border */
+  }
+  .accordion-title {
+    background-color: #fff4e6;
+    color: #000000;
+    border: 2px solid black; /* Adding a white solid border */
+    border-bottom: none;
+  }
+  .accordion-title:hover {
+    background-color: #ffdeb3;
+  }
+  .accordion-content {
+    background-color: #fff;
+    color: #000000;
+    border: 2px solid black; /* Adding a white solid border */
+    border-top: none;
+  }
+  .moreLikeThisButton {
+    background: #ee6c4d;
+    border: 2px solid black; /* Adding a white solid border */
+  }
+  .moreLikeThisButton:hover {
+    background: #f48b70;
   }
 }
 
