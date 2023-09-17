@@ -64,12 +64,12 @@ function App() {
 <div>
         <button onClick={closeModal} className="close-button">X</button>
         </div>
-
+        <GitHubIcon style={{alignItems: 'center'}}/>
       </Modal>
         <p className="App-Title">UVA Course Explorer</p>
         <SearchComponent />
       </header>
-      <GitHubIcon />
+      
     </div>
   );
 }
