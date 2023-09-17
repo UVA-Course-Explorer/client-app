@@ -234,7 +234,7 @@ function SearchComponent() {
       </div>
 
       <div>{isLoading && <img src={sabreImage} className="App-logo" alt="logo" />}</div>
-      <div>{isLoading && <h5>Loading...</h5>}</div>
+      <div>{isLoading && <h5 className={"loadingText"}>Loading...</h5>}</div>
       <div>{searchResults}</div>
     </div>
   );
