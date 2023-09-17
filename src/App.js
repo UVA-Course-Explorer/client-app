@@ -1,77 +1,28 @@
-import SearchComponent from './SearchComponent';
-import React, { useState} from "react";
-import Modal from 'react-modal';
+import React, { useState, useEffect} from "react";
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import PageTemplate from './PageTemplate';
 import './modalStyles.css'
 import './App.css';
 
 
 
 function App() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
 
-  Modal.setAppElement('#root');
+// loop over the data and create a list of links
+return (
+  <Router>
+    <Routes>
+    <Route path="/catalog/:department" element={<PageTemplate target={"catalog-page"}/>} />
+    <Route path="/search" element={<PageTemplate target={"search"}/>} />
+    <Route path="/catalog" element={<PageTemplate target={"catalog"}/>} />
 
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-  
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+    <Route path="/" element={<PageTemplate target={"search"}/>} />
 
-  const GitHubIcon = () => {
-    return (
-        <div className="github-icon">
-            <a href="https://github.com/UVA-Course-Explorer" target="_blank" rel="noopener noreferrer">
-                <img src="github-mark-white.png" alt="GitHub" />
-            </a>
-        </div>        
-    );
-};
+    </Routes>
+  </Router>
+)
 
-  return (
-
-    <div className="App">
-      <header className="App-header">
-      <button onClick={openModal} className="fixed-button" style={{textAlign: "center"}}>ⓘ</button>
-      <Modal
-        isOpen={isModalOpen}
-        onRequestClose={closeModal}
-        contentLabel="Example Modal"
-        className = "modal">
-
-
-      <div className='scroll-div'>
-        <h2 className="modal-content">UVA Course Explorer Info</h2>
-        <p className="modal-content">
-          This is an AI-powered semantic search engine for UVA courses. With it, you can search for courses using regular natural language and get results similar to your query.        
-        </p>
-
-        <p>Example queries include: </p>
-          <li>How has music evolved over time? 🎹</li>
-          <li>What happened before the Big Bang? 💥</li>
-          <li>Famous explorers across the ages 🌎</li>
-          <li>How will artificial intelligence impact society? 🤖</li>
-          <li>What is the meaning of life? 🤔</li>
-
-          <p>You can also filter based on academic level and semester. Currently, we have indexed courses from previous semesters dating back to Fall 2021.</p>
-
-
-          If you have any questions or feedback, please reach out to us through this <a href="https://forms.gle/Jq2di8Zji4tDNKZF8">form</a>. We hope you find this tool useful 😊. 
-          </div>
-
-<div>
-        <button onClick={closeModal} className="close-button">X</button>
-        </div>
-        <GitHubIcon style={{alignItems: 'center'}}/>
-      </Modal>
-        <p className="App-Title">UVA Course Explorer</p>
-        <SearchComponent />
-      </header>
-      
-    </div>
-  );
 }
 
 export default App;
