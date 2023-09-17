@@ -111,6 +111,7 @@ select {
   margin: 2rem auto;  
   /* padding-bottom: 20px; */
   
+  
 }
 
 .accordion-title {
@@ -132,10 +133,14 @@ select {
   font-size: 1.5rem; 
   font-weight: bolder;
   
+  font-size: 1.5rem; 
+  font-weight: bolder;
+  
 }
 
 .title-text {
   flex: 1; /* Allow the text to take up available space */
+  
   
 }
 
