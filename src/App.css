@@ -37,6 +37,7 @@ body {
   sans-serif;
   font-size: 90px;
   font-weight: 500;
+  font-size: 50px;
 }
 
 @media (prefers-color-scheme: light) {
@@ -80,5 +81,14 @@ body {
   height: 1.5em;
   padding-bottom: 0.1em;
 }
+
+/* Use media queries to adjust the font size based on screen width */
+@media (min-width: 1000px) {
+  .App-Title {
+    font-size: 90px;
+  }
+}
+
+
 
 
