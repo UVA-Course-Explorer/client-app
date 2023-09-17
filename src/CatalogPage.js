@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Link , useParams} from 'react-router-dom';
+import { BrowserRouter as useParams} from 'react-router-dom';
 
 function CatalogPage() {
     const { department } = useParams();
