@@ -9,7 +9,7 @@ function CatalogPage() {
 
     const [data, setData] = useState(null);
 
-    async function fetchCatalogIndexData() {
+    const  fetchCatalogIndexData = async() => {
       try {
         const response = await fetch(`https://uva-course-explorer.github.io/json/${department}.json`);
         const jsonData = await response.json();
@@ -21,7 +21,7 @@ function CatalogPage() {
   
     useEffect(() => {
       fetchCatalogIndexData();
-    }, [fetchCatalogIndexData]);
+    }, []);
 
     const generateMeetingString = (meetings) => {
         let meetingString = "";
