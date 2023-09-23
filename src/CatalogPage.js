@@ -24,21 +24,40 @@ const fetchCatalogIndexData = useCallback(async () => {
       fetchCatalogIndexData();
     }, [fetchCatalogIndexData]);
 
-    const generateMeetingString = (meetings) => {
-        let meetingString = "";
 
-        if ( !meetings || meetings[0]?.days === '-') {
-            return "N/A";
+    const generateMeetingString = (meetings) => {
+      if (!meetings || meetings[0]?.days === '-') {
+          return "TBA";
+      }
+  
+      const meetingStrings = meetings.map((meeting) => {
+        if(meetings.facility_descr === ' - '){
+          meetings.facility_descr = 'TBA';
         }
-        for (const meeting of meetings){
-            meetingString += `${meeting.days} ${meeting.start_time}-${meeting.end_time} at ${meeting.facility_descr}`;
-        }
-        return meetingString;
+        return `${meeting.days} ${meeting.start_time}-${meeting.end_time} at ${meeting.facility_descr}`;
+
+          // return `${meeting.days} ${meeting.start_time}-${meeting.end_time} at ${meeting.facility_descr}`;
+      });
+
+      console.log(meetingStrings);
+  
+      // Join the meeting strings with <br> tags to create line breaks
+      return meetingStrings.join("<br><br>");
+    };
+
+
+
+    const generateMeetingTimeString = (meetings) => {
+
+      console.log(meetings);
     }
 
 
-    const generateInstructorHTML = (instructors) => {
 
+
+    
+
+    const generateInstructorHTML = (instructors) => {
         const elements = [];
         for (const instructor of instructors){
             if(instructor.email.length > 0){
@@ -51,14 +70,9 @@ const fetchCatalogIndexData = useCallback(async () => {
         return elements;
     }
 
+
     const getSisLink = (subject, catalog_number) => {
-      // if(props.strm.toString() === latestSem){
-        //search link
         return `https://sisuva.admin.virginia.edu/psp/ihprd/UVSS/SA/s/WEBLIB_HCX_CM.H_CLASS_SEARCH.FieldFormula.IScript_Main?catalog_nbr=${catalog_number}&subject=${subject}`
-      // }
-    //   //share link
-    //   return `https://sisuva.admin.virginia.edu/psc/ihprd/UVSS/SA/s/WEBLIB_HCX_CM.H_CLASS_DETAILS.FieldFormula.IScript_Main?institution=UVA01&term=${props.strm}&class_nbr=${props.class_number}`
-    // }
     }
 
 
@@ -75,9 +89,8 @@ const fetchCatalogIndexData = useCallback(async () => {
             for (const course of courseArr){
             const table = [];
 
-
             table.push(<tr className="title-header">
-              <th colSpan="4" className='course-title'>{course.subject} {course.catalog_number}: {course.descr}</th>
+              <th colSpan="3" className='course-title'>{course.subject} {course.catalog_number}: {course.descr}</th>
               <th><a target="_blank" rel="noopener noreferrer" href={getSisLink(course.subject, course.catalog_number) }><button className="catalog-button">SIS</button></a></th>
               <th><a target="_blank" rel="noopener noreferrer" href={getCourseForumLink(course.subject, course.catalog_number)}><button className="catalog-button">theCourseForum</button></a> </th>
 
@@ -88,8 +101,7 @@ const fetchCatalogIndexData = useCallback(async () => {
                 <th>Section Number</th>
                 <th>Instructor</th>
                 <th>Enrollment</th>
-                <th>Waitlist</th>
-                <th>Meeting Information</th>
+                <th>Meeting Info</th>
             </tr>);
 
 
@@ -100,29 +112,25 @@ const fetchCatalogIndexData = useCallback(async () => {
                     <td>{section.class_section}</td>
                     <td>{generateInstructorHTML(section.instructors)}</td>
                     <td>{`${section.enrollment_total}/${section.class_capacity}`}</td>
-                    <td>{`${section.wait_tot}/${section.wait_cap}`}</td>
-                    <td>{generateMeetingString(section.meetings)}</td>
+                    <td dangerouslySetInnerHTML={{ __html: generateMeetingString(section.meetings) }} style={{ whiteSpace: 'pre-line' }} />
                 </tr>);
             }
-
                 elements.push(
-                
+    
                 <div className="custome-table-container">
                 
                   <table className="custom-table">
                     <tbody>
                     {table}
                     </tbody>
-                    
                     </table>
-                    
-                    </div>);
+                </div>);
                 elements.push(<br/>);
                 elements.push(<br/>);
                 elements.push(<br/>);
 
 
-            }
+            
         }
     }
 
@@ -136,5 +144,5 @@ const fetchCatalogIndexData = useCallback(async () => {
     </div>
   );
 }
-
+}
 export default CatalogPage;
