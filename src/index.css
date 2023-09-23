@@ -90,6 +90,10 @@ select {
   font-weight: bold;
 }
 
+select:hover{
+  background-color: #184276;
+}
+
 .course-description {
   font-size: 4vw;
   margin-bottom: 1.5rem;
@@ -204,6 +208,7 @@ select {
 @media (prefers-color-scheme: light) {
   textarea {
     background: #fff;
+
     border: 3px solid black; /* Adding a white solid border */
     color: #000000;
   }
@@ -218,18 +223,29 @@ select {
     background: #f48b70;
   } 
   select{
-    background: #fff;
+    background-color: #fff;
+
     color: #000000;
     border: 2px solid black; /* Adding a white solid border */
   }
-  .accordion-title {
+
+
+  select:hover{
     background-color: #fff4e6;
+    background-color: #ffdeb3;
+  }
+
+  .accordion-title {
+    background-color: #ffdeb3;
+
+
     color: #000000;
     border: 2px solid black; /* Adding a white solid border */
     border-bottom: none;
   }
   .accordion-title:hover {
-    background-color: #ffdeb3;
+    background-color: #fff4e6;
+
   }
   .accordion-content {
     background-color: #fff;

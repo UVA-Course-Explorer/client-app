@@ -3,6 +3,19 @@ import CourseResultComponent from './CourseResultComponent';
 
 import sabreImage from './sabre.png';
 import './index.css'
+import SampleSearches from "./SampleSearches";
+
+
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+  }
+}
+
+const searchOptions = SampleSearches;
+shuffleArray(searchOptions); // Shuffle the search options
+
 
 function SearchComponent() {
   const [searchInput, setSearchInput] = useState("");
@@ -13,7 +26,6 @@ function SearchComponent() {
 
   const [placeholderText, setPlaceholderText] = useState('');
   const [currentOptionIndex, setCurrentOptionIndex] = useState(0);
-  const searchOptions = ["How has music evolved over time? 🎹", "What happened before the Big Bang? 💥", "Famous explorers across the ages 🌎", "How will artificial intelligence impact society? 🤖", "What is the meaning of life? 🤔"];
   const typingSpeed = 50; // Adjust the typing speed (milliseconds per character)
 
 
