@@ -21,7 +21,7 @@ function CatalogPage() {
   
     useEffect(() => {
       fetchCatalogIndexData();
-    }, []);
+    }, [fetchCatalogIndexData]);
 
     const generateMeetingString = (meetings) => {
         let meetingString = "";
