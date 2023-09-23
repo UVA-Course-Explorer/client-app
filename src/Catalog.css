@@ -64,27 +64,31 @@
         /* top: 6em; */
       }
 
-
 }
-
-
-
 
   .custom-table tr {
     border: none; /* Remove all borders for data rows */
   }
 
+
+
+
+
     /* Style for even rows */
-    .custom-table tr:nth-child(even) {
-        background-color: #184276; /* Background color for odd rows */
+      .custom-table tr:nth-child(even) {
+          background-color: #184276; /* Background color for odd rows */
+      }
+    
+      /* Style for odd rows */
+     .custome-table tr:nth-child(odd) {
+          background-color: #191c21; /* Background color for even rows */
+      }
 
 
-
-    }
-  
-    /* Style for odd rows */
-    .custom-table tr:nth-child(odd) {
-        background-color: #191c21; /* Background color for even rows */
+    /* Style for all rows of the inner table */
+    .custom-table tr:nth-child(even) .meeting-table tr,
+    .custom-table tr:nth-child(odd) .meeting-table tr {
+        background-color: inherit; /* Inherit background color from outer table */
     }
 
 
