@@ -9,15 +9,16 @@ function CatalogPage() {
 
     const [data, setData] = useState(null);
 
-    const  fetchCatalogIndexData = async() => {
-      try {
-        const response = await fetch(`https://uva-course-explorer.github.io/json/${department}.json`);
-        const jsonData = await response.json();
-        setData(jsonData);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    }
+// Define fetchCatalogIndexData using useCallback
+const fetchCatalogIndexData = useCallback(async () => {
+  try {
+    const response = await fetch(`https://uva-course-explorer.github.io/json/${department}.json`);
+    const jsonData = await response.json();
+    setData(jsonData);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}, [department]); // Include department in the dependency array
   
     useEffect(() => {
       fetchCatalogIndexData();
