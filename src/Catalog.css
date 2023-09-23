@@ -49,9 +49,8 @@
       /* Adjust other styles to fit smaller screens */
     }
 
-    button {
+    .catalog-button {
       font-size: 8px;
-      width: 90%;
       /* Adjust other styles to fit smaller screens */
     }
 

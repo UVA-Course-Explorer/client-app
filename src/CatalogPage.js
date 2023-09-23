@@ -78,8 +78,8 @@ const fetchCatalogIndexData = useCallback(async () => {
 
             table.push(<tr className="title-header">
               <th colSpan="4" className='course-title'>{course.subject} {course.catalog_number}: {course.descr}</th>
-              <th><a target="_blank" rel="noopener noreferrer" href={getSisLink(course.subject, course.catalog_number) }><button>SIS</button></a></th>
-              <th><a target="_blank" rel="noopener noreferrer" href={getCourseForumLink(course.subject, course.catalog_number)}><button>theCourseForum</button></a> </th>
+              <th><a target="_blank" rel="noopener noreferrer" href={getSisLink(course.subject, course.catalog_number) }><button className="catalog-button">SIS</button></a></th>
+              <th><a target="_blank" rel="noopener noreferrer" href={getCourseForumLink(course.subject, course.catalog_number)}><button className="catalog-button">theCourseForum</button></a> </th>
 
               </tr>);
 

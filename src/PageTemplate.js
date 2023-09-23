@@ -65,7 +65,7 @@ const closeModal = () => {
                   </Modal>
 
                     <p className="App-Title">UVA Course Explorer</p>
-
+                    
                    {content}
                   </header>
                   
