@@ -1,0 +1,92 @@
+
+/* Center the table horizontally */
+.custom-table-container {
+    text-align: center; /* Center-align the table within its container */
+  }
+
+  .custom-table {
+    border-collapse: collapse; 
+    width: 80%; /* Adjust to your desired table width */
+    font-size: 0.75em;
+    display: inline-block; /* Make the table behave like an inline-block element */
+  }
+  
+
+  .custom-table th, .custom-table td {
+    padding: 8px; /* Adjust padding as needed */
+    text-align: center; /* Center-align text within cells */
+  }
+
+
+  .custom-table td {
+    padding: 8px; /* Adjust padding as needed */
+    text-align: center; /* Center-align text within cells */
+  }
+  
+  .custom-table th {
+    background-color: #656769;
+  }
+
+
+  .custom-table .column-names {
+    position: sticky;
+    /* top: 2.5em; */
+    z-index: 1; /* Ensure the header appears above the table content */
+  }
+
+  .custom-table .title-header {
+    position: sticky;
+    top: 0;
+    z-index: 2; /* Ensure the header appears above the table content */
+  }
+
+
+  @media (max-width: 768px) {
+    .custom-table {
+      font-size: 8px;
+
+      width: 100%;
+      /* Adjust other styles to fit smaller screens */
+    }
+
+    button {
+      font-size: 8px;
+      width: 90%;
+      /* Adjust other styles to fit smaller screens */
+    }
+
+
+    .course-title {
+        font-size: 14px;
+        /* Adjust other styles to fit smaller screens */
+    }
+
+    .custom-table .column-names {
+        /* top: 6em; */
+      }
+
+
+}
+
+
+
+
+  .custom-table tr {
+    border: none; /* Remove all borders for data rows */
+  }
+
+    /* Style for even rows */
+    .custom-table tr:nth-child(even) {
+        background-color: #184276; /* Background color for odd rows */
+
+
+
+    }
+  
+    /* Style for odd rows */
+    .custom-table tr:nth-child(odd) {
+        background-color: #191c21; /* Background color for even rows */
+    }
+
+
+
