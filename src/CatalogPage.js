@@ -25,35 +25,12 @@ const fetchCatalogIndexData = useCallback(async () => {
     }, [fetchCatalogIndexData]);
 
 
-    const generateMeetingString = (meetings) => {
-      if (!meetings || meetings[0]?.days === '-') {
-          return "TBA";
-      }
-  
-      const meetingStrings = meetings.map((meeting) => {
-        if(meetings.facility_descr === ' - '){
-          meetings.facility_descr = 'TBA';
-        }
-        return `${meeting.days} ${meeting.start_time}-${meeting.end_time} at ${meeting.facility_descr}`;
-
-          // return `${meeting.days} ${meeting.start_time}-${meeting.end_time} at ${meeting.facility_descr}`;
-      });
-
-      console.log(meetingStrings);
-  
-      // Join the meeting strings with <br> tags to create line breaks
-      return meetingStrings.join("<br><br>");
-    };
-
-
     const generateMeetingTable = (meetings) => {
         if(!meetings){
             return "TBA";
         }
         const table = [];
-
-
-
+        
         for (const meeting of meetings){
           if(meeting.days === '-'){
             meeting.days = 'TBA';
@@ -134,7 +111,7 @@ const fetchCatalogIndexData = useCallback(async () => {
                     <td>{`${section.enrollment_total}/${section.class_capacity}`}</td>
                     
                     <td><table className='meeting-table'>
-                    {generateMeetingTable(section.meetings)}</table>  </td>                  {/* <td dangerouslySetInnerHTML={{ __html: generateMeetingString(section.meetings) }} style={{ whiteSpace: 'pre-line' }} /> */}
+                    {generateMeetingTable(section.meetings)}</table>  </td>
                 </tr>);
             }
                 elements.push(
