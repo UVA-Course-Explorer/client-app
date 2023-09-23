@@ -46,16 +46,35 @@ const fetchCatalogIndexData = useCallback(async () => {
     };
 
 
+    const generateMeetingTable = (meetings) => {
+        if(!meetings){
+            return "TBA";
+        }
+        const table = [];
 
-    const generateMeetingTimeString = (meetings) => {
 
-      console.log(meetings);
+
+        for (const meeting of meetings){
+          if(meeting.days === '-'){
+            meeting.days = 'TBA';
+          }
+
+          if(meeting.facility_descr === '-'){
+            meeting.facility_descr = 'TBA';
+          }
+
+          const meetingTimeString = meeting.start_time !== '' && meeting.end_time !== ''
+          ? `${meeting.start_time}-${meeting.end_time}`
+          : 'TBA';
+
+            table.push(<tr className='meeting-table'>
+                <td>{meeting.days}</td>
+                <td>{meetingTimeString}</td>
+                <td>{meeting.facility_descr}</td>
+            </tr>);
+        }
+        return table;
     }
-
-
-
-
-    
 
     const generateInstructorHTML = (instructors) => {
         const elements = [];
@@ -106,19 +125,20 @@ const fetchCatalogIndexData = useCallback(async () => {
 
 
             for (const section of course.sessions){
+                const classSectionString = section.topic !== null ? `${section.class_section} - ${section.topic}` : `${section.class_section}`;
 
                 table.push(<tr>
-                    <td>{section.section_type}</td>
-                    <td>{section.class_section}</td>
+                    <td>{section.section_type} ({section.units} units)</td>
+                    <td>{classSectionString}</td>
                     <td>{generateInstructorHTML(section.instructors)}</td>
                     <td>{`${section.enrollment_total}/${section.class_capacity}`}</td>
-                    <td dangerouslySetInnerHTML={{ __html: generateMeetingString(section.meetings) }} style={{ whiteSpace: 'pre-line' }} />
+                    
+                    <td><table className='meeting-table'>
+                    {generateMeetingTable(section.meetings)}</table>  </td>                  {/* <td dangerouslySetInnerHTML={{ __html: generateMeetingString(section.meetings) }} style={{ whiteSpace: 'pre-line' }} /> */}
                 </tr>);
             }
                 elements.push(
-    
                 <div className="custome-table-container">
-                
                   <table className="custom-table">
                     <tbody>
                     {table}
@@ -128,9 +148,6 @@ const fetchCatalogIndexData = useCallback(async () => {
                 elements.push(<br/>);
                 elements.push(<br/>);
                 elements.push(<br/>);
-
-
-            
         }
     }
 
