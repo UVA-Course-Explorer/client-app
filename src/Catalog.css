@@ -2,7 +2,7 @@
 /* Center the table horizontally */
 .custom-table-container {
     text-align: center; /* Center-align the table within its container */
-    width: 90%; /* Set the table width to 100% */
+    width: 100%; /* Set the table width to 100% */
   }
 
 
@@ -60,7 +60,7 @@
 
 
   table {
-    width: 85%; /* Set the fixed width for the entire table */
+    width: 100%; /* Set the fixed width for the entire table */
     table-layout: fixed; /* Ensures the table layout is fixed */
     font-size: 16px;
   }
@@ -138,6 +138,7 @@
     }
 
     .catalog-button {
+      text-align: right;
       font-size: 8px;
       /* Adjust other styles to fit smaller screens */
     }
@@ -183,7 +184,7 @@
 
     .section-type{
       width: 40%;
-      font-size: 6px;
+      font-size: 8px;
     }
   
     .section-number{
