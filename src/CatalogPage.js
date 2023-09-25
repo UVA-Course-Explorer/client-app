@@ -45,9 +45,9 @@ const fetchCatalogIndexData = useCallback(async () => {
           : 'TBA';
 
             table.push(<tr className='meeting-table'>
-                <td>{meeting.days}</td>
-                <td>{meetingTimeString}</td>
-                <td>{meeting.facility_descr}</td>
+                <td className="days">{meeting.days}</td>
+                <td className="time">{meetingTimeString}</td>
+                <td className="location">{meeting.facility_descr}</td>
             </tr>);
         }
         return table;
@@ -86,18 +86,21 @@ const fetchCatalogIndexData = useCallback(async () => {
             const table = [];
 
             table.push(<tr className="title-header">
-              <th colSpan="3" className='course-title'>{course.subject} {course.catalog_number}: {course.descr}</th>
-              <th><a target="_blank" rel="noopener noreferrer" href={getSisLink(course.subject, course.catalog_number) }><button className="catalog-button">SIS</button></a></th>
+              <th colSpan="4" className='course-title'>{course.subject} {course.catalog_number}: {course.descr}</th>
+              
+              <th className="external-buttons">
+              <th className="sis-button"><a target="_blank" rel="noopener noreferrer" href={getSisLink(course.subject, course.catalog_number) }><button className="catalog-button">SIS</button></a></th>
               <th><a target="_blank" rel="noopener noreferrer" href={getCourseForumLink(course.subject, course.catalog_number)}><button className="catalog-button">theCourseForum</button></a> </th>
-
+              </th>
+             
               </tr>);
 
             table.push(<tr className="column-names">
-                <th>Section Type</th>
-                <th>Section Number</th>
-                <th>Instructor</th>
-                <th>Enrollment</th>
-                <th>Meeting Info</th>
+                <th className="section-type">Section Type</th>
+                <th className="section-number">Section Number</th>
+                <th className="instructor">Instructor</th>
+                <th className="enrollment">Enrollment</th>
+                <th className="meeting-table"><table><td>Days</td><td>Time</td><td>Location</td></table></th>
             </tr>);
 
 
@@ -105,12 +108,11 @@ const fetchCatalogIndexData = useCallback(async () => {
                 const classSectionString = section.topic !== null ? `${section.class_section} - ${section.topic}` : `${section.class_section}`;
 
                 table.push(<tr>
-                    <td>{section.section_type} ({section.units} units)</td>
-                    <td>{classSectionString}</td>
-                    <td>{generateInstructorHTML(section.instructors)}</td>
-                    <td>{`${section.enrollment_total}/${section.class_capacity}`}</td>
-                    
-                    <td><table className='meeting-table'>
+                    <td className="section-type">{section.section_type} ({section.units} units)</td>
+                    <td className="section-number">{classSectionString}</td>
+                    <td className="instructor">{generateInstructorHTML(section.instructors)}</td>
+                    <td className="enrollment">{`${section.enrollment_total}/${section.class_capacity}`}</td>
+                    <td className='meeting-table'><table>
                     {generateMeetingTable(section.meetings)}</table>  </td>
                 </tr>);
             }
