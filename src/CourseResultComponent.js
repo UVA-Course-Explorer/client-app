@@ -64,10 +64,13 @@ const CourseResultComponent = (props) => {
           </a>
           <div className="accordion-content">
             <div className='course-description'>{props.description}</div>
+
+
+
             <div style={{display: 'flex' , flexDirection: 'row', flexWrap: 'nowrap', justifyContent: 'space-between', alignItems: 'center'}}>
-              <div style={{fontSize: '70%', fontWeight:'bold', marginLeft:'1rem', marginRight:'1rem'}}>Similarity Score: {props.similarity_score.toFixed(3)}</div>
-              <div style={{fontSize: '70%', fontWeight:'bold', marginLeft:'1rem', marginRight:'1rem'}}>Credits: {props.credits}</div>
-              <div style={{fontSize: '70%', fontWeight:'bold', marginLeft:'1rem', marginRight:'1rem'}}>Latest Sem: {mapNumberToSeasonWithMiddleDigits(props.strm)}</div>
+              <div className="search-info">Similarity Score: {props.similarity_score.toFixed(3)}</div>
+              <div className="search-info">Credits: {props.credits}</div>
+              <div className="search-info">Latest Sem: {mapNumberToSeasonWithMiddleDigits(props.strm)}</div>
             </div>
             <button className="moreLikeThisButton" onClick={handleMoreLikeThisButtonClick}>Find more like this</button>
           </div>

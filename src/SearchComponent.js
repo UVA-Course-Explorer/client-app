@@ -80,7 +80,7 @@ function SearchComponent() {
 
   
   const stateRef = useRef();
-  const maxLength = 1000;
+  const maxLength = 500;
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {

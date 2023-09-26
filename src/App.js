@@ -16,7 +16,6 @@ return (
     <Route path="/catalog/department/:department" element={<PageTemplate target={"catalog-page"}/>} />
     <Route path="/search" element={<PageTemplate target={"search"}/>} />
     <Route path="/catalog" element={<PageTemplate target={"catalog"}/>} />
-
     <Route path="/" element={<PageTemplate target={"search"}/>} />
 
     </Routes>

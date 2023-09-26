@@ -15,15 +15,12 @@
 }
 
 
-.nav-bar{
-  height: 1.5em;
-  width: 100%;
-}
+
 
 .nav-button{
   padding: 1em;
-  font-size: 40px;
-  font-weight: 300;
+  font-size: 35px;
+  font-weight: 400;
   text-decoration: none;
 }
 
@@ -36,13 +33,14 @@
 
 .App-header {
   background-color: #191c21;
-  min-height: 50vh;
+  min-height: 25vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  padding-bottom: 1.5em;
 }
 
 body {
@@ -88,6 +86,21 @@ body {
 }
 
 
+/* 
+@media (min-width: 768px) {
+  .nav-bar{
+    width: 70%;
+  }
+
+  .nav-button{
+    padding: 0.1em;
+    font-weight: 500;
+    text-decoration: none;
+  }
+} */
+
+
+
 .github-icon {
   /* position: fixed; */
   bottom: 0;
@@ -109,6 +122,8 @@ body {
   .App-Title {
     font-size: 90px;
   }
+
+
 }
 
 

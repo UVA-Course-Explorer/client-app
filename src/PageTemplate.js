@@ -3,7 +3,6 @@ import React, { useState} from "react";
 import Catalog from './Catalog';
 import SearchComponent from './SearchComponent';
 import CatalogPage from './CatalogPage';
-import { render } from '@testing-library/react';
 
 function PageTemplate(props){
     
@@ -36,7 +35,9 @@ const closeModal = () => {
         return (
                 <div className="App">
                   <header className="App-header">
-                  <button onClick={openModal} className="fixed-button" style={{textAlign: "center"}}>ⓘ</button>
+
+                  { renderTarget != "catalog-page" && <button onClick={openModal} className="fixed-button" style={{textAlign: "center"}}>ⓘ</button>}
+                  
                   <Modal
                     isOpen={isModalOpen}
                     onRequestClose={closeModal}

@@ -43,7 +43,6 @@
 
   .custom-table button{
       /* background: #e88c42; */
-
       color: #000000;
       font-size: 15px;
       padding: 0.5em 0.5em;
@@ -104,13 +103,12 @@
   .custom-table .column-names {
     position: sticky;
     /* top: 2.5em; */
-    z-index: 1; /* Ensure the header appears above the table content */
   }
 
   .custom-table .title-header {
     position: sticky;
     top: 0;
-    z-index: 2; /* Ensure the header appears above the table content */
+    z-index: 5; /* Ensure the header appears above the table content */
   }
 
   .course-title{
@@ -129,6 +127,10 @@
 
   @media (max-width: 768px) {
 
+
+    h2{
+      font-size: 16px
+    }
 
     h3{
       font-size: 16px;
@@ -254,8 +256,9 @@
       color: #fff;
     }
 
-
-
+    h2{
+      font-size: 30px;
+    }
 
     ul {
       list-style-type: none;

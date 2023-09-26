@@ -95,6 +95,7 @@ select:hover{
 }
 
 .course-description {
+  color: white;
   font-size: 4vw;
   margin-bottom: 1.5rem;
   text-align: left;
@@ -168,6 +169,16 @@ select:hover{
   color: white;
 }
 
+
+.search-info{
+  font-size: '70%';
+  font-weight:'bold';
+  margin-left:'1rem';
+  margin-right:'1rem';
+  color: white;
+  font-weight: 700;
+}
+
 @media screen and (max-width: 80%) {
   body {
     font-size: 12px;
@@ -206,11 +217,20 @@ select:hover{
 
 
 @media (prefers-color-scheme: light) {
+
+
+  .search-info{
+    color: black;
+  }
   textarea {
     background: #fff;
 
     border: 3px solid black; /* Adding a white solid border */
     color: #000000;
+  }
+
+  .course-description {
+    color: black;
   }
   .loadingText {
     color: black;
