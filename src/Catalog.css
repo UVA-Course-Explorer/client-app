@@ -130,6 +130,9 @@
   @media (max-width: 768px) {
 
 
+    h3{
+      font-size: 16px;
+    }
     
     .custom-table {
       font-size: 8px;
@@ -222,6 +225,10 @@
 
 }
 
+
+
+
+
   .custom-table tr {
     border: none; /* Remove all borders for data rows */
   }
@@ -241,6 +248,17 @@
     .custom-table tr:nth-child(even) .meeting-table tr,
     .custom-table tr:nth-child(odd) .meeting-table tr {
         background-color: inherit; /* Inherit background color from outer table */
+    }
+
+    h3, h2, .custom-table tr{
+      color: #fff;
+    }
+
+
+
+
+    ul {
+      list-style-type: none;
     }
 
 

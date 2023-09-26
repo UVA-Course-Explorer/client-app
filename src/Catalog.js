@@ -47,7 +47,7 @@ function Catalog() {
                 <ul>
                   {departments.map((department, index) => (
                     <li key={index}>
-                      <Link to={`/catalog/${department.abbr}`}><strong>{department.full_name}</strong></Link>
+                      <Link to={`/catalog/department/${department.abbr}`}><strong>{department.full_name}</strong></Link>
                     </li>
                   ))}
                 </ul>

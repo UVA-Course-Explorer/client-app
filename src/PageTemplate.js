@@ -3,6 +3,7 @@ import React, { useState} from "react";
 import Catalog from './Catalog';
 import SearchComponent from './SearchComponent';
 import CatalogPage from './CatalogPage';
+import { render } from '@testing-library/react';
 
 function PageTemplate(props){
     
@@ -65,9 +66,14 @@ const closeModal = () => {
                   </Modal>
 
                     <p className="App-Title">UVA Course Explorer</p>
+                    <div className="nav-bar">
+                        <a className={`nav-button ${renderTarget === 'search' ? 'underlined' : ''}`} href="/search">Search</a>
+                        <a className={`nav-button ${renderTarget === 'catalog' || renderTarget==='catalog-page' ? 'underlined' : ''}`} href="/catalog">Catalog</a>
+                    </div>
                     
-                   {content}
+                   
                   </header>
+                  {content}
                   
                 </div>
               );
