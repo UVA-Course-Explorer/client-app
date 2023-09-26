@@ -1,13 +1,16 @@
-import React, { useState, useEffect, useCallback} from 'react';
+import React, { useState, useEffect, useCallback, useRef} from 'react';
 import { useParams} from 'react-router-dom';
 
 
 import './Catalog.css'
 
 function CatalogPage() {
-    const { department } = useParams();
+    const { department, org, number} = useParams();
 
     const [data, setData] = useState(null);
+
+    let scrollKey;
+
 
 // Define fetchCatalogIndexData using useCallback
 const fetchCatalogIndexData = useCallback(async () => {
@@ -22,7 +25,28 @@ const fetchCatalogIndexData = useCallback(async () => {
   
     useEffect(() => {
       fetchCatalogIndexData();
-    }, [fetchCatalogIndexData]);
+    }, [fetchCatalogIndexData]); 
+
+
+    useEffect(() => {
+      // Check URL parameters and scroll to the desired table if present
+      let scrollKey = null;
+      if(org && number){
+        scrollKey = org + number;
+        console.log("scrollKey: " + scrollKey);
+      }
+      if (scrollKey) {
+        setTimeout(() => {
+        console.log("hello");
+        // Use JavaScript to scroll to the specified table
+        const tableElement = document.getElementById(scrollKey);
+        if (tableElement) {
+          tableElement.scrollIntoView({ behavior: 'auto' });
+        }
+        }, 250);
+      }
+
+    }, []);
 
 
     const generateMeetingTable = (meetings) => {
@@ -103,7 +127,6 @@ const fetchCatalogIndexData = useCallback(async () => {
                 <th className="meeting-table"><table><td>Days</td><td>Time</td><td>Location</td></table></th>
             </tr>);
 
-
             for (const section of course.sessions){
                 const classSectionString = section.topic !== null ? `${section.class_section} - ${section.topic}` : `${section.class_section}`;
 
@@ -116,29 +139,36 @@ const fetchCatalogIndexData = useCallback(async () => {
                     {generateMeetingTable(section.meetings)}</table>  </td>
                 </tr>);
             }
-                elements.push(
-                <div className="custome-table-container">
-                  <table className="custom-table">
-                    <tbody>
-                    {table}
-                    </tbody>
-                    </table>
-                </div>);
+
+                const tableKey = `${course.subject}${course.catalog_number}`;
+                if(scrollKey && scrollKey === tableKey){
+                  elements.push(
+                  <div>                 
+                    <table className="custom-table" id={tableKey}>
+                      <tbody>{table}</tbody>
+                  </table></div>);}
+
+                else{
+                  elements.push(
+                  <div>
+                    <table className="custom-table" id={tableKey}>
+                      <tbody>{table}</tbody>
+                  </table>
+                </div>);}
+
                 elements.push(<br/>);
                 elements.push(<br/>);
                 elements.push(<br/>);
         }
     }
-
   return (    
     <div className="header">
       <div>
-        {/* <h1>{department}</h1> */}
         {elements}
-
       </div>
     </div>
   );
 }
+
 }
 export default CatalogPage;

@@ -18,7 +18,6 @@ const closeModal = () => {
   setIsModalOpen(false);
 };
 
-
       const renderTarget = props.target;
       console.log(renderTarget);
       let content;

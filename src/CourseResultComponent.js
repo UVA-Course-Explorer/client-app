@@ -42,20 +42,29 @@ const CourseResultComponent = (props) => {
     props.onMoreLikeThisClick(props.mnemonic, props.catalog_number);
   }
 
-  const getSisLink = () => {
+  // const getSisLink = () => {
+  //   if(props.strm.toString() === latestSem){
+  //     //search link
+  //     return `https://sisuva.admin.virginia.edu/psp/ihprd/UVSS/SA/s/WEBLIB_HCX_CM.H_CLASS_SEARCH.FieldFormula.IScript_Main?catalog_nbr=${props.catalog_number}&subject=${props.mnemonic}`
+  //   }
+  //   //share link
+  //   return `https://sisuva.admin.virginia.edu/psc/ihprd/UVSS/SA/s/WEBLIB_HCX_CM.H_CLASS_DETAILS.FieldFormula.IScript_Main?institution=UVA01&term=${props.strm}&class_nbr=${props.class_number}`
+  // }
+
+  const getLink = () => {
     if(props.strm.toString() === latestSem){
       //search link
-      return `https://sisuva.admin.virginia.edu/psp/ihprd/UVSS/SA/s/WEBLIB_HCX_CM.H_CLASS_SEARCH.FieldFormula.IScript_Main?catalog_nbr=${props.catalog_number}&subject=${props.mnemonic}`
+      return `/catalog/${props.group}/${props.mnemonic}/${props.catalog_number}`
     }
     //share link
     return `https://sisuva.admin.virginia.edu/psc/ihprd/UVSS/SA/s/WEBLIB_HCX_CM.H_CLASS_DETAILS.FieldFormula.IScript_Main?institution=UVA01&term=${props.strm}&class_nbr=${props.class_number}`
-  }
+}
 
   return (
     <React.Fragment>
       <div className="accordion" style={{paddingBottom:'20px'}}>
         <div className="accordion-item">
-          <a href={getSisLink()} target="_blank" rel="noopener noreferrer" className="accordion-title">
+          <a href={getLink()} target="_blank" rel="noopener noreferrer" className="accordion-title">
             <div>
               <div className="accordion-title-content">
                 {props.mnemonic} {props.catalog_number}: {props.name} ({props.level})

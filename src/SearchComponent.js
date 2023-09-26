@@ -113,6 +113,7 @@ function SearchComponent() {
             strm={result.strm}
             similarity_score={result.similarity_score}
             credits={result.credits}
+            group={result.group}
             onMoreLikeThisClick={handleMoreLikeThisRequest}
             academicLevelFilter={academicLevelFilter}
             semesterFilter={semesterFilter}/>
