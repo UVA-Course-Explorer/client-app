@@ -15,13 +15,15 @@
 }
 
 
-
-
 .nav-button{
   padding: 1em;
-  font-size: 35px;
+  font-size: 30px;
   font-weight: 400;
   text-decoration: none;
+}
+
+.nav-bar {
+  padding-bottom: 0.5em;
 }
 
 
@@ -33,19 +35,20 @@
 
 .App-header {
   background-color: #191c21;
-  min-height: 25vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-  padding-bottom: 1.5em;
 }
+
 
 body {
   background-color: #191c21;
 }
+
 
 .App-Title {
   color: #ffffff;
@@ -55,12 +58,11 @@ body {
   font-size: 90px;
   font-weight: 500;
   font-size: 50px;
+  margin-bottom: 0.25em;
 }
 
+
 @media (prefers-color-scheme: light) {
-
-
-
   .App-header {
     background-color: #fff;
   }
@@ -72,9 +74,11 @@ body {
   }
 }
 
+
 .App-link {
   color: #61dafb;
 }
+
 
 @keyframes App-logo-spin {
   from {
@@ -100,7 +104,6 @@ body {
 } */
 
 
-
 .github-icon {
   /* position: fixed; */
   bottom: 0;
@@ -111,19 +114,17 @@ body {
   z-index: 1000; 
 }
 
+
 .github-icon img {
   width: 1.5em; /* Adjust the size as needed */
   height: 1.5em;
   padding-bottom: 0.1em;
 }
 
+
 /* Use media queries to adjust the font size based on screen width */
 @media (min-width: 1000px) {
   .App-Title {
     font-size: 90px;
   }
-
-
 }
-
-
