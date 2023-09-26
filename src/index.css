@@ -171,7 +171,7 @@ select:hover{
 
 
 .search-info{
-  font-size: '70%';
+  font-size: 1rem;
   font-weight:'bold';
   margin-left:'1rem';
   margin-right:'1rem';
@@ -195,6 +195,9 @@ select:hover{
   .course-description {
     font-size: calc(14px + 1vw); /* Adjust the formula as needed */
   }
+
+
+
 }
 
 @media (min-width: 1000px) {
@@ -204,6 +207,8 @@ select:hover{
   .accordion {
     width: 70%;
   }
+
+
 }
 
 @media (min-width: 2000px) {

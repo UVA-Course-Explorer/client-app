@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef} from 'react';
+import React, { useState, useEffect, useCallback} from 'react';
 import { useParams} from 'react-router-dom';
 
 
@@ -41,12 +41,12 @@ const fetchCatalogIndexData = useCallback(async () => {
         // Use JavaScript to scroll to the specified table
         const tableElement = document.getElementById(scrollKey);
         if (tableElement) {
-          tableElement.scrollIntoView({ behavior: 'auto' });
+          tableElement.scrollIntoView({ behavior: 'smooth' });
         }
         }, 250);
       }
 
-    }, []);
+    }, [number, org]);
 
 
     const generateMeetingTable = (meetings) => {

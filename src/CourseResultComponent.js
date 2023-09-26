@@ -52,9 +52,11 @@ const CourseResultComponent = (props) => {
   // }
 
   const getLink = () => {
+
+    const splitCatalog = props.catalog_number.split(".")[0];
     if(props.strm.toString() === latestSem){
       //search link
-      return `/catalog/${props.group}/${props.mnemonic}/${props.catalog_number}`
+      return `/catalog/${props.group}/${props.mnemonic}/${splitCatalog}`
     }
     //share link
     return `https://sisuva.admin.virginia.edu/psc/ihprd/UVSS/SA/s/WEBLIB_HCX_CM.H_CLASS_DETAILS.FieldFormula.IScript_Main?institution=UVA01&term=${props.strm}&class_nbr=${props.class_number}`
