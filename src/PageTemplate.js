@@ -36,7 +36,7 @@ const closeModal = () => {
                 <div className="App">
                   <header className="App-header">
 
-                  { renderTarget != "catalog-page" && <button onClick={openModal} className="fixed-button" style={{textAlign: "center"}}>ⓘ</button>}
+                  { renderTarget !== "catalog-page" && <button onClick={openModal} className="fixed-button" style={{textAlign: "center"}}>ⓘ</button>}
                   
                   <Modal
                     isOpen={isModalOpen}
