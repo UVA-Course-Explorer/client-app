@@ -1,314 +1,264 @@
 
 /* Center the table horizontally */
 .custom-table-container {
-    text-align: center; /* Center-align the table within its container */
-    width: 100%; /* Set the table width to 100% */
+  text-align: center; /* Center-align the table within its container */
+  width: 100%; /* Set the table width to 100% */
+}
+
+.section-type{
+  width: 20%
+}
+
+.section-number{
+  width: 5%
+}
+
+.instructor{
+  width: 20%
+}
+
+.enrollment{
+
+}
+
+.meeting-table{
+  width: 100%;
+}
+
+.days{
+}
+
+.time{
+}
+
+.location{
+}
+
+.custom-table button{
+    /* background: #e88c42; */
+    color: #000000;
+    font-size: 15px;
+    padding: 0.5em 0.5em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+    font-weight: bold;
+}
+
+table {
+  width: 100%; /* Set the fixed width for the entire table */
+  table-layout: fixed; /* Ensures the table layout is fixed */
+  font-size: 16px;
+}
+
+a {
+  font-size: 16px;
+}
+
+p{
+  font-size: 16px;
+}
+
+tr{
+  font-size: 16px;
+}
+
+
+.custom-table {
+  border-collapse: collapse; 
+  font-size: 0.75em;
+  display: inline-block; /* Make the table behave like an inline-block element */
+}
+.custom-table th, .custom-table td {
+  padding: 8px; /* Adjust padding as needed */
+  text-align: center; /* Center-align text within cells */
+}
+.custom-table td {
+  padding: 8px; /* Adjust padding as needed */
+  text-align: center; /* Center-align text within cells */
+}
+.custom-table th {
+  background-color: #656769;
+}
+
+.custom-table .column-names {
+  position: sticky;
+  /* top: 2.5em; */
+}
+
+.custom-table .title-header {
+  position: sticky;
+  top: 0;
+  z-index: 5; /* Ensure the header appears above the table content */
+}
+
+.course-title{
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.external-buttons{
+  width: 20%
+}
+
+@media (max-width: 768px) {
+  h2{
+    font-size: 16px
   }
 
-
-
-
-  .section-type{
-    width: 20%
+  h3{
+    font-size: 16px;
   }
-
-  .section-number{
-    width: 5%
-  }
-
-  .instructor{
-    width: 20%
-  }
-
-  .enrollment{
-
-  }
-
-
-  .meeting-table{
+  
+  .custom-table {
+    font-size: 8px;
     width: 100%;
+    /* Adjust other styles to fit smaller screens */
   }
 
-  .days{
+  .catalog-button {
+    text-align: right;
+    font-size: 8px;
+    /* Adjust other styles to fit smaller screens */
   }
 
-  .time{
+  .external-buttons{
+    padding: 0.2em 0.2em;
+    width: 5%;
   }
-
-  .location{
+  .course-title {
+      font-size: 10px;
+      /* Adjust other styles to fit smaller screens */
   }
-
-
-
 
   .custom-table button{
-      /* background: #e88c42; */
-      color: #000000;
-      font-size: 15px;
-      padding: 0.5em 0.5em;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-      sans-serif;
-      font-weight: bold;
+    /* background: #e88c42; */
+    font-size: 8px;
   }
-
-
-
-
   table {
     width: 100%; /* Set the fixed width for the entire table */
-    table-layout: fixed; /* Ensures the table layout is fixed */
-    font-size: 16px;
+    font-size: 8px;
+    border: none;
+    border-collapse: collapse;
   }
-
   a {
-    font-size: 16px;
+    font-size: 8px;
   }
 
   p{
-    font-size: 16px;
+    font-size: 8px;
   }
 
   tr{
-    font-size: 16px;
+    font-size: 8px;
+  }
+  .section-type{
+    width: 40%;
+    font-size: 8px;
   }
 
-
-  .custom-table {
-    border-collapse: collapse; 
-    font-size: 0.75em;
-    display: inline-block; /* Make the table behave like an inline-block element */
-  }
-  
-
-  .custom-table th, .custom-table td {
-    padding: 8px; /* Adjust padding as needed */
-    text-align: center; /* Center-align text within cells */
+  .section-number{
+    width: 1%;
+    padding: 0px;
   }
 
-
-  .custom-table td {
-    padding: 8px; /* Adjust padding as needed */
-    text-align: center; /* Center-align text within cells */
-  }
-  
-  .custom-table th {
-    background-color: #656769;
+  .instructor{
+    width: 10%;
+    padding: 0px;
   }
 
+  .enrollment{
+    width: 1%;
+    padding: 0px;
 
-  .custom-table .column-names {
-    position: sticky;
-    /* top: 2.5em; */
+  }
+  .meeting-table{
+    width: 10%;
   }
 
-  .custom-table .title-header {
-    position: sticky;
-    top: 0;
-    z-index: 5; /* Ensure the header appears above the table content */
+  .days{
+    width: 9%;
   }
 
-  .course-title{
-    font-size: 30px;
-    font-weight: bold;
+  .time{
+    width: 9%;
   }
 
-
-  .external-buttons{
-    width: 20%
+  .location{
+    width: 9%;
   }
+}
+
+.custom-table tr {
+  border: none; /* Remove all borders for data rows */
+}
+
+/* Style for even rows */
+.custom-table tr:nth-child(even) {
+  background-color: #184276; /* Background color for odd rows */
+}
+
+/* Style for odd rows */
+.custome-table tr:nth-child(odd) {
+  background-color: #191c21; /* Background color for even rows */
+}
 
 
+/* Style for all rows of the inner table */
+.custom-table tr:nth-child(even) .meeting-table tr,
+.custom-table tr:nth-child(odd) .meeting-table tr {
+  background-color: inherit; /* Inherit background color from outer table */
+}
 
+h3, h2, .custom-table tr{
+  color: #fff;
+}
 
+h2{
+  font-size: 30px;
+}
 
-  @media (max-width: 768px) {
-
-
-    h2{
-      font-size: 16px
-    }
-
-    h3{
-      font-size: 16px;
-    }
-    
-    .custom-table {
-      font-size: 8px;
-      width: 100%;
-      /* Adjust other styles to fit smaller screens */
-    }
-
-    .catalog-button {
-      text-align: right;
-      font-size: 8px;
-      /* Adjust other styles to fit smaller screens */
-    }
-
-    .external-buttons{
-      padding: 0.2em 0.2em;
-      width: 5%;
-    }
-
-
-    .course-title {
-        font-size: 10px;
-        /* Adjust other styles to fit smaller screens */
-    }
-
-    .custom-table button{
-      /* background: #e88c42; */
-      font-size: 8px;
-  }
-
-
-
-
-    table {
-      width: 100%; /* Set the fixed width for the entire table */
-      font-size: 8px;
-      border: none;
-      border-collapse: collapse;
-    }
-  
-    a {
-      font-size: 8px;
-    }
-  
-    p{
-      font-size: 8px;
-    }
-  
-    tr{
-      font-size: 8px;
-    }
-
-
-    .section-type{
-      width: 40%;
-      font-size: 8px;
-    }
-  
-    .section-number{
-      width: 1%;
-      padding: 0px;
-    }
-  
-    .instructor{
-      width: 10%;
-      padding: 0px;
-    }
-  
-    .enrollment{
-      width: 1%;
-      padding: 0px;
-  
-    }
-  
-  
-    .meeting-table{
-      width: 10%;
-    }
-  
-    .days{
-      width: 9%;
-    }
-  
-    .time{
-      width: 9%;
-    }
-  
-    .location{
-      width: 9%;
-    }
-
+ul {
+  list-style-type: none;
 }
 
 
 
 
 
-  .custom-table tr {
-    border: none; /* Remove all borders for data rows */
+@media (prefers-color-scheme: light) {
+
+  h3 {
+    color: #000000;
+  }
+  h2{
+    color: #000000;
+  }
+  .custom-table tr{
+    color: #000000;
+  }
+  .custom-table th {
+    background-color: #c7ced4;
+  }
+  /* Style for even rows */
+  .custom-table tr:nth-child(even) {
+        /* background-color: #fff4e6; */
+        background-color: #ffdeb3;        
+
+  }
+  
+  /* Style for odd rows */
+  .custom-table tr:nth-child(odd) {
+  background-color: #ffffff; /* Background color for even rows */
+
   }
 
-    /* Style for even rows */
-      .custom-table tr:nth-child(even) {
-          background-color: #184276; /* Background color for odd rows */
-      }
-    
-      /* Style for odd rows */
-     .custome-table tr:nth-child(odd) {
-          background-color: #191c21; /* Background color for even rows */
-      }
-
-
-    /* Style for all rows of the inner table */
-    .custom-table tr:nth-child(even) .meeting-table tr,
-    .custom-table tr:nth-child(odd) .meeting-table tr {
-        background-color: inherit; /* Inherit background color from outer table */
-    }
-
-    h3, h2, .custom-table tr{
-      color: #fff;
-    }
-
-    h2{
-      font-size: 30px;
-    }
-
-    ul {
-      list-style-type: none;
-    }
-
-
-
-
-
-    @media (prefers-color-scheme: light) {
-
-      h3 {
-        color: #000000;
-      }
-      h2{
-        color: #000000;
-      }
-
-      .custom-table tr{
-        color: #000000;
-      }
-
-
-      .custom-table th {
-        background-color: #c7ced4;
-      }
-    
-
-      /* Style for even rows */
-      .custom-table tr:nth-child(even) {
-            /* background-color: #fff4e6; */
-            background-color: #ffdeb3;        
-
-      }
-      
-        /* Style for odd rows */
-       .custom-table tr:nth-child(odd) {
-        background-color: #ffffff; /* Background color for even rows */
-
-        }
-  
-  
-      /* Style for all rows of the inner table */
-      .custom-table tr:nth-child(even) .meeting-table tr,
-      .custom-table tr:nth-child(odd) .meeting-table tr {
-          background-color: inherit; /* Inherit background color from outer table */
-      }
-  
-
-    }
-
-
-
+  /* Style for all rows of the inner table */
+  .custom-table tr:nth-child(even) .meeting-table tr,
+  .custom-table tr:nth-child(odd) .meeting-table tr {
+      background-color: inherit; /* Inherit background color from outer table */
+  }
+}
