@@ -44,10 +44,12 @@ function Catalog() {
                 {expandedSections[school] ? ' -' : ' +'}
               </h3>
               {expandedSections[school] && (
-                <ul>
+                <ul className="department-table">
                   {departments.map((department, index) => (
-                    <li key={index}>
-                      <Link to={`/catalog/${department.abbr}`}><strong>{department.full_name}</strong></Link>
+                    <li key={index} className="department-item">
+                      <Link to={`/catalog/${department.abbr}`}>
+                        <strong className="department-name">{department.full_name}</strong>
+                      </Link>
                     </li>
                   ))}
                 </ul>

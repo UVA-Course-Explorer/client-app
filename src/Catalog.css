@@ -5,6 +5,41 @@
   width: 100%; /* Set the table width to 100% */
 }
 
+.department-table {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to the next row */
+  justify-content: center; /* Center items horizontally */
+  list-style: none; /* Remove list bullet points */
+  padding: 0;
+  margin: 0 auto; /* Auto margin for centering horizontally */
+}
+
+.department-item {
+  flex-basis: calc(50% - 10px); /* Two items per row, accounting for grid gap */
+  text-align: center;
+  box-sizing: border-box; /* Include padding and border in the item width */
+}
+
+
+@media (min-width: 100px) {
+  .department-table {
+    width: 100%;
+  }
+  .department-name {
+    font-size: calc(5px + 1vw);; 
+  }
+}
+
+@media (min-width: 1000px) {
+  .department-table {
+    width: 800px;
+  }
+  .department-name {
+    font-size: 16px; 
+  }
+}
+
+
 .section-type{
   width: 20%
 }
@@ -35,17 +70,17 @@
 }
 
 .custom-table button{
-    /* background: #e88c42; */
-    color: #000000;
-    font-size: 15px;
-    padding: 0.5em 0.5em;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-    font-weight: bold;
+  /* background: #e88c42; */
+  color: #000000;
+  font-size: 15px;
+  padding: 0.5em 0.5em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+  font-weight: bold;
 }
 
 table {
