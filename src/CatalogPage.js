@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback} from 'react';
 import { useParams} from 'react-router-dom';
 
-
 import './Catalog.css'
 
 function CatalogPage() {
@@ -64,9 +63,9 @@ function CatalogPage() {
       : 'TBA';
 
         table.push(<tr className='meeting-table'>
-            <td className="days">{meeting.days}</td>
-            <td className="time">{meetingTimeString}</td>
-            <td className="location">{meeting.facility_descr}</td>
+          <td className="days">{meeting.days}</td>
+          <td className="time">{meetingTimeString}</td>
+          <td className="location">{meeting.facility_descr}</td>
         </tr>);
     }
     return table;
@@ -75,12 +74,12 @@ function CatalogPage() {
   const generateInstructorHTML = (instructors) => {
     const elements = [];
     for (const instructor of instructors){
-        if(instructor.email.length > 0){
+      if(instructor.email.length > 0){
         elements.push(<p><a href={`mailto:${instructor.email}`}>{instructor.name}</a></p>);
-        }
-        else{
-            elements.push(<p>{instructor.name}</p>);
-        }
+      }
+      else{
+        elements.push(<p>{instructor.name}</p>);
+      }
     }
     return elements;
   }
