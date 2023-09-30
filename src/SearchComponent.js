@@ -161,7 +161,7 @@ function SearchComponent() {
     const data = await response.json();
     const resultData = data["resultData"];
     setSearchResults(memoizedGenerateSearchResults(resultData));
-  }, [academicLevelFilter, semesterFilter]);
+  }, [academicLevelFilter, semesterFilter, searchInput, memoizedGenerateSearchResults]);
 
 
   stateRef.semesterFilter = semesterFilter;
