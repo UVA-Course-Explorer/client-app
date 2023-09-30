@@ -98,34 +98,36 @@ function SearchComponent() {
   };
 
 
-  function generateSearchResults(data) {
-    if (data && Array.isArray(data)) {
-      const searchResults = data.map((result, index) => (
-        <div key={index}>
-          <CourseResultComponent  
-            name={result.name}
-            level={result.level}
-            catalog_number={result.catalog_number}
-            class_number={result.class_number}
-            subject={result.subject}
-            description={result.description}
-            mnemonic={result.mnemonic}
-            strm={result.strm}
-            similarity_score={result.similarity_score}
-            credits={result.credits}
-            group={result.group}
-            onMoreLikeThisClick={handleMoreLikeThisRequest}
-            academicLevelFilter={academicLevelFilter}
-            semesterFilter={semesterFilter}/>
-        </div>
-      ));
-      setIsLoading(false);
-      return searchResults; // Return the populated array if data is available
-    } else {
-      setIsLoading(false);
-      return []; // Return an empty array if data is not available or not an array
-    }
-  }
+    // Memoize the generateSearchResults function using useCallback
+    const memoizedGenerateSearchResults = useCallback((data) => {
+      if (data && Array.isArray(data)) {
+        const searchResults = data.map((result, index) => (
+          <div key={index}>
+            <CourseResultComponent  
+              name={result.name}
+              level={result.level}
+              catalog_number={result.catalog_number}
+              class_number={result.class_number}
+              subject={result.subject}
+              description={result.description}
+              mnemonic={result.mnemonic}
+              strm={result.strm}
+              similarity_score={result.similarity_score}
+              credits={result.credits}
+              group={result.group}
+              onMoreLikeThisClick={handleMoreLikeThisRequest}
+              academicLevelFilter={academicLevelFilter}
+              semesterFilter={semesterFilter}
+            />
+          </div>
+        ));
+        setIsLoading(false);
+        return searchResults; // Return the populated array if data is available
+      } else {
+        setIsLoading(false);
+        return []; // Return an empty array if data is not available or not an array
+      }
+    }, [academicLevelFilter, semesterFilter]);
 
 
   const handleSearchInputChange = (event) => {
@@ -158,34 +160,8 @@ function SearchComponent() {
 
     const data = await response.json();
     const resultData = data["resultData"];
-    setSearchResults(generateSearchResults(resultData));
+    setSearchResults(memoizedGenerateSearchResults(resultData));
   }, [academicLevelFilter, semesterFilter]);
-
-
-
-  // const handleSearch = async () => {
-  //   if(searchInput.length === 0) return; 
-  //   setIsLoading(true);
-
-  //   // const response = await fetch("/search", {
-  //   const response = await fetch("https://server-app.fly.dev/search", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ 
-  //       searchInput: searchInput,
-  //       academicLevelFilter: academicLevelFilter,
-  //       semesterFilter: semesterFilter,
-  //       getGraphData: false 
-  //     }),
-  //   });
-
-  //   const data = await response.json();
-  //   const resultData = data["resultData"];
-  //   setSearchResults(generateSearchResults(resultData));
-  // };
-
 
 
   stateRef.semesterFilter = semesterFilter;
@@ -214,7 +190,7 @@ function SearchComponent() {
 
     const data = await response.json();
     const resultData = data["resultData"];
-    setSearchResults(generateSearchResults(resultData));
+    setSearchResults(memoizedGenerateSearchResults(resultData));
   };
 
 
