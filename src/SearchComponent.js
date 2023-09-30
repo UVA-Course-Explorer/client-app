@@ -191,7 +191,7 @@ function SearchComponent() {
 
   useEffect(() => {
     handleSearch();
-  }, [academicLevelFilter, semesterFilter, handleSearch]);
+  }, [academicLevelFilter, semesterFilter]);
 
 
   const handleAcademicLevelFiterChange = (event) => {
