@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect} from "react";
+import React, { useState, useRef, useEffect, useCallback} from "react";
 import CourseResultComponent from './CourseResultComponent';
 
 import sabreImage from './sabre.png';
@@ -85,7 +85,7 @@ function SearchComponent() {
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault(); // Prevent the default Enter key behavior (usually adding a new line)
-      handleSearch();
+      memoizedHandleSearch();
     }
   };
 
@@ -136,28 +136,57 @@ function SearchComponent() {
     
   };
 
-  const handleSearch = async () => {
-    if(searchInput.length === 0) return; 
+
+
+
+  const memoizedHandleSearch = useCallback(async () => {
+    if (searchInput.length === 0) return;
     setIsLoading(true);
 
-    // const response = await fetch("/search", {
     const response = await fetch("https://server-app.fly.dev/search", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ 
+      body: JSON.stringify({
         searchInput: searchInput,
         academicLevelFilter: academicLevelFilter,
         semesterFilter: semesterFilter,
-        getGraphData: false 
+        getGraphData: false,
       }),
     });
 
     const data = await response.json();
     const resultData = data["resultData"];
     setSearchResults(generateSearchResults(resultData));
-  };
+  }, [academicLevelFilter, semesterFilter]);
+
+
+
+  // const handleSearch = async () => {
+  //   if(searchInput.length === 0) return; 
+  //   setIsLoading(true);
+
+  //   // const response = await fetch("/search", {
+  //   const response = await fetch("https://server-app.fly.dev/search", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ 
+  //       searchInput: searchInput,
+  //       academicLevelFilter: academicLevelFilter,
+  //       semesterFilter: semesterFilter,
+  //       getGraphData: false 
+  //     }),
+  //   });
+
+  //   const data = await response.json();
+  //   const resultData = data["resultData"];
+  //   setSearchResults(generateSearchResults(resultData));
+  // };
+
+
 
   stateRef.semesterFilter = semesterFilter;
   stateRef.academicLevelFilter = academicLevelFilter;
@@ -190,8 +219,8 @@ function SearchComponent() {
 
 
   useEffect(() => {
-    handleSearch();
-  }, [academicLevelFilter, semesterFilter]);
+    memoizedHandleSearch();
+  }, [academicLevelFilter, semesterFilter, memoizedHandleSearch]);
 
 
   const handleAcademicLevelFiterChange = (event) => {
@@ -228,7 +257,7 @@ function SearchComponent() {
           {searchInput.length}/{maxLength}
         </div>
       </div>
-      <div><button className={"searchButton"} onClick={handleSearch}>Search</button></div>
+      <div><button className={"searchButton"} onClick={memoizedHandleSearch}>Search</button></div>
 
       <div style={{ display: 'flex' , flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center'}}>
         <div>
