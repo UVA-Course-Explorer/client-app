@@ -87,6 +87,9 @@ table {
   width: 100%; /* Set the fixed width for the entire table */
   table-layout: fixed; /* Ensures the table layout is fixed */
   font-size: 16px;
+  width: 100%; /* Set the fixed width for the entire table */
+  border: none;
+  border-spacing: 0;
 }
 
 a {
@@ -103,9 +106,13 @@ tr{
 
 
 .custom-table {
-  border-collapse: collapse; 
+  width: 80%;
+  border-collapse: separate; 
+  border: 1px solid #fff;
+  border-radius: 5px;
   font-size: 0.75em;
-  display: inline-block; /* Make the table behave like an inline-block element */
+  display: inline-block; 
+  overflow: hidden;
 }
 .custom-table th, .custom-table td {
   padding: 8px; /* Adjust padding as needed */
@@ -116,7 +123,7 @@ tr{
   text-align: center; /* Center-align text within cells */
 }
 .custom-table th {
-  background-color: #656769;
+  background-color: #184276;
 }
 
 .custom-table .column-names {
@@ -173,12 +180,6 @@ tr{
     /* background: #e88c42; */
     font-size: 8px;
   }
-  table {
-    width: 100%; /* Set the fixed width for the entire table */
-    font-size: 8px;
-    border: none;
-    border-collapse: collapse;
-  }
   a {
     font-size: 8px;
   }
@@ -233,7 +234,7 @@ tr{
 
 /* Style for even rows */
 .custom-table tr:nth-child(even) {
-  background-color: #184276; /* Background color for odd rows */
+  background-color: #1e2b53; /* Background color for odd rows */
 }
 
 /* Style for odd rows */
@@ -265,6 +266,9 @@ ul {
 
 
 @media (prefers-color-scheme: light) {
+  .custom-table {
+    border: 2px solid #000;
+  }
 
   h3 {
     color: #000000;
@@ -276,12 +280,12 @@ ul {
     color: #000000;
   }
   .custom-table th {
-    background-color: #c7ced4;
+    background-color: #ffdeb3;
   }
   /* Style for even rows */
   .custom-table tr:nth-child(even) {
         /* background-color: #fff4e6; */
-        background-color: #ffdeb3;        
+        background-color: #fff4e6;        
 
   }
   
