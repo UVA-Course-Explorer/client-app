@@ -161,8 +161,9 @@ function SearchComponent() {
 
   stateRef.semesterFilter = semesterFilter;
   stateRef.academicLevelFilter = academicLevelFilter;
-  const handleMoreLikeThisRequest = async (mnemonicInput, catalogNumberInput) => {
 
+
+  const handleMoreLikeThisRequest = async (mnemonicInput, catalogNumberInput) => {
     scrollToTop();
     setSearchInput(`${mnemonicInput} ${catalogNumberInput}`);
     setIsLoading(true);
@@ -185,20 +186,23 @@ function SearchComponent() {
     const data = await response.json();
     const resultData = data["resultData"];
     setSearchResults(generateSearchResults(resultData));
-
   };
+
+
+  useEffect(() => {
+    handleSearch();
+  }, [academicLevelFilter, semesterFilter]);
 
 
   const handleAcademicLevelFiterChange = (event) => {
     setAcademicLevelFilter(event.target.value);
-    handleSearch();
+    // handleSearch();
 
   }
 
   const handleSemesterFilterChange = (event) => {
     setSemesterFilter(event.target.value);
-    handleSearch();
-
+    // handleSearch();
   }
 
   const academicLevelFilterOptions = [
