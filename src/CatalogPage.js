@@ -46,7 +46,7 @@ function CatalogPage() {
       if (tableElement) {
         tableElement.scrollIntoView({ behavior: 'smooth' });
       }
-      }, 250);
+      }, 750);
     }
   }, [number, org]);
 
