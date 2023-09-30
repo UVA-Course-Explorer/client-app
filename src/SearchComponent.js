@@ -191,10 +191,14 @@ function SearchComponent() {
 
   const handleAcademicLevelFiterChange = (event) => {
     setAcademicLevelFilter(event.target.value);
+    handleSearch();
+
   }
 
   const handleSemesterFilterChange = (event) => {
     setSemesterFilter(event.target.value);
+    handleSearch();
+
   }
 
   const academicLevelFilterOptions = [
