@@ -266,12 +266,10 @@ ul {
 
 @media (prefers-color-scheme: light) {
 
-  h3 {
+  h1, h2, h3, h4, h5 {
     color: #000000;
   }
-  h2{
-    color: #000000;
-  }
+
   .custom-table tr{
     color: #000000;
   }
