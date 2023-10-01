@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect} from "react";
+import React, { useState, useRef, useEffect, useCallback} from "react";
 import CourseResultComponent from './CourseResultComponent';
 
 import sabreImage from './sabre.png';
@@ -33,11 +33,7 @@ function SearchComponent() {
 
 
 
-  useEffect(() => {
-    // Update the previous filters when they change
-    setPreviousAcademicLevelFilter(academicLevelFilter);
-    setPreviousSemesterFilter(semesterFilter);
-  }, [academicLevelFilter, semesterFilter]);
+
 
 
   // Function to simulate typing for the current placeholder option
@@ -169,6 +165,33 @@ function SearchComponent() {
     setSearchResults(generateSearchResults(resultData));
   };
 
+
+
+// Define handleSearch using useCallback
+const memoizedHandleSearch = useCallback(async () => {
+  if (searchInput.length === 0) return;
+  setIsLoading(true);
+
+  // const response = await fetch("/search", {
+  const response = await fetch("https://server-app.fly.dev/search", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      searchInput: searchInput,
+      academicLevelFilter: academicLevelFilter,
+      semesterFilter: semesterFilter,
+      getGraphData: false,
+    }),
+  });
+  const data = await response.json();
+  const resultData = data["resultData"];
+  setSearchResults(generateSearchResults(resultData));
+}, [searchInput, academicLevelFilter, semesterFilter]);
+
+
+
   stateRef.semesterFilter = semesterFilter;
   stateRef.academicLevelFilter = academicLevelFilter;
 
@@ -200,20 +223,46 @@ function SearchComponent() {
 
 
 
+
   useEffect(() => {
-    // Only trigger handleSearch when the academicLevelFilter or semesterFilter changes
+    // Update the previous filters when they change
+    setPreviousAcademicLevelFilter(academicLevelFilter);
+    setPreviousSemesterFilter(semesterFilter);
+  }, [academicLevelFilter, semesterFilter]);
+
+  // Trigger handleSearch when academicLevelFilter or semesterFilter changes
+  useEffect(() => {
     if (academicLevelFilter !== previousAcademicLevelFilter || semesterFilter !== previousSemesterFilter) {
-      handleSearch();
+      memoizedHandleSearch();
     }
-  }, [academicLevelFilter, semesterFilter, previousAcademicLevelFilter, previousSemesterFilter, handleSearch]);
-  
+  }, [academicLevelFilter, semesterFilter, previousAcademicLevelFilter, previousSemesterFilter, memoizedHandleSearch]);
+
   const handleAcademicLevelFilterChange = (event) => {
     setAcademicLevelFilter(event.target.value);
   };
-  
+
   const handleSemesterFilterChange = (event) => {
     setSemesterFilter(event.target.value);
   };
+
+// const handleSearchInputChange = (event) => {
+//   setSearchInput(event.target.value);
+// };  
+
+  // useEffect(() => {
+  //   // Only trigger handleSearch when the academicLevelFilter or semesterFilter changes
+  //   if (academicLevelFilter !== previousAcademicLevelFilter || semesterFilter !== previousSemesterFilter) {
+  //     handleSearch();
+  //   }
+  // }, [academicLevelFilter, semesterFilter, previousAcademicLevelFilter, previousSemesterFilter, handleSearch]);
+  
+  // const handleAcademicLevelFilterChange = (event) => {
+  //   setAcademicLevelFilter(event.target.value);
+  // };
+  
+  // const handleSemesterFilterChange = (event) => {
+  //   setSemesterFilter(event.target.value);
+  // };
 
   const academicLevelFilterOptions = [
     { value: 'all', label: 'All Academic Levels' },
