@@ -36,7 +36,7 @@ function PageTemplate(props){
     <div className="App">
       <header className="App-header">
 
-        { renderTarget !== "catalog-page" && <button onClick={openModal} className="fixed-button" style={{textAlign: "center"}}>i</button>}
+        { renderTarget !== "catalog-page" && <button onClick={openModal} className="fixed-button" style={{textAlign: "center"}}><bold>ⓘ</bold></button>}
       
         <Modal
           isOpen={isModalOpen}
@@ -47,22 +47,23 @@ function PageTemplate(props){
           <div className='scroll-div'>
             <h2 className="modal-content">Info</h2>
             <span className="modal-content">
-              This is an AI-powered search engine and catalog for UVA courses. With you can search for courses using natural language and view near-realtime information about any class at UVA.        
+              UVA Course Explorer is an AI-powered search engine and catalog for UVA courses.    
             </span>
             <br></br><br></br>
 
-            <span>Example queries include: </span>
+            <span>With the search engine, you can search for courses using natural language. Example queries include: </span>
+            <br></br><br></br>
             <li>How has music evolved over time? 🎹</li>
             <li>What happened before the Big Bang? 💥</li>
             <li>How will artificial intelligence impact society? 🤖</li>
 
             <br></br>
-            <span>You can also search for a specific class with its department and course number (CS 1110). We have indexed courses from previous semesters dating back to Fall 2021 for the search engine.</span>
+            <span>You can also search for a specific class with its department and course number (CS 1110). We have indexed courses from previous semesters dating back to Fall 2021.</span>
             
             <br></br>
             <br></br>
 
-            <span>Our catalog contains course information for the latest semester and is updated hourly.</span>
+            <span>Our catalog contains information for all courses in the latest semester and is updated hourly.</span>
             <br></br>
             <br></br>
 

@@ -29,6 +29,7 @@
 }
 
 .fixed-button {
+  font-family: 'Roboto', sans-serif;
   background: #9c5419;;
   color: white;
   position: fixed;
