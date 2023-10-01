@@ -188,7 +188,7 @@ const memoizedHandleSearch = useCallback(async () => {
   const data = await response.json();
   const resultData = data["resultData"];
   setSearchResults(generateSearchResults(resultData));
-}, [searchInput, academicLevelFilter, semesterFilter]);
+}, [searchInput, academicLevelFilter, semesterFilter, generateSearchResults]);
 
 
 
