@@ -136,29 +136,6 @@ function SearchComponent() {
     }
   };
 
-  // const handleSearch = async () => {
-  //   if(searchInput.length === 0) return; 
-  //   setIsLoading(true);
-
-  //   // const response = await fetch("/search", {
-  //   const response = await fetch("https://server-app.fly.dev/search", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ 
-  //       searchInput: searchInput,
-  //       academicLevelFilter: academicLevelFilter,
-  //       semesterFilter: semesterFilter,
-  //       getGraphData: false 
-  //     }),
-  //   });
-
-  //   const data = await response.json();
-  //   const resultData = data["resultData"];
-  //   setSearchResults(generateSearchResults(resultData));
-  // };
-
 
 // Define handleSearch using useCallback
 const memoizedHandleSearch = useCallback(async () => {
