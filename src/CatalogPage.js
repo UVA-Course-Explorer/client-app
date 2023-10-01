@@ -36,11 +36,9 @@ function CatalogPage() {
     let scrollKey = null;
     if(org && number){
       scrollKey = org + number;
-      console.log("scrollKey: " + scrollKey);
     }
     if (scrollKey) {
       setTimeout(() => {
-      console.log("hello");
       // Use JavaScript to scroll to the specified table
       const tableElement = document.getElementById(scrollKey);
       if (tableElement) {
