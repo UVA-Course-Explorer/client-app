@@ -8,8 +8,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding-left: 4em;
-  padding-right: 4em;
+  padding-left: 3.5em;
+  padding-right: 3.5em;
   padding-top: 2em;
   padding-bottom: 2em;
   border-radius: 8px;
@@ -20,8 +20,6 @@
   justify-content: center; /* Horizontal centering */
   font-size: 15px;
 }
-
-
 
 
 .modal-link{
@@ -45,6 +43,8 @@
   width: 2.5rem;
   height: 2.5rem;
   font-size: 1rem;
+  text-align: "center";
+  margin: "0 auto";
 }
 
 .fixed-button:hover {
