@@ -214,7 +214,7 @@ const memoizedHandleSearch = useCallback(async () => {
 
 
   const academicLevelFilterOptions = [
-    { value: 'all', label: 'All Academic Levels' },
+    { value: 'all', label: 'All Academic Careers' },
     { value: 'Undergraduate', label: 'Undergraduate' },
     { value: 'Graduate', label: 'Graduate' },
     { value: 'Law', label: 'Law' },

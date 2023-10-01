@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import './Catalog.css';
 
 function Catalog() {
   const [data, setData] = useState(null);
@@ -62,11 +63,11 @@ function Catalog() {
         {metadata && metadata?.semester && metadata?.last_updated && <h5>{metadata.semester} - Last Updated on {userTime}</h5>}
         {data &&
           Object.entries(data).map(([school, departments]) => (
-            <div key={school}>
-              <h3 onClick={() => toggleSection(school)}>
+            <div key={school} className='catalog-section'>
+              <span onClick={() => toggleSection(school)} className='section-title'>
                 {school}
                 {expandedSections[school] ? ' -' : ' +'}
-              </h3>
+              </span>
               {expandedSections[school] && (
                 <ul className="department-table">
                   {departments.map((department, index) => (

@@ -20,6 +20,17 @@
   box-sizing: border-box; /* Include padding and border in the item width */
 }
 
+.catalog-section{
+  padding-bottom: 25px;
+}
+
+
+.section-title{
+  font-size: 30px;
+  font-weight: bold;
+  color: white;
+}
+
 
 @media (min-width: 100px) {
   .department-table {
@@ -148,6 +159,11 @@ tr{
     font-size: 16px;
   }
   
+
+  .section-title{
+    font-size: 20px;
+  }
+
   .custom-table {
     font-size: 8px;
     width: 100%;
@@ -261,11 +277,10 @@ ul {
 }
 
 
-
-
-
 @media (prefers-color-scheme: light) {
-
+  .section-title{
+    color: #000000;
+  }
   h1, h2, h3, h4, h5 {
     color: #000000;
   }
