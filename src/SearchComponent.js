@@ -205,7 +205,7 @@ function SearchComponent() {
     if (academicLevelFilter !== previousAcademicLevelFilter || semesterFilter !== previousSemesterFilter) {
       handleSearch();
     }
-  }, [academicLevelFilter, semesterFilter, previousAcademicLevelFilter, previousSemesterFilter]);
+  }, [academicLevelFilter, semesterFilter, previousAcademicLevelFilter, previousSemesterFilter, handleSearch]);
   
   const handleAcademicLevelFilterChange = (event) => {
     setAcademicLevelFilter(event.target.value);
