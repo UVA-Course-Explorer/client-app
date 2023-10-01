@@ -18,10 +18,15 @@
   font-size: 100%;
   align-items: center; /* Vertical centering */
   justify-content: center; /* Horizontal centering */
-
-
+  font-size: 15px;
 }
 
+
+
+
+.modal-link{
+  font-size: 15px;
+}
 
 .fixed-button {
   background: #9c5419;;

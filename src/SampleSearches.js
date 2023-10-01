@@ -15,7 +15,6 @@ const SampleSearches = [
     "How has war changed over time?",
     "How do internal combustion engines work?",
     "What makes water wet",
-    "What does it mean to be human",
     "How to get through tough times",
     "Basics of weight lifting",
     "How to live a meaningful life?",
@@ -35,7 +34,8 @@ const SampleSearches = [
     "PHIL 1750",
     "How has education changed over time?",
     "The history of science",
-    "Art of the renaissance era"
+    "Art of the renaissance era",
+    "The Roman Empire",
   ];
   
   export default SampleSearches;

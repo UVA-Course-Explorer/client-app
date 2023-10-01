@@ -195,9 +195,6 @@ select:hover{
   .course-description {
     font-size: calc(14px + 1vw); /* Adjust the formula as needed */
   }
-
-
-
 }
 
 @media (min-width: 1000px) {
@@ -222,7 +219,6 @@ select:hover{
 
 
 @media (prefers-color-scheme: light) {
-
 
   .search-info{
     color: black;
