@@ -22,13 +22,15 @@
 }
 
 
+
+
 .modal-link{
   font-size: 15px;
 }
 
 .fixed-button {
-  font-family: 'Roboto', sans-serif;
-  background: #9c5419;;
+  font-family: Helvetica, sans-serif;
+        background: #9c5419;;
   color: white;
   position: fixed;
   top: 1em;
@@ -39,7 +41,7 @@
   font-size: 100%;
   padding-top: 0.25em;
   padding-bottom: 0.25em;
-  font-weight: bold;
+  font-weight: 600;
   width: 2.5rem;
   height: 2.5rem;
   font-size: 1rem;
@@ -92,6 +94,13 @@
 
 a {
   color: white; /* Set the text color to white */
+}
+
+
+@media (max-width: 786px) {
+  .info-character {
+    margin-right: 3px; /* Adjust the spacing bet */
+  }
 }
 
 
