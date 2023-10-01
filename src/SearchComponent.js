@@ -23,10 +23,21 @@ function SearchComponent() {
   const [isLoading, setIsLoading] = useState(false);
   const [academicLevelFilter, setAcademicLevelFilter] = useState("all");
   const [semesterFilter, setSemesterFilter] = useState("all");
-
+  const [previousAcademicLevelFilter, setPreviousAcademicLevelFilter] = useState(academicLevelFilter);
+  const [previousSemesterFilter, setPreviousSemesterFilter] = useState(semesterFilter);
+  
   const [placeholderText, setPlaceholderText] = useState('');
   const [currentOptionIndex, setCurrentOptionIndex] = useState(0);
   const typingSpeed = 50; // Adjust the typing speed (milliseconds per character)
+
+
+
+
+  useEffect(() => {
+    // Update the previous filters when they change
+    setPreviousAcademicLevelFilter(academicLevelFilter);
+    setPreviousSemesterFilter(semesterFilter);
+  }, [academicLevelFilter, semesterFilter]);
 
 
   // Function to simulate typing for the current placeholder option
@@ -133,7 +144,6 @@ function SearchComponent() {
     if (inputText.length <= maxLength) {
       setSearchInput(event.target.value);
     }
-    
   };
 
   const handleSearch = async () => {
@@ -189,21 +199,21 @@ function SearchComponent() {
   };
 
 
+
   useEffect(() => {
-    handleSearch();
-  }, [academicLevelFilter, semesterFilter]);
-
-
-  const handleAcademicLevelFiterChange = (event) => {
+    // Only trigger handleSearch when the academicLevelFilter or semesterFilter changes
+    if (academicLevelFilter !== previousAcademicLevelFilter || semesterFilter !== previousSemesterFilter) {
+      handleSearch();
+    }
+  }, [academicLevelFilter, semesterFilter, previousAcademicLevelFilter, previousSemesterFilter]);
+  
+  const handleAcademicLevelFilterChange = (event) => {
     setAcademicLevelFilter(event.target.value);
-    // handleSearch();
-
-  }
-
+  };
+  
   const handleSemesterFilterChange = (event) => {
     setSemesterFilter(event.target.value);
-    // handleSearch();
-  }
+  };
 
   const academicLevelFilterOptions = [
     { value: 'all', label: 'All Academic Levels' },
@@ -234,7 +244,7 @@ function SearchComponent() {
 
       <div style={{ display: 'flex' , flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center'}}>
         <div>
-          <select id="academicLevelDropdown" value={academicLevelFilter} onChange={handleAcademicLevelFiterChange}>
+          <select id="academicLevelDropdown" value={academicLevelFilter} onChange={handleAcademicLevelFilterChange}>
           {academicLevelFilterOptions.map((option) => (
             <option key={option.value} value={option.value}>
             {option.label}
