@@ -30,12 +30,6 @@ function SearchComponent() {
   const [currentOptionIndex, setCurrentOptionIndex] = useState(0);
   const typingSpeed = 50; // Adjust the typing speed (milliseconds per character)
 
-
-
-
-
-
-
   // Function to simulate typing for the current placeholder option
   const typeCurrentOption = () => {
     const currentOption = searchOptions[currentOptionIndex];
@@ -92,7 +86,7 @@ function SearchComponent() {
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault(); // Prevent the default Enter key behavior (usually adding a new line)
-      handleSearch();
+      memoizedHandleSearch();
     }
   };
 
@@ -104,7 +98,7 @@ function SearchComponent() {
     });
   };
 
-
+// eslint-disable-next-line
   function generateSearchResults(data) {
     if (data && Array.isArray(data)) {
       const searchResults = data.map((result, index) => (
@@ -142,29 +136,28 @@ function SearchComponent() {
     }
   };
 
-  const handleSearch = async () => {
-    if(searchInput.length === 0) return; 
-    setIsLoading(true);
+  // const handleSearch = async () => {
+  //   if(searchInput.length === 0) return; 
+  //   setIsLoading(true);
 
-    // const response = await fetch("/search", {
-    const response = await fetch("https://server-app.fly.dev/search", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ 
-        searchInput: searchInput,
-        academicLevelFilter: academicLevelFilter,
-        semesterFilter: semesterFilter,
-        getGraphData: false 
-      }),
-    });
+  //   // const response = await fetch("/search", {
+  //   const response = await fetch("https://server-app.fly.dev/search", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ 
+  //       searchInput: searchInput,
+  //       academicLevelFilter: academicLevelFilter,
+  //       semesterFilter: semesterFilter,
+  //       getGraphData: false 
+  //     }),
+  //   });
 
-    const data = await response.json();
-    const resultData = data["resultData"];
-    setSearchResults(generateSearchResults(resultData));
-  };
-
+  //   const data = await response.json();
+  //   const resultData = data["resultData"];
+  //   setSearchResults(generateSearchResults(resultData));
+  // };
 
 
 // Define handleSearch using useCallback
@@ -221,9 +214,6 @@ const memoizedHandleSearch = useCallback(async () => {
     setSearchResults(generateSearchResults(resultData));
   };
 
-
-
-
   useEffect(() => {
     // Update the previous filters when they change
     setPreviousAcademicLevelFilter(academicLevelFilter);
@@ -245,24 +235,6 @@ const memoizedHandleSearch = useCallback(async () => {
     setSemesterFilter(event.target.value);
   };
 
-// const handleSearchInputChange = (event) => {
-//   setSearchInput(event.target.value);
-// };  
-
-  // useEffect(() => {
-  //   // Only trigger handleSearch when the academicLevelFilter or semesterFilter changes
-  //   if (academicLevelFilter !== previousAcademicLevelFilter || semesterFilter !== previousSemesterFilter) {
-  //     handleSearch();
-  //   }
-  // }, [academicLevelFilter, semesterFilter, previousAcademicLevelFilter, previousSemesterFilter, handleSearch]);
-  
-  // const handleAcademicLevelFilterChange = (event) => {
-  //   setAcademicLevelFilter(event.target.value);
-  // };
-  
-  // const handleSemesterFilterChange = (event) => {
-  //   setSemesterFilter(event.target.value);
-  // };
 
   const academicLevelFilterOptions = [
     { value: 'all', label: 'All Academic Levels' },
@@ -289,7 +261,7 @@ const memoizedHandleSearch = useCallback(async () => {
           {searchInput.length}/{maxLength}
         </div>
       </div>
-      <div><button className={"searchButton"} onClick={handleSearch}>Search</button></div>
+      <div><button className={"searchButton"} onClick={memoizedHandleSearch}>Search</button></div>
 
       <div style={{ display: 'flex' , flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center'}}>
         <div>
