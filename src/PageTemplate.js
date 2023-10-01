@@ -36,7 +36,7 @@ function PageTemplate(props){
     <div className="App">
       <header className="App-header">
 
-        { renderTarget !== "catalog-page" && <button onClick={openModal} className="fixed-button" style={{textAlign: "center"}}><span className='info-character'>ⓘ</span></button>}
+        { renderTarget !== "catalog-page" && <button onClick={openModal} className="fixed-button" style={{textAlign: "center"}}><span className='info-character'>i</span></button>}
       
         <Modal
           isOpen={isModalOpen}

@@ -35,16 +35,15 @@
   position: fixed;
   top: 1em;
   right: 1em;
-  font-size: 1em;
   border: none;
   border-radius: 5px;
   font-size: 100%;
   padding-top: 0.25em;
   padding-bottom: 0.25em;
-  font-weight: 600;
+  font-weight: 500;
   width: 2.5rem;
   height: 2.5rem;
-  font-size: 1rem;
+  font-size: 1.3rem;
   text-align: "center";
   margin: "0 auto";
 }
@@ -94,13 +93,6 @@
 
 a {
   color: white; /* Set the text color to white */
-}
-
-
-@media (max-width: 786px) {
-  .info-character {
-    margin-right: 100px; /* Adjust the spacing bet */
-  }
 }
 
 
