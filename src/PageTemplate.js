@@ -44,7 +44,6 @@ function PageTemplate(props){
           onRequestClose={closeModal}
           contentLabel="Example Modal"
           className="modal"
-          overlayClassName="modal-overlay"
           >
   
           <div className='scroll-div'>
