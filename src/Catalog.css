@@ -134,16 +134,26 @@ tr{
 .custom-table .title-header {
   position: sticky;
   top: 0;
-  z-index: 5; /* Ensure the header appears above the table content */
+  /* z-index: 5;  */
 }
 
-.course-title{
+.headers {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.course-title {
   font-size: 30px;
   font-weight: bold;
+  text-align: center;
+  flex-grow: 1;
 }
 
 .external-buttons{
-  width: 20%
+  width: 20%;
+  text-align: right;
 }
 
 @media (max-width: 768px) {
@@ -158,22 +168,18 @@ tr{
   .custom-table {
     font-size: 8px;
     width: 100%;
-    /* Adjust other styles to fit smaller screens */
   }
 
   .catalog-button {
     text-align: right;
     font-size: 8px;
-    /* Adjust other styles to fit smaller screens */
   }
 
   .external-buttons{
-    padding: 0.2em 0.2em;
-    width: 5%;
+    text-align: right;
   }
   .course-title {
       font-size: 10px;
-      /* Adjust other styles to fit smaller screens */
   }
 
   .custom-table button{
