@@ -38,11 +38,14 @@ function PageTemplate(props){
 
         { renderTarget !== "catalog-page" && <button onClick={openModal} className="fixed-button" style={{textAlign: "center"}}><span className='info-character'>i</span></button>}
       
+        <div className="modal-background">
         <Modal
           isOpen={isModalOpen}
           onRequestClose={closeModal}
           contentLabel="Example Modal"
-          className="modal">
+          className="modal"
+          overlayClassName="modal-overlay"
+          >
   
           <div className='scroll-div'>
             <h2 className="modal-content">Info</h2>
@@ -78,6 +81,7 @@ function PageTemplate(props){
             <button onClick={closeModal} className="close-button">X</button>
           </div>
         </Modal>
+        </div>
 
         <p className="App-Title">UVA Course Explorer</p>
         <div className="nav-bar">

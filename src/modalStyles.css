@@ -22,15 +22,13 @@
 }
 
 
-
-
 .modal-link{
   font-size: 15px;
 }
 
 .fixed-button {
   font-family: Helvetica, sans-serif;
-        background: #9c5419;;
+  background: #9c5419;;
   color: white;
   position: fixed;
   top: 1em;
@@ -50,6 +48,11 @@
 
 .fixed-button:hover {
     background: #c9732c;
+}
+
+
+.modal-overlay{
+  color: #2b2b2e;
 }
 
 
