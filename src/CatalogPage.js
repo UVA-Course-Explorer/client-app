@@ -6,13 +6,21 @@ import './Catalog.css'
 function CatalogPage() {
   const { department, org, number} = useParams();
   const [data, setData] = useState(null);
+  const [metadata, setMetadata] = useState(null);
   let scrollKey;
 
   const fetchCatalogIndexData = useCallback(async () => {
     try {
-      const response = await fetch(`https://uva-course-explorer.github.io/json/${department}.json`);
+      // const response = await fetch(`https://uva-course-explorer.github.io/json/${department}.json`);
+      const response = await fetch(`https://raw.githubusercontent.com/UVA-Course-Explorer/course-data/main/json/${department}.json`)
       const jsonData = await response.json();
       setData(jsonData);
+
+      const metadataResponse = await fetch(`https://raw.githubusercontent.com/UVA-Course-Explorer/course-data/main/json/metadata.json`);
+      const metadata = await metadataResponse.json();
+      setMetadata(metadata);
+
+      
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -28,17 +36,15 @@ function CatalogPage() {
     let scrollKey = null;
     if(org && number){
       scrollKey = org + number;
-      console.log("scrollKey: " + scrollKey);
     }
     if (scrollKey) {
       setTimeout(() => {
-      console.log("hello");
       // Use JavaScript to scroll to the specified table
       const tableElement = document.getElementById(scrollKey);
       if (tableElement) {
         tableElement.scrollIntoView({ behavior: 'smooth' });
       }
-      }, 250);
+      }, 750);
     }
   }, [number, org]);
 
@@ -97,6 +103,22 @@ function CatalogPage() {
   // generate list of HTML elements
   // loop over the data and create a list of links
   const elements = [];
+
+  if (metadata && metadata?.semester && metadata?.last_updated) {
+
+        // Create a Date object from the UTC time string
+        const utcDate = new Date(metadata.last_updated);
+
+        // Get the user's current timezone
+        const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    
+        // Format the UTC time to the user's timezone
+        const userTimeOptions = { timeZone: userTimezone, hour12: true, month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'};
+        const userTime = utcDate.toLocaleTimeString(undefined, userTimeOptions);
+
+    elements.push(<h5>{metadata.semester} - Last Updated on {userTime}</h5>);
+  }
+
   if(data) {
     for (const [subject, courseArr] of Object.entries(data)) {
       elements.push(<h2>{subject}</h2>);

@@ -3,6 +3,7 @@ import React, { useState} from "react";
 import Catalog from './Catalog';
 import SearchComponent from './SearchComponent';
 import CatalogPage from './CatalogPage';
+import './modalStyles.css'
 
 function PageTemplate(props){
     
@@ -35,35 +36,51 @@ function PageTemplate(props){
     <div className="App">
       <header className="App-header">
 
-        { renderTarget !== "catalog-page" && <button onClick={openModal} className="fixed-button" style={{textAlign: "center"}}>ⓘ</button>}
+        { renderTarget !== "catalog-page" && <button onClick={openModal} className="fixed-button" style={{textAlign: "center"}}><span className='info-character'>i</span></button>}
       
+        <div className="modal-background">
         <Modal
           isOpen={isModalOpen}
           onRequestClose={closeModal}
           contentLabel="Example Modal"
-          className = "modal">
+          className="modal"
+          >
   
           <div className='scroll-div'>
-            <h2 className="modal-content">UVA Course Explorer Info</h2>
-            <p className="modal-content">
-              This is an AI-powered semantic search engine for UVA courses. With it, you can search for courses using regular natural language and get results similar to your query.        
-            </p>
-    
-            <p>Example queries include: </p>
+            <h2 className="modal-content">Info</h2>
+            <span className="modal-content">
+              UVA Course Explorer is an AI-powered search engine and catalog for UVA courses.    
+            </span>
+            <br></br><br></br>
+
+            <span>With the search engine, you can search for courses using natural language. Example queries include: </span>
+            <br></br><br></br>
             <li>How has music evolved over time? 🎹</li>
             <li>What happened before the Big Bang? 💥</li>
-            <li>Famous explorers across the ages 🌎</li>
             <li>How will artificial intelligence impact society? 🤖</li>
-            <li>What is the meaning of life? 🤔</li>
-    
-            <p>You can also filter based on academic level and semester. Currently, we have indexed courses from previous semesters dating back to Fall 2021.</p>
-            If you have any questions or feedback, please reach out to us through this <a href="https://forms.gle/Jq2di8Zji4tDNKZF8">form</a>. We hope you find this tool useful 😊. 
+
+            <br></br>
+            <span>You can also search for a specific class with its department and course number (CS 1110). We have indexed courses from previous semesters dating back to Fall 2021.</span>
+            
+            <br></br>
+            <br></br>
+
+            <span>Our catalog contains information for all courses in the latest semester and is updated hourly.</span>
+            <br></br>
+            <br></br>
+
+
+            If you have any questions or feedback, please reach out to us through this <a href="https://forms.gle/Jq2di8Zji4tDNKZF8" className="modal-link">form</a>. 
+            For a technical overview of the project and a discussion of its limitations, please refer to our <a href="https://github.com/UVA-Course-Explorer" className="modal-link">GitHub</a>.
+            
+            <br></br> <br></br>
+            We hope you find this tool useful 😊.
           </div>
-  
           <div>
             <button onClick={closeModal} className="close-button">X</button>
           </div>
         </Modal>
+        </div>
 
         <p className="App-Title">UVA Course Explorer</p>
         <div className="nav-bar">
