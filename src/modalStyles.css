@@ -19,6 +19,7 @@
   align-items: center; /* Vertical centering */
   justify-content: center; /* Horizontal centering */
   font-size: 15px;
+  border: 1px solid white; /* Adding a white solid border */
 }
 
 
