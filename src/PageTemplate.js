@@ -60,7 +60,7 @@ function PageTemplate(props){
             <li>How will artificial intelligence impact society? 🤖</li>
 
             <br></br>
-            <span>You can also search for a specific class with its department and course number (CS 1110). We have indexed courses from previous semesters dating back to Fall 2021.</span>
+            <span>You can also search for a specific class with its department and course number (CS 1110). We have indexed courses from previous semesters dating back to Fall 2021. <b>Disclaimer</b>: We log all search queries, but do not save any user-specific information.</span>
             
             <br></br>
             <br></br>
