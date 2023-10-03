@@ -190,6 +190,14 @@ select:hover{
 }
 
 
+
+@media (max-width: 786px){
+  .search-info{
+    font-size: 0.72em;
+  }
+
+}
+
 /* Use media queries to adjust the font size based on screen width */
 @media (min-width: 600px) {
   .course-description {
@@ -204,7 +212,6 @@ select:hover{
   .accordion {
     width: 70%;
   }
-
 
 }
 
