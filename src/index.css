@@ -191,10 +191,9 @@ select:hover{
 
 
 
-@media (max-wigth: 786px){
+@media (max-width: 786px){
   .search-info{
-
-    font-size:0.5rem;
+    font-size: 0.72em;
   }
 
 }
