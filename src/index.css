@@ -90,7 +90,12 @@ select {
   font-weight: bold;
 }
 
+select:hover{
+  background-color: #184276;
+}
+
 .course-description {
+  color: white;
   font-size: 4vw;
   margin-bottom: 1.5rem;
   text-align: left;
@@ -164,6 +169,16 @@ select {
   color: white;
 }
 
+
+.search-info{
+  font-size: 1rem;
+  font-weight:'bold';
+  margin-left:'1rem';
+  margin-right:'1rem';
+  color: white;
+  font-weight: 700;
+}
+
 @media screen and (max-width: 80%) {
   body {
     font-size: 12px;
@@ -189,6 +204,8 @@ select {
   .accordion {
     width: 70%;
   }
+
+
 }
 
 @media (min-width: 2000px) {
@@ -202,10 +219,19 @@ select {
 
 
 @media (prefers-color-scheme: light) {
+
+  .search-info{
+    color: black;
+  }
   textarea {
     background: #fff;
+
     border: 3px solid black; /* Adding a white solid border */
     color: #000000;
+  }
+
+  .course-description {
+    color: black;
   }
   .loadingText {
     color: black;
@@ -218,18 +244,29 @@ select {
     background: #f48b70;
   } 
   select{
-    background: #fff;
+    background-color: #fff;
+
     color: #000000;
     border: 2px solid black; /* Adding a white solid border */
   }
-  .accordion-title {
+
+
+  select:hover{
     background-color: #fff4e6;
+    background-color: #ffdeb3;
+  }
+
+  .accordion-title {
+    background-color: #ffdeb3;
+
+
     color: #000000;
     border: 2px solid black; /* Adding a white solid border */
     border-bottom: none;
   }
   .accordion-title:hover {
-    background-color: #ffdeb3;
+    background-color: #fff4e6;
+
   }
   .accordion-content {
     background-color: #fff;

@@ -15,6 +15,24 @@
 }
 
 
+.nav-button{
+  padding: 1em;
+  font-size: 30px;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.nav-bar {
+  padding-bottom: 0.5em;
+}
+
+
+.underlined{
+  text-decoration: underline;
+  /* border-bottom: 1px solid black; Set the desired thickness and color */
+}
+
+
 .App-header {
   background-color: #191c21;
   min-height: 100vh;
@@ -26,9 +44,11 @@
   color: white;
 }
 
+
 body {
   background-color: #191c21;
 }
+
 
 .App-Title {
   color: #ffffff;
@@ -38,7 +58,9 @@ body {
   font-size: 90px;
   font-weight: 500;
   font-size: 50px;
+  margin-bottom: 0.25em;
 }
+
 
 @media (prefers-color-scheme: light) {
   .App-header {
@@ -52,9 +74,11 @@ body {
   }
 }
 
+
 .App-link {
   color: #61dafb;
 }
+
 
 @keyframes App-logo-spin {
   from {
@@ -64,6 +88,20 @@ body {
     transform: rotate(360deg);
   }
 }
+
+
+/* 
+@media (min-width: 768px) {
+  .nav-bar{
+    width: 70%;
+  }
+
+  .nav-button{
+    padding: 0.1em;
+    font-weight: 500;
+    text-decoration: none;
+  }
+} */
 
 
 .github-icon {
@@ -76,11 +114,13 @@ body {
   z-index: 1000; 
 }
 
+
 .github-icon img {
   width: 1.5em; /* Adjust the size as needed */
   height: 1.5em;
   padding-bottom: 0.1em;
 }
+
 
 /* Use media queries to adjust the font size based on screen width */
 @media (min-width: 1000px) {
@@ -88,7 +128,3 @@ body {
     font-size: 90px;
   }
 }
-
-
-
-

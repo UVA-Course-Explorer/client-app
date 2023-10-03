@@ -42,20 +42,32 @@ const CourseResultComponent = (props) => {
     props.onMoreLikeThisClick(props.mnemonic, props.catalog_number);
   }
 
-  const getSisLink = () => {
+  // const getSisLink = () => {
+  //   if(props.strm.toString() === latestSem){
+  //     //search link
+  //     return `https://sisuva.admin.virginia.edu/psp/ihprd/UVSS/SA/s/WEBLIB_HCX_CM.H_CLASS_SEARCH.FieldFormula.IScript_Main?catalog_nbr=${props.catalog_number}&subject=${props.mnemonic}`
+  //   }
+  //   //share link
+  //   return `https://sisuva.admin.virginia.edu/psc/ihprd/UVSS/SA/s/WEBLIB_HCX_CM.H_CLASS_DETAILS.FieldFormula.IScript_Main?institution=UVA01&term=${props.strm}&class_nbr=${props.class_number}`
+  // }
+
+  const getLink = () => {
+
+    const splitCatalogNumber = props.catalog_number.split(".")[0];
     if(props.strm.toString() === latestSem){
       //search link
-      return `https://sisuva.admin.virginia.edu/psp/ihprd/UVSS/SA/s/WEBLIB_HCX_CM.H_CLASS_SEARCH.FieldFormula.IScript_Main?catalog_nbr=${props.catalog_number}&subject=${props.mnemonic}`
+      return `/catalog/${props.group}/${props.mnemonic}/${splitCatalogNumber}`
     }
-    //share link
-    return `https://sisuva.admin.virginia.edu/psc/ihprd/UVSS/SA/s/WEBLIB_HCX_CM.H_CLASS_DETAILS.FieldFormula.IScript_Main?institution=UVA01&term=${props.strm}&class_nbr=${props.class_number}`
-  }
+    //sis share link
+    // return `https://sisuva.admin.virginia.edu/psc/ihprd/UVSS/SA/s/WEBLIB_HCX_CM.H_CLASS_DETAILS.FieldFormula.IScript_Main?institution=UVA01&term=${props.strm}&class_nbr=${props.class_number}`
+    return `https://thecourseforum.com/course/${props.mnemonic}/${splitCatalogNumber}`
+}
 
   return (
     <React.Fragment>
       <div className="accordion" style={{paddingBottom:'20px'}}>
         <div className="accordion-item">
-          <a href={getSisLink()} target="_blank" rel="noopener noreferrer" className="accordion-title">
+          <a href={getLink()} target="_blank" rel="noopener noreferrer" className="accordion-title">
             <div>
               <div className="accordion-title-content">
                 {props.mnemonic} {props.catalog_number}: {props.name} ({props.level})
@@ -64,10 +76,13 @@ const CourseResultComponent = (props) => {
           </a>
           <div className="accordion-content">
             <div className='course-description'>{props.description}</div>
+
+
+
             <div style={{display: 'flex' , flexDirection: 'row', flexWrap: 'nowrap', justifyContent: 'space-between', alignItems: 'center'}}>
-              <div style={{fontSize: '70%', fontWeight:'bold', marginLeft:'1rem', marginRight:'1rem'}}>Similarity Score: {props.similarity_score.toFixed(3)}</div>
-              <div style={{fontSize: '70%', fontWeight:'bold', marginLeft:'1rem', marginRight:'1rem'}}>Credits: {props.credits}</div>
-              <div style={{fontSize: '70%', fontWeight:'bold', marginLeft:'1rem', marginRight:'1rem'}}>Latest Sem: {mapNumberToSeasonWithMiddleDigits(props.strm)}</div>
+              <div className="search-info">Similarity Score: {(props.similarity_score * 100).toFixed(1)}%</div>
+              <div className="search-info">Credits: {props.credits}</div>
+              <div className="search-info">Latest Sem: {mapNumberToSeasonWithMiddleDigits(props.strm)}</div>
             </div>
             <button className="moreLikeThisButton" onClick={handleMoreLikeThisButtonClick}>Find more like this</button>
           </div>
