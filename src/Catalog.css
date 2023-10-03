@@ -20,14 +20,17 @@ body{
   flex-wrap: wrap; /* Allow items to wrap to the next row */
   justify-content: center; /* Center items horizontally */
   list-style: none; /* Remove list bullet points */
-  padding: 0;
   margin: 0 auto; /* Auto margin for centering horizontally */
 }
 
 .department-item {
-  flex-basis: calc(50% - 10px); /* Two items per row, accounting for grid gap */
+  flex-basis: calc(50% - 10px); /*Two items per row, accounting for grid gap*/
   text-align: center;
   box-sizing: border-box; /* Include padding and border in the item width */
+}
+
+strong{
+  font-size: 15px;
 }
 
 .catalog-section{
@@ -56,6 +59,17 @@ body{
 
 
 
+  @media (max-width: 768px) { /* Adjust the breakpoint as needed */
+    .department-item {
+      flex-basis: 100%; /* Set it to 100% to display one item per row on mobile */
+      margin-top: 1em;
+    }
+
+    strong{
+      font-size: 14px;
+    }
+
+}
 
 
 
