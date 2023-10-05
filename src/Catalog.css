@@ -12,7 +12,8 @@ body{
 /* Center the table horizontally */
 .custom-table-container {
   text-align: center; /* Center-align the table within its container */
-  width: 100%; /* Set the table width to 100% */
+  width: calc(100% - 20px)
+  /* width: 100%; Set the table width to 100% */
 }
 
 .department-table {
@@ -244,8 +245,6 @@ tr{
 
 @media (max-width: 1000px) {
 
-
-
   h2{
     font-size: 16px
   }
@@ -260,7 +259,9 @@ tr{
   }
 
   .custom-table {
-    width: 100%;
+    /* width: 100%; */
+    width: calc(100% - 10px);
+    font-size: 0.5rem;
     /* Adjust other styles to fit smaller screens */
   }
 
