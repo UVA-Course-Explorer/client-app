@@ -95,6 +95,10 @@ function CatalogPage() {
     return `https://sisuva.admin.virginia.edu/psp/ihprd/UVSS/SA/s/WEBLIB_HCX_CM.H_CLASS_SEARCH.FieldFormula.IScript_Main?catalog_nbr=${catalog_number}&subject=${subject}`
   }
 
+  const getVAGradesLink = (subject, catalog_number) => {
+    return `https://vagrades.com/uva/${subject}${catalog_number}`
+  }
+
 
   const getCourseForumLink = (subject, catalog_number) => {
     return `https://thecourseforum.com/course/${subject}/${catalog_number}`
@@ -132,6 +136,7 @@ function CatalogPage() {
             <div className = "button-container">
             <th className="sis-button"><a target="_blank" rel="noopener noreferrer" href={getSisLink(course.subject, course.catalog_number) }><button className="catalog-button">SIS</button></a></th>
             <th><a target="_blank" rel="noopener noreferrer" href={getCourseForumLink(course.subject, course.catalog_number)}><button className="catalog-button">theCourseForum</button></a> </th>
+            <th><a target="_blank" rel="noopener noreferrer" href={getVAGradesLink(course.subject, course.catalog_number)}> <button className="catalog-button hide-button">VA Grades</button></a></th>
             </div>
 
           </th>
