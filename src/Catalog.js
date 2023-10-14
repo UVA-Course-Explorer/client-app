@@ -64,9 +64,6 @@ function Catalog() {
   return (
     <div className="catalog">
       <div>
-
-        
-        
         {metadata && metadata?.semester && metadata?.last_updated && <h3>{metadata.semester} - Last Updated on {userTime}</h3>}
               <Link to={`/catalog/semesters`}><h3>Other Semesters</h3></Link>
             <br></br>

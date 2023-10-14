@@ -297,9 +297,10 @@ tr{
   tr{
     font-size: 6px;
   }
+
   .section-type{
     width: 40%;
-    font-size: 8px;
+    font-size: 6px;
   }
 
   .section-number{
