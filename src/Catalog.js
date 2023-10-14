@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useParams} from 'react-router-dom';
+
 import './Catalog.css';
 
 function Catalog() {
+  const {semester} = useParams();
+
   const [data, setData] = useState(null);
   const [expandedSections, setExpandedSections] = useState({});
   const [metadata, setMetadata] = useState(null);
@@ -12,11 +16,12 @@ function Catalog() {
 
   async function fetchCatalogIndexData() {
     try {
-      const response = await fetch("https://raw.githubusercontent.com/UVA-Course-Explorer/course-data/main/json/latest_sem.json");
+
+      const response = await fetch(`https://raw.githubusercontent.com/UVA-Course-Explorer/course-data/main/data/${semester}/latest_sem.json`);
       const jsonData = await response.json();
       setData(jsonData);
 
-      const metadataResponse = await fetch(`https://raw.githubusercontent.com/UVA-Course-Explorer/course-data/main/json/metadata.json`);
+      const metadataResponse = await fetch(`https://raw.githubusercontent.com/UVA-Course-Explorer/course-data/main/data/${semester}/metadata.json`);
       const metadata = await metadataResponse.json();
       setMetadata(metadata);
 
@@ -60,7 +65,14 @@ function Catalog() {
   return (
     <div className="catalog">
       <div>
-        {metadata && metadata?.semester && metadata?.last_updated && <h5>{metadata.semester} - Last Updated on {userTime}</h5>}
+
+        
+        
+        {metadata && metadata?.semester && metadata?.last_updated && <h3>{metadata.semester} - Last Updated on {userTime}</h3>}
+              <Link to={`/catalog/semesters`}><h3>Other Semesters</h3></Link>
+            <br></br>
+
+
         {data &&
           Object.entries(data).map(([school, departments]) => (
             <div key={school} className='catalog-section'>
@@ -72,7 +84,7 @@ function Catalog() {
                 <ul className="department-table">
                   {departments.map((department, index) => (
                     <li key={index} className="department-item">
-                      <Link to={`/catalog/${department.abbr}`}>
+                      <Link to={`/catalog/${semester}/${department.abbr}`}>
                         <strong className="department-name">{department.name}</strong>
                       </Link>
                     </li>

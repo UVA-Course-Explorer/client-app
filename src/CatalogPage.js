@@ -4,7 +4,7 @@ import { useParams} from 'react-router-dom';
 import './Catalog.css'
 
 function CatalogPage() {
-  const { department, org, number} = useParams();
+  const { semester, department, org, number} = useParams();
   const [data, setData] = useState(null);
   const [metadata, setMetadata] = useState(null);
   let scrollKey;
@@ -12,11 +12,11 @@ function CatalogPage() {
   const fetchCatalogIndexData = useCallback(async () => {
     try {
       // const response = await fetch(`https://uva-course-explorer.github.io/json/${department}.json`);
-      const response = await fetch(`https://raw.githubusercontent.com/UVA-Course-Explorer/course-data/main/json/${department}.json`)
+      const response = await fetch(`https://raw.githubusercontent.com/UVA-Course-Explorer/course-data/main/data/${semester}/${department}.json`)
       const jsonData = await response.json();
       setData(jsonData);
 
-      const metadataResponse = await fetch(`https://raw.githubusercontent.com/UVA-Course-Explorer/course-data/main/json/metadata.json`);
+      const metadataResponse = await fetch(`https://raw.githubusercontent.com/UVA-Course-Explorer/course-data/main/data/${semester}/metadata.json`);
       const metadata = await metadataResponse.json();
       setMetadata(metadata);
 

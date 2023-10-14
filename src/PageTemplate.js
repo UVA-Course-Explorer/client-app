@@ -4,6 +4,8 @@ import Catalog from './Catalog';
 import SearchComponent from './SearchComponent';
 import CatalogPage from './CatalogPage';
 import './modalStyles.css'
+import latestSemester from './LatestSemester';
+import AllSemesters from './AllSemesters';
 
 function PageTemplate(props){
     
@@ -29,9 +31,16 @@ function PageTemplate(props){
     content = <Catalog/>;
   }
   else if (renderTarget === "catalog-page"){
-    content = <CatalogPage department_abbr={props.data}/>;
+    content = <CatalogPage/>;
+  }
+
+  else if(renderTarget === "catalog-semester-list"){
+    content = <AllSemesters/>;
   }
   
+
+
+
   return (
     <div className="App">
       <header className="App-header">
@@ -43,8 +52,7 @@ function PageTemplate(props){
           isOpen={isModalOpen}
           onRequestClose={closeModal}
           contentLabel="Example Modal"
-          className="modal"
-          >
+          className="modal">
   
           <div className='scroll-div'>
             <h2 className="modal-content">Info</h2>
@@ -85,7 +93,7 @@ function PageTemplate(props){
         <p className="App-Title">UVA Course Explorer</p>
         <div className="nav-bar">
           <a className={`nav-button ${renderTarget === 'search' ? 'underlined' : ''}`} href="/search">Search</a>
-          <a className={`nav-button ${renderTarget === 'catalog' || renderTarget==='catalog-page' ? 'underlined' : ''}`} href="/catalog">Catalog</a>
+          <a className={`nav-button ${renderTarget === 'catalog' || renderTarget === 'catalog-page' || renderTarget === 'catalog-semester-list' ? 'underlined' : ''}`} href={`/catalog/${latestSemester}`}> Catalog </a>
         </div>
         {content}
       </header>
