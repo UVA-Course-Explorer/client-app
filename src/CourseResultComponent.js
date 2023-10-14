@@ -21,7 +21,7 @@ function mapNumberToSeasonWithMiddleDigits(number) {
           result = "Spring ";
           break;
       case 1:
-          result = "Winter ";
+          result = "January ";
           break;
       case 6:
           result = "Summer ";

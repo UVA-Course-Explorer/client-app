@@ -4,7 +4,7 @@ import { useParams} from 'react-router-dom';
 import './Catalog.css'
 
 function CatalogPage() {
-  const { department, org, number} = useParams();
+  const { semester, department, org, number} = useParams();
   const [data, setData] = useState(null);
   const [metadata, setMetadata] = useState(null);
   let scrollKey;
@@ -12,11 +12,11 @@ function CatalogPage() {
   const fetchCatalogIndexData = useCallback(async () => {
     try {
       // const response = await fetch(`https://uva-course-explorer.github.io/json/${department}.json`);
-      const response = await fetch(`https://raw.githubusercontent.com/UVA-Course-Explorer/course-data/main/json/${department}.json`)
+      const response = await fetch(`https://raw.githubusercontent.com/UVA-Course-Explorer/course-data/main/data/${semester}/${department}.json`)
       const jsonData = await response.json();
       setData(jsonData);
 
-      const metadataResponse = await fetch(`https://raw.githubusercontent.com/UVA-Course-Explorer/course-data/main/json/metadata.json`);
+      const metadataResponse = await fetch(`https://raw.githubusercontent.com/UVA-Course-Explorer/course-data/main/data/${semester}/metadata.json`);
       const metadata = await metadataResponse.json();
       setMetadata(metadata);
 
@@ -24,7 +24,7 @@ function CatalogPage() {
     } catch (error) {
       console.error('Error fetching data:', error);
     }
-  }, [department]); // Include department in the dependency array
+  }, [department, semester]); // Include department in the dependency array
   
   useEffect(() => {
     fetchCatalogIndexData();
@@ -95,6 +95,10 @@ function CatalogPage() {
     return `https://sisuva.admin.virginia.edu/psp/ihprd/UVSS/SA/s/WEBLIB_HCX_CM.H_CLASS_SEARCH.FieldFormula.IScript_Main?catalog_nbr=${catalog_number}&subject=${subject}`
   }
 
+  const getVAGradesLink = (subject, catalog_number) => {
+    return `https://vagrades.com/uva/${subject}${catalog_number}`
+  }
+
 
   const getCourseForumLink = (subject, catalog_number) => {
     return `https://thecourseforum.com/course/${subject}/${catalog_number}`
@@ -113,10 +117,10 @@ function CatalogPage() {
         const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     
         // Format the UTC time to the user's timezone
-        const userTimeOptions = { timeZone: userTimezone, hour12: true, month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'};
+        const userTimeOptions = { timeZone: userTimezone, hour12: true, year: '2-digit', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'};
         const userTime = utcDate.toLocaleTimeString(undefined, userTimeOptions);
 
-    elements.push(<h5>{metadata.semester} - Last Updated on {userTime}</h5>);
+    elements.push(<h3>{metadata.semester} - Last Updated on {userTime}</h3>);
   }
 
   if(data) {
@@ -132,6 +136,7 @@ function CatalogPage() {
             <div className = "button-container">
             <th className="sis-button"><a target="_blank" rel="noopener noreferrer" href={getSisLink(course.subject, course.catalog_number) }><button className="catalog-button">SIS</button></a></th>
             <th><a target="_blank" rel="noopener noreferrer" href={getCourseForumLink(course.subject, course.catalog_number)}><button className="catalog-button">theCourseForum</button></a> </th>
+            <th><a target="_blank" rel="noopener noreferrer" href={getVAGradesLink(course.subject, course.catalog_number)}> <button className="catalog-button hide-button">VA Grades</button></a></th>
             </div>
 
           </th>

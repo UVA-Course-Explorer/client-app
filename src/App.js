@@ -13,12 +13,16 @@ function App() {
 return (
   <Router>
     <Routes>
-    <Route path="/catalog/:department" element={<PageTemplate target={"catalog-page"}/>} />
-    <Route path="/catalog/:department/:org/:number" element={<PageTemplate target={"catalog-page"}/>} />
-    <Route path="/search" element={<PageTemplate target={"search"}/>} />
-    <Route path="/catalog" element={<PageTemplate target={"catalog"}/>} />
-    <Route path="/" element={<PageTemplate target={"search"}/>} />
 
+
+    <Route path="/catalog/:semester/:department" element={<PageTemplate target={"catalog-page"}/>} />
+    <Route path="/catalog/:semester/:department" element={<PageTemplate target={"catalog-page"}/>} />
+    <Route path="/catalog/:semester"             element={<PageTemplate target={"catalog"}/>}/>
+
+    <Route path="/catalog/semesters" element={<PageTemplate target={"catalog-semester-list"}/>} />
+
+    <Route path="/search" element={<PageTemplate target={"search"}/>}/>
+    <Route path="/" element={<PageTemplate target={"search"}/>} />
     </Routes>
   </Router>
 )
