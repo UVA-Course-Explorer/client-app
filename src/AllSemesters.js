@@ -26,9 +26,9 @@ function AllSemesters(){
     
       return (
         <div>
-          <h1>All Semesters</h1>
+          <h2>All Semesters</h2>
             {data.map((item) => (
-                <Link to={`/catalog/${item.strm}`}><h2>{item.name}</h2></Link>
+                <Link to={`/catalog/${item.strm}`}><h3>{item.name}</h3></Link>
 
                 // <h1><a href={`/catalog/${item.strm}`}>{item.name}</a></h1>
             ))}

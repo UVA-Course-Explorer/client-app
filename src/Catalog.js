@@ -36,9 +36,8 @@ function Catalog() {
     }
   }
 
-  useEffect(() => {
-    fetchCatalogIndexData();
-  });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {fetchCatalogIndexData();}, []);
 
   // Function to toggle the expansion state of a section
   const toggleSection = (school) => {
@@ -57,7 +56,7 @@ function Catalog() {
     const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
     // Format the UTC time to the user's timezone
-    const userTimeOptions = { timeZone: userTimezone, hour12: true, month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'};
+    const userTimeOptions = { timeZone: userTimezone, hour12: true, year: '2-digit', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'};
     userTime = utcDate.toLocaleTimeString(undefined, userTimeOptions);
 
 }
