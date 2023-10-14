@@ -24,7 +24,7 @@ function CatalogPage() {
     } catch (error) {
       console.error('Error fetching data:', error);
     }
-  }, [department]); // Include department in the dependency array
+  }, [department, semester]); // Include department in the dependency array
   
   useEffect(() => {
     fetchCatalogIndexData();
