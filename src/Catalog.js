@@ -38,7 +38,7 @@ function Catalog() {
 
   useEffect(() => {
     fetchCatalogIndexData();
-  }, [fetchCatalogIndexData]);
+  }, []);
 
   // Function to toggle the expansion state of a section
   const toggleSection = (school) => {
