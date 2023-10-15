@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback} from 'react';
 import { useParams} from 'react-router-dom';
-import { latestSemester } from './LatestSemester';
 import './Catalog.css'
 
 
@@ -93,13 +92,7 @@ function CatalogPage() {
 
 
   const getSisLink = (subject, catalog_number) => {
-    
-  // if(strm === latestSemester){
     return `https://sisuva.admin.virginia.edu/psp/ihprd/UVSS/SA/s/WEBLIB_HCX_CM.H_CLASS_SEARCH.FieldFormula.IScript_Main?catalog_nbr=${catalog_number}&subject=${subject}`;
-  // }
-  // else{
-  //   return `https://sisuva.admin.virginia.edu/psc/ihprd/UVSS/SA/s/WEBLIB_HCX_CM.H_CLASS_DETAILS.FieldFormula.IScript_Main?institution=UVA01&term=${strm}&class_nbr=${class_nbr}`;
-  // }
 }
 
   const getVAGradesLink = (subject, catalog_number) => {
