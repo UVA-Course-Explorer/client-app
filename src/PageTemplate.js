@@ -4,7 +4,7 @@ import Catalog from './Catalog';
 import SearchComponent from './SearchComponent';
 import CatalogPage from './CatalogPage';
 import './modalStyles.css'
-import latestSemester from './LatestSemester';
+import {latestSemester} from './LatestSemester';
 import AllSemesters from './AllSemesters';
 
 function PageTemplate(props){

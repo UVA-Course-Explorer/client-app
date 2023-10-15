@@ -4,6 +4,7 @@ import CourseResultComponent from './CourseResultComponent';
 import sabreImage from './sabre.png';
 import './index.css'
 import SampleSearches from "./SampleSearches";
+import { latestSemsterName } from "./LatestSemester";
 
 
 function shuffleArray(array) {
@@ -226,7 +227,7 @@ const memoizedHandleSearch = useCallback(async () => {
 
   const semesterFilterOptions = [
     { value: 'all', label: 'All Semesters' },
-    { value: "latest", label: "Only Spring 24"}
+    { value: "latest", label: `Only ${latestSemsterName}`}
   ]
   
 
