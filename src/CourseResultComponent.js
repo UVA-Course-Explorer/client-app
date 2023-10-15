@@ -1,10 +1,6 @@
 import React from 'react'
 import './index.css'; // Import the CSS file
 
-
-// TODO: move this to an environment variable that gets automatically changed
-const latestSem = "1238"; // var used to get link to SIS
-
 function mapNumberToSeasonWithMiddleDigits(number) {
   if (typeof number !== 'number' || number < 1000 || number > 9999) {
       return "N/A";
@@ -52,15 +48,14 @@ const CourseResultComponent = (props) => {
   // }
 
   const getLink = () => {
-
     const splitCatalogNumber = props.catalog_number.split(".")[0];
-    if(props.strm.toString() === latestSem){
+    // if(props.strm.toString() === latestSem){
       //search link
-      return `/catalog/${props.group}/${props.mnemonic}/${splitCatalogNumber}`
-    }
+      return `/catalog/${props.strm}/${props.group}/${props.mnemonic}/${splitCatalogNumber}`
+    // }
     //sis share link
     // return `https://sisuva.admin.virginia.edu/psc/ihprd/UVSS/SA/s/WEBLIB_HCX_CM.H_CLASS_DETAILS.FieldFormula.IScript_Main?institution=UVA01&term=${props.strm}&class_nbr=${props.class_number}`
-    return `https://thecourseforum.com/course/${props.mnemonic}/${splitCatalogNumber}`
+    // return `https://thecourseforum.com/course/${props.mnemonic}/${splitCatalogNumber}`
 }
 
   return (

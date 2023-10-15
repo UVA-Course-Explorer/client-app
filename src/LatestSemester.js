@@ -1,4 +1,4 @@
 const latestSemester = 1242;
+const latestSemsterName = "Spring 2024";
 
-
-export default latestSemester;
+export { latestSemester, latestSemsterName };

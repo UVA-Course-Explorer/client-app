@@ -15,6 +15,7 @@ return (
     <Routes>
 
 
+    <Route path="/catalog/:semester/:department/:org/:number" element={<PageTemplate target={"catalog-page"}/>} />
     <Route path="/catalog/:semester/:department" element={<PageTemplate target={"catalog-page"}/>} />
     <Route path="/catalog/:semester/:department" element={<PageTemplate target={"catalog-page"}/>} />
     <Route path="/catalog/:semester"             element={<PageTemplate target={"catalog"}/>}/>

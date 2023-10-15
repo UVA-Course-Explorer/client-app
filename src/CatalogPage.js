@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback} from 'react';
 import { useParams} from 'react-router-dom';
-
 import './Catalog.css'
+
 
 function CatalogPage() {
   const { semester, department, org, number} = useParams();
@@ -92,8 +92,8 @@ function CatalogPage() {
 
 
   const getSisLink = (subject, catalog_number) => {
-    return `https://sisuva.admin.virginia.edu/psp/ihprd/UVSS/SA/s/WEBLIB_HCX_CM.H_CLASS_SEARCH.FieldFormula.IScript_Main?catalog_nbr=${catalog_number}&subject=${subject}`
-  }
+    return `https://sisuva.admin.virginia.edu/psp/ihprd/UVSS/SA/s/WEBLIB_HCX_CM.H_CLASS_SEARCH.FieldFormula.IScript_Main?catalog_nbr=${catalog_number}&subject=${subject}`;
+}
 
   const getVAGradesLink = (subject, catalog_number) => {
     return `https://vagrades.com/uva/${subject}${catalog_number}`

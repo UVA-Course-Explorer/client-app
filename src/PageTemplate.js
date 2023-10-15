@@ -4,7 +4,7 @@ import Catalog from './Catalog';
 import SearchComponent from './SearchComponent';
 import CatalogPage from './CatalogPage';
 import './modalStyles.css'
-import latestSemester from './LatestSemester';
+import {latestSemester} from './LatestSemester';
 import AllSemesters from './AllSemesters';
 
 function PageTemplate(props){
@@ -68,12 +68,12 @@ function PageTemplate(props){
             <li>How will artificial intelligence impact society? 🤖</li>
 
             <br></br>
-            <span>You can also search for a specific class with its department and course number (CS 1110). We have indexed courses from previous semesters dating back to Fall 2021. <b>Disclaimer</b>: We log all search queries, but do not save any user-specific information.</span>
+            <span>You can also search for a specific class with its department and course number (CS 1110). We have indexed courses from previous semesters dating back to Fall 2021. <b>Disclaimer</b>: We log search queries, but do not save any user-specific information.</span>
             
             <br></br>
             <br></br>
 
-            <span>Our catalog contains information for all courses in the latest semester and is updated hourly.</span>
+            <span>Our catalog contains information for all courses in the latest semester and previous semesters since Summer 2020. We are currently updating the 2023 Fall catalog hourly, and will switch to updating the 2024 Spring catalog once enrollment starts.</span>
             <br></br>
             <br></br>
 
