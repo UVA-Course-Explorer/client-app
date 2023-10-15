@@ -92,14 +92,14 @@ function CatalogPage() {
   }
 
 
-  const getSisLink = (subject, catalog_number, strm, class_nbr) => {
+  const getSisLink = (subject, catalog_number) => {
     
-  if(strm === latestSemester){
+  // if(strm === latestSemester){
     return `https://sisuva.admin.virginia.edu/psp/ihprd/UVSS/SA/s/WEBLIB_HCX_CM.H_CLASS_SEARCH.FieldFormula.IScript_Main?catalog_nbr=${catalog_number}&subject=${subject}`;
-  }
-  else{
-    return `https://sisuva.admin.virginia.edu/psc/ihprd/UVSS/SA/s/WEBLIB_HCX_CM.H_CLASS_DETAILS.FieldFormula.IScript_Main?institution=UVA01&term=${strm}&class_nbr=${class_nbr}`;
-  }
+  // }
+  // else{
+  //   return `https://sisuva.admin.virginia.edu/psc/ihprd/UVSS/SA/s/WEBLIB_HCX_CM.H_CLASS_DETAILS.FieldFormula.IScript_Main?institution=UVA01&term=${strm}&class_nbr=${class_nbr}`;
+  // }
 }
 
   const getVAGradesLink = (subject, catalog_number) => {
@@ -141,7 +141,7 @@ function CatalogPage() {
           
           <th className="external-buttons">
             <div className = "button-container">
-            <th className="sis-button"><a target="_blank" rel="noopener noreferrer" href={getSisLink(course.subject, course.catalog_number, course.strm, course.class_nbr) }><button className="catalog-button">SIS</button></a></th>
+            <th className="sis-button"><a target="_blank" rel="noopener noreferrer" href={getSisLink(course.subject, course.catalog_number) }><button className="catalog-button">SIS</button></a></th>
             <th><a target="_blank" rel="noopener noreferrer" href={getCourseForumLink(course.subject, course.catalog_number)}><button className="catalog-button">theCourseForum</button></a> </th>
             <th><a target="_blank" rel="noopener noreferrer" href={getVAGradesLink(course.subject, course.catalog_number)}> <button className="catalog-button hide-button">VA Grades</button></a></th>
             </div>
