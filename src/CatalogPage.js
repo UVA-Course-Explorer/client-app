@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback} from 'react';
 import { useParams} from 'react-router-dom';
 import './Catalog.css'
+import './Catalog.css'
 
 
 function CatalogPage() {
@@ -190,7 +191,7 @@ function CatalogPage() {
       }
     }
     return (    
-      <div className="header">
+      <div className="catalogPage">
         <div>
           {elements}
         </div>
