@@ -56,12 +56,17 @@ body{
 
 
   @media (max-width: 768px) { /* Adjust the breakpoint as needed */
+    .section-title{
+      font-size: 20px;
+    }
+    .catalog-section {
+      padding: 10px; /* Add some padding to the section for narrower screens */
+    }
     .department-table {
       grid-template-columns: 1fr; /* One column when the screen is under 768 pixels */
     }
     .department-item {
       flex-basis: 100%; /* Set it to 100% to display one item per row on mobile */
-      margin-top: 1em;
     }
 
     strong{
