@@ -73,13 +73,13 @@ function PageTemplate(props){
             <br></br>
             <br></br>
 
-            <span>Our catalog contains information for all courses in the latest semester and previous semesters since Summer 2020. We are currently updating the 2023 Fall catalog hourly, and will switch to updating the 2024 Spring catalog once enrollment starts.</span>
+            <span>Our catalog contains information for all courses in the all semesters since Summer 2020. We are currently updating the 2023 Fall catalog hourly, and will switch to updating the 2024 Spring catalog once enrollment starts.</span>
             <br></br>
             <br></br>
 
 
             If you have any questions or feedback, please reach out to us through this <a href="https://forms.gle/Jq2di8Zji4tDNKZF8" className="modal-link">form</a>. 
-            For a technical overview of the project and a discussion of its limitations, please refer to our <a href="https://github.com/UVA-Course-Explorer" className="modal-link">GitHub</a>.
+            For a technical overview of the project, a discussion of its limitations, and planned future features, please refer to our <a href="https://github.com/UVA-Course-Explorer" className="modal-link">GitHub</a>.
             
             <br></br> <br></br>
             We hope you find this tool useful 😊.

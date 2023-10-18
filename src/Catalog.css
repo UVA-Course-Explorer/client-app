@@ -68,6 +68,9 @@ body{
     .department-item {
       flex-basis: 100%; /* Set it to 100% to display one item per row on mobile */
     }
+    td {
+      font-size: 6px;
+    }
 
     strong{
       font-size: 14px;
@@ -281,15 +284,6 @@ ul {
 
 
 
-
-
-
-
-
-
-
-
-
 /* light / dark mode stuff */
 
 @media (prefers-color-scheme: light) {
@@ -410,12 +404,12 @@ ul {
   }
 
   .catalogPage .section-type{
-    width: 40%;
+    width: 10%;
     font-size: 6px;
   }
 
   .catalogPage .section-number{
-    width: 1%;
+    width: 10%;
     padding: 0px;
   }
 

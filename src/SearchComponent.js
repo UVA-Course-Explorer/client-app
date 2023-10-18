@@ -226,8 +226,8 @@ const memoizedHandleSearch = useCallback(async () => {
 
 
   const semesterFilterOptions = [
-    { value: 'all', label: 'All Semesters' },
-    { value: "latest", label: `Only ${latestSemsterName}`}
+    { value: "latest", label: `Only ${latestSemsterName}`},
+    { value: 'all', label: 'All Semesters' }
   ]
   
 
