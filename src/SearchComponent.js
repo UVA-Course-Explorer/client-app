@@ -226,8 +226,8 @@ const memoizedHandleSearch = useCallback(async () => {
 
 
   const semesterFilterOptions = [
-    { value: 'all', label: 'All Semesters' },
-    { value: "latest", label: `Only ${latestSemsterName}`}
+    { value: "latest", label: `Only ${latestSemsterName}`},
+    { value: 'all', label: 'All Semesters' }
   ]
   
 
@@ -255,10 +255,10 @@ const memoizedHandleSearch = useCallback(async () => {
         <div>
           <select id="semesterDropdown" value={semesterFilter} onChange={handleSemesterFilterChange}>
               {semesterFilterOptions.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-            ))}
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+                  ))}
           </select>
         </div>
       </div>
