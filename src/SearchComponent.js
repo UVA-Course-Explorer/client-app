@@ -45,7 +45,7 @@ function SearchComponent() {
         clearInterval(interval);
         setTimeout(() => {
           eraseCurrentOption();
-        }, 1000); // Delay before erasing
+        }, 1500); // Delay before erasing
       }
       currentIndex++;
     }, typingSpeed);
