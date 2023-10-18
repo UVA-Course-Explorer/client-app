@@ -126,7 +126,7 @@ function CatalogPage() {
 
   if(data) {
     for (const [subject, courseArr] of Object.entries(data)) {
-      elements.push(<h2>{subject}</h2>);
+      elements.push(<h2 className="subject">{subject}</h2>);
       for (const course of courseArr) {
         const table = [];
         table.push(<tr className="title-header">
@@ -148,7 +148,7 @@ function CatalogPage() {
           <th className="section-number">Section Number</th>
           <th className="instructor">Instructor</th>
           <th className="enrollment">Enrollment</th>
-          <th className="meeting-table"><table><td>Days</td><td>Time</td><td>Location</td></table></th>
+          <th className="meeting-table"><table><td className='table-header'>Days</td><td className='table-header'>Time</td><td className='table-header'>Location</td></table></th>
         </tr>);
 
         for (const section of course.sessions) {

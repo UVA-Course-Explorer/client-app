@@ -55,28 +55,7 @@ body{
 
 
 
-  @media (max-width: 768px) { /* Adjust the breakpoint as needed */
-    .section-title{
-      font-size: 20px;
-    }
-    .catalog-section {
-      padding: 10px; /* Add some padding to the section for narrower screens */
-    }
-    .department-table {
-      grid-template-columns: 1fr; /* One column when the screen is under 768 pixels */
-    }
-    .department-item {
-      flex-basis: 100%; /* Set it to 100% to display one item per row on mobile */
-    }
-    td {
-      font-size: 6px;
-    }
 
-    strong{
-      font-size: 14px;
-    }
-
-}
 
 
 
@@ -295,21 +274,21 @@ ul {
   }
 
 
-  .custom-table{
+  .catalogPage .custom-table {
     border: 1px solid #000000;
 
   }
-  .custom-table tr{
+  .catalogPage .custom-table tr{
     color: #000000;
   }
-  .custom-table th {
+  .catalogPage .custom-table th {
     /* background-color: #ffdeb3; */
     background-color: #fff4e6;
     background-color: #e4e3e1;
 
   }
   /* Style for even rows */
-  .custom-table tr:nth-child(even) {
+  .catalogPage .custom-table tr:nth-child(even) {
     /* background-color: #fff4e6; */
     background-color: #ffdeb3; 
            
@@ -317,23 +296,27 @@ ul {
   }
   
   /* Style for odd rows */
-  .custom-table tr:nth-child(odd) {
+  .catalogPage .custom-table tr:nth-child(odd) {
   background-color: #ffffff; /* Background color for even rows */
 
   }
 
   /* Style for all rows of the inner table */
-  .custom-table tr:nth-child(even) .meeting-table tr,
-  .custom-table tr:nth-child(odd) .meeting-table tr {
+  .catalogPage .custom-table tr:nth-child(even) .meeting-table tr,
+  .catalogPage .custom-table tr:nth-child(odd) .meeting-table tr {
       background-color: inherit; /* Inherit background color from outer table */
   }
 
 
-  .custom-table button{
+  .catalogPage .custom-table button{
     /* background: #e88c42; */
     background-color: #ffffff;
   }
 
+}
+
+.catalogPage .subject {
+  font-size: 35px;
 }
 
 @media (max-width: 1000px) {
@@ -351,10 +334,7 @@ ul {
 
   .catalogPage .custom-table {
     width: 90%;
-
-    /* Adjust other styles to fit smaller screens */
   }
-
 
   @media (max-width: 768px) {
     .catalogPage .hide-button {
@@ -365,23 +345,20 @@ ul {
   .catalogPage .catalog-button {
     text-align: right;
     font-size: 8px;
-    white-space: nowrap; /* Prevent text from wrapping to the next line */
-
-    /* Adjust other styles to fit smaller screens */
+    white-space: nowrap; 
   }
 
-  .catalogPage .external-buttons{
+  .catalogPage .external-buttons {
     padding: 0.2em 0.2em;
     width: 5%;
   }
+
   .catalogPage .course-title {
-      font-size: 13px;
-      /* Adjust other styles to fit smaller screens */
+      font-size: max(min(calc(4.5vw - 10px), 30px), 10px);
   }
 
   .catalogPage .custom-table button{
-    /* background: #e88c42; */
-    font-size: 8px;
+    font-size: max(min(calc(4vw - 12px), 15px), 8px);
   }
 
 
@@ -390,37 +367,48 @@ ul {
     border: none;
     border-collapse: collapse;
   }
+
+  .catalogPage .subject {
+    font-size: max(min(calc(4.5vw - 10px), 35px), 15px);
+  }
   
   .catalogPage a {
-    font-size: 6px;
+    font-size: max(min(calc(4vw - 12px), 15px), 6px);
   }
 
   .catalogPage p{
-    font-size: 6px;
+    font-size: max(min(calc(4vw - 12px), 15px), 6px);
   }
 
   .catalogPage tr{
-    font-size: 6px;
+    font-size: max(min(calc(4vw - 12px), 15px), 6px);
+  }
+
+  .catalogPage .table-header {
+    font-size: max(min(calc(4vw - 12px), 15px), 6px);
   }
 
   .catalogPage .section-type{
     width: 10%;
-    font-size: 6px;
+    font-size: max(min(calc(4vw - 12px), 15px), 6px);
   }
 
   .catalogPage .section-number{
     width: 10%;
     padding: 0px;
+    font-size: max(min(calc(4vw - 12px), 15px), 6px);
   }
 
   .catalogPage .instructor{
     width: 10%;
     padding: 0px;
+    font-size: max(min(calc(4vw - 12px), 15px), 6px);
   }
 
   .catalogPage .enrollment{
     width: 1%;
     padding: 0px;
+    font-size: max(min(calc(4vw - 12px), 15px), 6px);
 
   }
   .catalogPage .meeting-table{
