@@ -441,10 +441,6 @@ ul {
   .department-item {
     flex-basis: 100%; /* Set it to 100% to display one item per row on mobile */
   }
-  td {
-    font-size: 6px;
-  }
-
   strong{
     font-size: 14px;
   }
