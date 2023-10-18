@@ -45,7 +45,7 @@ function SearchComponent() {
         clearInterval(interval);
         setTimeout(() => {
           eraseCurrentOption();
-        }, 1000); // Delay before erasing
+        }, 1500); // Delay before erasing
       }
       currentIndex++;
     }, typingSpeed);
@@ -226,8 +226,8 @@ const memoizedHandleSearch = useCallback(async () => {
 
 
   const semesterFilterOptions = [
-    { value: 'all', label: 'All Semesters' },
-    { value: "latest", label: `Only ${latestSemsterName}`}
+    { value: "latest", label: `Only ${latestSemsterName}`},
+    { value: 'all', label: 'All Semesters' }
   ]
   
 
