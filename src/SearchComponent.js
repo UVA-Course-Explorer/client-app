@@ -23,7 +23,7 @@ function SearchComponent() {
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [academicLevelFilter, setAcademicLevelFilter] = useState("all");
-  const [semesterFilter, setSemesterFilter] = useState("all");
+  const [semesterFilter, setSemesterFilter] = useState("latest");
   const [previousAcademicLevelFilter, setPreviousAcademicLevelFilter] = useState(academicLevelFilter);
   const [previousSemesterFilter, setPreviousSemesterFilter] = useState(semesterFilter);
   
