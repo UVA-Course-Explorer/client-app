@@ -72,10 +72,10 @@ function Catalog() {
         {data &&
           Object.entries(data).map(([school, departments]) => (
             <div key={school} className='catalog-section'>
-              <span onClick={() => toggleSection(school)} className='section-title'>
+              <div onClick={() => toggleSection(school)} className='section-title'>
                 {school}
                 {expandedSections[school] ? ' -' : ' +'}
-              </span>
+              </div>
               {expandedSections[school] && (
                 <ul className="department-table">
                   {departments.map((department, index) => (

@@ -9,33 +9,30 @@ body{
 }
 
 
-
-/* Center the table horizontally */
-.custom-table-container {
-  text-align: center; /* Center-align the table within its container */
-  width: 100%; /* Set the table width to 100% */
+.catalog-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-bottom: 25px;
 }
 
 .department-table {
-  display: flex;
-  flex-wrap: wrap; /* Allow items to wrap to the next row */
-  justify-content: center; /* Center items horizontally */
-  list-style: none; /* Remove list bullet points */
-  margin: 0 auto; /* Auto margin for centering horizontally */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+  width: 100%; /* Set a fixed width to fill the available space */
 }
 
 .department-item {
-  flex-basis: calc(50% - 10px); /*Two items per row, accounting for grid gap*/
-  text-align: center;
+  /* Add any additional styling for department items */
+  text-align: left; /* Align text to the left */
   box-sizing: border-box; /* Include padding and border in the item width */
 }
 
-strong{
-  font-size: 15px;
-}
-
-.catalog-section{
-  padding-bottom: 25px;
+/* Example to limit the width of the entire catalog container */
+.catalog {
+  max-width: 800px; /* Adjust the max-width as needed */
+  margin: 0 auto; /* Center the catalog in its parent container */
 }
 
 
@@ -44,6 +41,7 @@ strong{
   font-size: 30px;
   font-weight: bold;
   color: white;
+  text-align: left;
 }
 
 
@@ -58,9 +56,17 @@ strong{
 
 
   @media (max-width: 768px) { /* Adjust the breakpoint as needed */
+    .section-title{
+      font-size: 20px;
+    }
+    .catalog-section {
+      padding: 10px; /* Add some padding to the section for narrower screens */
+    }
+    .department-table {
+      grid-template-columns: 1fr; /* One column when the screen is under 768 pixels */
+    }
     .department-item {
       flex-basis: 100%; /* Set it to 100% to display one item per row on mobile */
-      margin-top: 1em;
     }
 
     strong{
@@ -75,14 +81,7 @@ strong{
 
 
 
-@media (min-width: 1000px) {
-  .department-table {
-    width: 1000px;
-  }
-  .department-name {
-    font-size: 16px; 
-  }
-}
+
 
 
 
@@ -157,7 +156,7 @@ tr{
 }
 
 
-.custom-table {
+.catalogPage .custom-table {
   width: 1000px; /* Set the fixed width for the entire table */
   border: 1px solid #fff;
   border-radius: 3px;
@@ -231,109 +230,7 @@ tr{
 
 
 
-@media (max-width: 1000px) {
-  h2{
-    font-size: 14px
-  }
 
-  h3{
-    font-size: 14px;
-  }
-  
-  .section-title{
-    font-size: 20px;
-  }
-
-  .custom-table {
-    width: 90%;
-
-    /* Adjust other styles to fit smaller screens */
-  }
-
-
-  @media (max-width: 768px) {
-    .hide-button {
-        display: none;
-    }
-}
-
-  .catalog-button {
-    text-align: right;
-    font-size: 8px;
-    white-space: nowrap; /* Prevent text from wrapping to the next line */
-
-    /* Adjust other styles to fit smaller screens */
-  }
-
-  .external-buttons{
-    padding: 0.2em 0.2em;
-    width: 5%;
-  }
-  .course-title {
-      font-size: 13px;
-      /* Adjust other styles to fit smaller screens */
-  }
-
-  .custom-table button{
-    /* background: #e88c42; */
-    font-size: 8px;
-  }
-
-
-  table {
-    font-size: 8px;
-    border: none;
-    border-collapse: collapse;
-  }
-  
-  a {
-    font-size: 6px;
-  }
-
-  p{
-    font-size: 6px;
-  }
-
-  tr{
-    font-size: 6px;
-  }
-
-  .section-type{
-    width: 40%;
-    font-size: 6px;
-  }
-
-  .section-number{
-    width: 1%;
-    padding: 0px;
-  }
-
-  .instructor{
-    width: 10%;
-    padding: 0px;
-  }
-
-  .enrollment{
-    width: 1%;
-    padding: 0px;
-
-  }
-  .meeting-table{
-    width: 10%;
-  }
-
-  .days{
-    width: 9%;
-  }
-
-  .time{
-    width: 9%;
-  }
-
-  .location{
-    width: 9%;
-  }
-}
 
 .custom-table tr {
   border: none; /* Remove all borders for data rows */
@@ -443,4 +340,108 @@ ul {
     background-color: #ffffff;
   }
 
+}
+
+@media (max-width: 1000px) {
+  .catalogPage h2{
+    font-size: 14px
+  }
+
+  .catalogPage h3{
+    font-size: 14px;
+  }
+  
+  .catalogPage .section-title{
+    font-size: 20px;
+  }
+
+  .catalogPage .custom-table {
+    width: 90%;
+
+    /* Adjust other styles to fit smaller screens */
+  }
+
+
+  @media (max-width: 768px) {
+    .catalogPage .hide-button {
+        display: none;
+    }
+  }
+
+  .catalogPage .catalog-button {
+    text-align: right;
+    font-size: 8px;
+    white-space: nowrap; /* Prevent text from wrapping to the next line */
+
+    /* Adjust other styles to fit smaller screens */
+  }
+
+  .catalogPage .external-buttons{
+    padding: 0.2em 0.2em;
+    width: 5%;
+  }
+  .catalogPage .course-title {
+      font-size: 13px;
+      /* Adjust other styles to fit smaller screens */
+  }
+
+  .catalogPage .custom-table button{
+    /* background: #e88c42; */
+    font-size: 8px;
+  }
+
+
+  .catalogPage table {
+    font-size: 8px;
+    border: none;
+    border-collapse: collapse;
+  }
+  
+  .catalogPage a {
+    font-size: 6px;
+  }
+
+  .catalogPage p{
+    font-size: 6px;
+  }
+
+  .catalogPage tr{
+    font-size: 6px;
+  }
+
+  .catalogPage .section-type{
+    width: 40%;
+    font-size: 6px;
+  }
+
+  .catalogPage .section-number{
+    width: 1%;
+    padding: 0px;
+  }
+
+  .catalogPage .instructor{
+    width: 10%;
+    padding: 0px;
+  }
+
+  .catalogPage .enrollment{
+    width: 1%;
+    padding: 0px;
+
+  }
+  .catalogPage .meeting-table{
+    width: 10%;
+  }
+
+  .catalogPage .days{
+    width: 9%;
+  }
+
+  .catalogPage .time{
+    width: 9%;
+  }
+
+  .catalogPage .location{
+    width: 9%;
+  }
 }
