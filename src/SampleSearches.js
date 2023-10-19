@@ -30,7 +30,7 @@ const SampleSearches = [
   "Literature from across the world",
   "ASTR 3450",
   "CS 4710",
-  "PHIL 2460",
+  "PHIL 2640",
   "JPTR 3400",
   "How has education changed over time?",
   "The history of science",
