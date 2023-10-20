@@ -90,7 +90,13 @@ function PageTemplate(props){
         </Modal>
         </div>
 
+        <p>***The OpenAI API we use to generate embeddings for our search has gone down in the past ~30 minutes. As a result, our search page may not be working. You can view the status of the API here: <br></br><a href="https://status.openai.com/">https://status.openai.com/</a></p>
+          
+          <p></p>
+
         <p className="App-Title">UVA Course Explorer</p>
+
+
         <div className="nav-bar">
           <a className={`nav-button ${renderTarget === 'search' ? 'underlined' : ''}`} href="/search">Search</a>
           <a className={`nav-button ${renderTarget === 'catalog' || renderTarget === 'catalog-page' || renderTarget === 'catalog-semester-list' ? 'underlined' : ''}`} href={`/catalog/${latestSemester}`}>Catalog</a>
