@@ -90,7 +90,7 @@ function PageTemplate(props){
         </Modal>
         </div>
 
-        <p>***The OpenAI API we use to generate embeddings for our search has gone down in the past ~30 minutes. As a result, our search page may not be working. You can view the status of the API here: <br></br><a href="https://status.openai.com/">https://status.openai.com/</a></p>
+        <p>***The OpenAI API we use to generate embeddings for our search has been unfortunately been down since 8:00 PM. As a result, our search page is not working for natural language searches. <br></br><br></br>You can still search for specific classes by using the department abbreviation and catalog number(e.g. CS 2120). <br></br>You can view the status of the API here: <br></br> <br></br><a href="https://status.openai.com/">https://status.openai.com/</a></p>
           
           <p></p>
 
