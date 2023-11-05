@@ -178,7 +178,7 @@ tr{
 .custom-table th {
   /* background-color: #656769; */
   background-color: #184276;
-  text-align: left;
+  text-align: center;
   /* background-color: #1d1d1e; */
 }
 
@@ -190,6 +190,15 @@ tr{
 .custom-table .title-header {
   position: sticky;
   top: 0;
+
+  z-index: 5; /* Ensure the header appears above the table content */
+}
+
+.custom-table .title-header th{
+  position: sticky;
+  text-align: left;
+  top: 0;
+  
   z-index: 5; /* Ensure the header appears above the table content */
 }
 
