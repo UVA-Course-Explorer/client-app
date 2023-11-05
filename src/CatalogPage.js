@@ -3,12 +3,28 @@ import { useParams} from 'react-router-dom';
 import './Catalog.css'
 import './Catalog.css'
 
-
 function CatalogPage() {
   const { semester, department, org, number} = useParams();
   const [data, setData] = useState(null);
   const [metadata, setMetadata] = useState(null);
-  let scrollKey;
+
+  const [tableExpansions, setTableExpansions] = useState({});
+  const [allTablesExpanded, setAllTablesExpanded] = useState(true); // state for overall table expansion
+
+
+
+  useEffect(() => {
+    if (data) {
+      const newTableExpansions = {};
+      for (const [, courseArr] of Object.entries(data)) {
+        for (const course of courseArr) {
+          const tableKey = `${course.subject}${course.catalog_number}`;
+          newTableExpansions[tableKey] = allTablesExpanded;
+        }
+      }
+      setTableExpansions(newTableExpansions);
+    }
+  }, [data, allTablesExpanded]);
 
   const fetchCatalogIndexData = useCallback(async () => {
     try {
@@ -48,6 +64,23 @@ function CatalogPage() {
       }, 750);
     }
   }, [number, org]);
+
+
+  const toggleTableExpansion = (tableKey) => {
+    setTableExpansions((prevTableExpansions) => {
+      return { ...prevTableExpansions, [tableKey]: !prevTableExpansions[tableKey] };
+    });
+  };
+
+  // Toggle the expansion state of all tables
+  const toggleAllTablesExpansion = () => {
+    setAllTablesExpanded((prev) => !prev);
+    const newExpansionState = Object.keys(tableExpansions).reduce((state, tableKey) => {
+      state[tableKey] = !allTablesExpanded;
+      return state;
+    }, {});
+    setTableExpansions(newExpansionState);
+  };
 
 
   const generateMeetingTable = (meetings) => {
@@ -105,9 +138,11 @@ function CatalogPage() {
     return `https://thecourseforum.com/course/${subject}/${catalog_number}`
   }
 
+
   // generate list of HTML elements
   // loop over the data and create a list of links
   const elements = [];
+
 
   if (metadata && metadata?.semester && metadata?.last_updated) {
 
@@ -124,14 +159,32 @@ function CatalogPage() {
     elements.push(<h3>{metadata.semester} - Last Updated on {userTime}</h3>);
   }
 
+
+
   if(data) {
+
+    elements.push(        
+      <button onClick={toggleAllTablesExpansion} className='toggle-button'>
+        {allTablesExpanded ? 'Minimize' : 'Expand'} All Tables
+      </button>);
+
     for (const [subject, courseArr] of Object.entries(data)) {
       elements.push(<h2 className="subject">{subject}</h2>);
       for (const course of courseArr) {
+
+        const tableKey = `${course.subject}${course.catalog_number}`;
+        const isExpanded = tableExpansions[tableKey];
+
+        // console.log(`Rendering table ${tableKey}: ${isExpanded ? 'expanded' : 'collapsed'}`);
+
+        const trClassName = isExpanded ? 'expanded' : 'collapsed';
+
         const table = [];
-        table.push(<tr className="title-header">
+
+        
+        table.push(
+          <tr className="title-header" onClick={() => toggleTableExpansion(tableKey)}>
           <th colSpan="4" className='course-title'>{course.subject} {course.catalog_number}: {course.descr}</th> 
-          
           
           <th className="external-buttons">
             <div className = "button-container">
@@ -139,12 +192,11 @@ function CatalogPage() {
             <th><a target="_blank" rel="noopener noreferrer" href={getCourseForumLink(course.subject, course.catalog_number)}><button className="catalog-button">theCourseForum</button></a> </th>
             <th><a target="_blank" rel="noopener noreferrer" href={getVAGradesLink(course.subject, course.catalog_number)}> <button className="catalog-button hide-button">VA Grades</button></a></th>
             </div>
-
           </th>
           </tr>);
 
-        table.push(<tr className="column-names">
-          <th className="section-type">Section Type</th>
+table.push(<tr className={`column-names ${trClassName}`}>          
+        <th className="section-type">Section Type</th>
           <th className="section-number">Section Number</th>
           <th className="instructor">Instructor</th>
           <th className="enrollment">Enrollment</th>
@@ -154,9 +206,9 @@ function CatalogPage() {
         for (const section of course.sessions) {
           const classSectionString = section.topic !== null ? `${section.class_section} - ${section.topic}` : `${section.class_section}`;
 
-          table.push(<tr>
+          table.push(<tr className={trClassName}>
             <td className="section-type">{section.section_type} ({section.units} units)</td>
-            <td className="section-number">{classSectionString}</td>
+            <td className="section-number">{classSectionString} ⓘ</td>
             <td className="instructor">{generateInstructorHTML(section.instructors)}</td>
             <td className="enrollment">{`${section.enrollment_total}/${section.class_capacity}`}</td>
             <td className='meeting-table'><table>
@@ -164,35 +216,26 @@ function CatalogPage() {
           </tr>);
         }
 
-        const tableKey = `${course.subject}${course.catalog_number}`;
-        if (scrollKey && scrollKey === tableKey) {
-          elements.push(
-            <div>                 
-              <table className="custom-table" id={tableKey}>
-                <tbody>{table}</tbody>
-              </table>
-            </div>
-          );
-        }
-
-        else {
           elements.push(
             <div>
-              <table className="custom-table" id={tableKey}>
+              <table className={'custom-table'} id={tableKey}>
                 <tbody>{table}</tbody>
               </table>
             </div>
           );
-        }
 
-        elements.push(<br/>);
-        elements.push(<br/>);
-        elements.push(<br/>);
+          if (isExpanded) {
+            elements.push(<br />);
+            elements.push(<br />);
+          }
+
       }
     }
     return (    
       <div className="catalogPage">
         <div>
+
+
           {elements}
         </div>
       </div>
