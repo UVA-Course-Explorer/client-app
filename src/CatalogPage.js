@@ -188,19 +188,14 @@ function CatalogPage() {
 
         // console.log(`Rendering table ${tableKey}: ${isExpanded ? 'expanded' : 'collapsed'}`);
 
-
-        const icon = (
-          <button onClick={() => toggleTableExpansion(tableKey)}>
-            {isExpanded ? minusIcon : plusIcon}
-          </button>
-        );
-
         const trClassName = isExpanded ? 'expanded' : 'collapsed';
 
         const table = [];
+
+        
         table.push(
-        <tr className="title-header">
-          <th colSpan="4" className='course-title'>{course.subject} {course.catalog_number}: {course.descr} {icon}</th> 
+          <tr className="title-header" onClick={() => toggleTableExpansion(tableKey)}>
+          <th colSpan="4" className='course-title'>{course.subject} {course.catalog_number}: {course.descr}</th> 
           
           <th className="external-buttons">
             <div className = "button-container">
@@ -224,7 +219,7 @@ table.push(<tr className={`column-names ${trClassName}`}>
 
           table.push(<tr className={trClassName}>
             <td className="section-type">{section.section_type} ({section.units} units)</td>
-            <td className="section-number">{classSectionString}</td>
+            <td className="section-number">{classSectionString} ⓘ</td>
             <td className="instructor">{generateInstructorHTML(section.instructors)}</td>
             <td className="enrollment">{`${section.enrollment_total}/${section.class_capacity}`}</td>
             <td className='meeting-table'><table>
