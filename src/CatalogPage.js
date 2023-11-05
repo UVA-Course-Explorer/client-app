@@ -22,7 +22,7 @@ function CatalogPage() {
   useEffect(() => {
     if (data) {
       const newTableExpansions = {};
-      for (const [_, courseArr] of Object.entries(data)) {
+      for (const [, courseArr] of Object.entries(data)) {
         for (const course of courseArr) {
           const tableKey = `${course.subject}${course.catalog_number}`;
           newTableExpansions[tableKey] = allTablesExpanded;
