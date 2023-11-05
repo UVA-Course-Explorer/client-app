@@ -17,13 +17,12 @@ function CatalogPage() {
   const [tableExpansions, setTableExpansions] = useState({});
   const [allTablesExpanded, setAllTablesExpanded] = useState(true); // state for overall table expansion
 
-  let scrollKey;
 
 
   useEffect(() => {
     if (data) {
       const newTableExpansions = {};
-      for (const [subject, courseArr] of Object.entries(data)) {
+      for (const [_, courseArr] of Object.entries(data)) {
         for (const course of courseArr) {
           const tableKey = `${course.subject}${course.catalog_number}`;
           newTableExpansions[tableKey] = allTablesExpanded;
