@@ -3,12 +3,6 @@ import { useParams} from 'react-router-dom';
 import './Catalog.css'
 import './Catalog.css'
 
-
-// Define CSS classes for the plus and minus icons
-const plusIcon = <span className="icon">+</span>;
-const minusIcon = <span className="icon">-</span>;
-
-
 function CatalogPage() {
   const { semester, department, org, number} = useParams();
   const [data, setData] = useState(null);
@@ -77,11 +71,6 @@ function CatalogPage() {
       return { ...prevTableExpansions, [tableKey]: !prevTableExpansions[tableKey] };
     });
   };
-
-  // const toggleTableExpansion = (tableKey) => {
-  //   setTableExpansions(prev => ({ ...prev, [tableKey]: !prev[tableKey] }));
-  // };
-  
 
   // Toggle the expansion state of all tables
   const toggleAllTablesExpansion = () => {
