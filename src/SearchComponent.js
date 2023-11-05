@@ -96,7 +96,7 @@ function SearchComponent() {
   // eslint-disable-next-line
   useEffect(() => {
     // This code will run when the component is first rendered
-    const fetchData = async () => {
+    const ping = async () => {
       try {
         const response = await fetch('https://server-app.fly.dev/helloWorld');
         if (response.ok) {
@@ -109,6 +109,7 @@ function SearchComponent() {
         console.error('An error occurred:', error);
       }
     };
+    ping();
   }, []); // The empty dependency array ensures it runs only on the initial render
 
 
