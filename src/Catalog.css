@@ -55,7 +55,6 @@ body{
 }
 
 
-
 .section-title{
   font-size: 30px;
   font-weight: bold;
@@ -68,14 +67,6 @@ body{
   display: flex;
   justify-content: flex-end;
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -368,6 +359,10 @@ tr.title-header:hover th{
 
   .catalogPage .custom-table button{
     /* background: #e88c42; */
+    background-color: #ffffff;
+  }
+
+  .catalogPage .toggle-button button{
     background-color: #ffffff;
   }
 
