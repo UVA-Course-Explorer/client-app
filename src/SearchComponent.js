@@ -92,6 +92,26 @@ function SearchComponent() {
   };
 
 
+  // ping the server to wake it up
+  // eslint-disable-next-line
+  useEffect(() => {
+    // This code will run when the component is first rendered
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://server-app.fly.dev/helloWorld');
+        if (response.ok) {
+          await response.json();
+        } else {
+          // Handle the API error
+          console.error('API request failed');
+        }
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    };
+  }, []); // The empty dependency array ensures it runs only on the initial render
+
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
