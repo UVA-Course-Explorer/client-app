@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback} from 'react';
 import { useParams} from 'react-router-dom';
 import './Catalog.css'
 import './Catalog.css'
+import { requirementMapping } from './RequirementMap';
 
 function CatalogPage() {
   const { semester, department, org, number} = useParams();
@@ -139,13 +140,22 @@ function CatalogPage() {
   }
 
 
-  // generate list of HTML elements
-  // loop over the data and create a list of links
+
   const elements = [];
 
 
-  if (metadata && metadata?.semester && metadata?.last_updated) {
+  async function addRequirementName() {
+    if (department.includes('-')) {
+      elements.push(<h2 className="department-title">{requirementMapping[department]}</h2>);
+    }
+  }
 
+
+  addRequirementName();
+
+
+
+  if (metadata && metadata?.semester && metadata?.last_updated) {
         // Create a Date object from the UTC time string
         const utcDate = new Date(metadata.last_updated);
 
@@ -155,7 +165,6 @@ function CatalogPage() {
         // Format the UTC time to the user's timezone
         const userTimeOptions = { timeZone: userTimezone, hour12: true, year: '2-digit', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'};
         const userTime = utcDate.toLocaleTimeString(undefined, userTimeOptions);
-
     elements.push(<h3>{metadata.semester} - Last Updated on {userTime}</h3>);
   }
 
@@ -176,12 +185,8 @@ function CatalogPage() {
         const isExpanded = tableExpansions[tableKey];
 
         // console.log(`Rendering table ${tableKey}: ${isExpanded ? 'expanded' : 'collapsed'}`);
-
         const trClassName = isExpanded ? 'expanded' : 'collapsed';
-
         const table = [];
-
-        
         table.push(
           <tr className="title-header" onClick={() => toggleTableExpansion(tableKey)}>
           <th colSpan="4" className='course-title'>{course.subject} {course.catalog_number}: {course.descr}</th> 
@@ -208,7 +213,7 @@ table.push(<tr className={`column-names ${trClassName}`}>
 
           table.push(<tr className={trClassName}>
             <td className="section-type">{section.section_type} ({section.units} units)</td>
-            <td className="section-number">{classSectionString} ⓘ</td>
+            <td className="section-number">{classSectionString}</td>
             <td className="instructor">{generateInstructorHTML(section.instructors)}</td>
             <td className="enrollment">{`${section.enrollment_total}/${section.class_capacity}`}</td>
             <td className='meeting-table'><table>

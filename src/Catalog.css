@@ -61,6 +61,7 @@ body{
   font-weight: bold;
   color: white;
   text-align: left;
+  cursor: pointer;
 }
 
 
@@ -314,6 +315,9 @@ tr.title-header:hover th{
   font-weight: bold;
 }
 
+.toggle-button:hover{
+  background-color: #b4b0b0;
+}
 
 
 
@@ -329,6 +333,11 @@ tr.title-header:hover th{
   }
   h1, h2, h3, h4, h5 {
     color: #000000;
+  }
+
+
+  .catalogPage .catalog-button:hover{
+    background-color: #9d9a9a;
   }
 
 
@@ -385,10 +394,18 @@ tr.title-header:hover th{
   .catalogPage h3{
     font-size: 14px;
   }
+
   
   .catalogPage .section-title{
     font-size: 20px;
+    cursor: pointer;
   }
+
+  /* .catalogPage .section-title:hover{
+    cursor: pointer;
+  } */
+
+
 
   .catalogPage .custom-table {
     width: 90%;
@@ -406,8 +423,13 @@ tr.title-header:hover th{
     white-space: nowrap; 
   }
 
+  .toggle-button {
+    font-size: 8px;
+  }
+
   .catalogPage .external-buttons {
     padding: 0.2em 0.2em;
+    font-size: 8px;
     width: 5%;
   }
 
