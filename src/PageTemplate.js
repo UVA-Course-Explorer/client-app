@@ -57,7 +57,7 @@ function PageTemplate(props){
           <div className='scroll-div'>
             <h2 className="modal-content">Info</h2>
             <span className="modal-content">
-              UVA Course Explorer is an AI-powered search engine and catalog for UVA courses.    
+              UVA Course Explorer is an AI-powered search engine and catalog for courses at the University of Virginia.  
             </span>
             <br></br><br></br>
 
@@ -73,7 +73,7 @@ function PageTemplate(props){
             <br></br>
             <br></br>
 
-            <span>Our catalog contains course information for all semesters since Summer 2020. We are currently updating the 2024 Spring catalog hourly and the 2024 J-Term catalog daily.</span>
+            <span>Our catalog contains course information for all semesters since Summer 2020. We are currently updating the 2024 Spring catalog every 30 minutes and the 2024 J-Term catalog daily.</span>
             <br></br>
             <br></br>
 
