@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useCallback} from 'react';
 import { useParams} from 'react-router-dom';
+import Modal from 'react-modal';
+
 import './Catalog.css'
-import './Catalog.css'
+import './modalStyles.css';
 
 function CatalogPage() {
   const { semester, department, org, number} = useParams();
@@ -11,7 +13,55 @@ function CatalogPage() {
   const [tableExpansions, setTableExpansions] = useState({});
   const [allTablesExpanded, setAllTablesExpanded] = useState(true); // state for overall table expansion
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState([<h2>Loading...</h2>]);
 
+  Modal.setAppElement('#root');
+
+  const openModal = (classNumber) => {
+    setIsModalOpen(true);
+    // Define the URL of the API you want to fetch data from
+    const apiUrl = `https://raw.githubusercontent.com/UVA-Course-Explorer/course-data/main/data/${semester}/classDetails/${classNumber}.json`
+    // const apiUrl = `https://sisuva.admin.virginia.edu/psc/ihprd/UVSS/SA/s/WEBLIB_HCX_CM.H_CLASS_SEARCH.FieldFormula.IScript_ClassDetails?institution=UVA01&term=${semester}&class_nbr=${classNumber}`; // Replace with the actual API URL
+    console.log(apiUrl);
+    // Use the fetch function to make an asynchronous GET request to the API
+    fetch(apiUrl)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        // You can now work with the JSON data in the 'data' variable
+        console.log(data);
+        // Here, you can update your modal content with the fetched data
+        // For example, setModalContent(data);
+
+        const newModalContent = [];
+        
+        newModalContent.push(<h2>{data.section_info.class_details.subject} {data.section_info.class_details.catalog_nbr}: {data.section_info.class_details.course_title} - {data.section_info.class_details.class_section}</h2>);
+        // newModalContent.push(<h3>Grading: {data.section_info.class_details.grading_basis}</h3>);
+        newModalContent.push(<h3>Class Attributes: {data.section_info.enrollment_information.class_attributes}</h3>);
+
+
+        // newModalContent.push(<h5>Section {data.section_info.class_details.class_section}</h5>);
+
+
+
+        console.log(newModalContent);
+        setModalContent(newModalContent);
+        // Finally, open the modal
+      })
+      .catch(error => {
+        // Handle any errors that occurred during the fetch
+        console.error('Error fetching data:', error);
+      });
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     if (data) {
@@ -175,10 +225,7 @@ function CatalogPage() {
         const tableKey = `${course.subject}${course.catalog_number}`;
         const isExpanded = tableExpansions[tableKey];
 
-        // console.log(`Rendering table ${tableKey}: ${isExpanded ? 'expanded' : 'collapsed'}`);
-
         const trClassName = isExpanded ? 'expanded' : 'collapsed';
-
         const table = [];
 
         
@@ -208,7 +255,7 @@ table.push(<tr className={`column-names ${trClassName}`}>
 
           table.push(<tr className={trClassName}>
             <td className="section-type">{section.section_type} ({section.units} units)</td>
-            <td className="section-number">{classSectionString} ⓘ</td>
+            <td className="section-number">{classSectionString} <button onClick={() => openModal(19509)}>ⓘ</button></td>
             <td className="instructor">{generateInstructorHTML(section.instructors)}</td>
             <td className="enrollment">{`${section.enrollment_total}/${section.class_capacity}`}</td>
             <td className='meeting-table'><table>
@@ -234,11 +281,30 @@ table.push(<tr className={`column-names ${trClassName}`}>
     return (    
       <div className="catalogPage">
         <div>
-
-
+          
           {elements}
         </div>
+
+
+        <Modal
+          isOpen={isModalOpen}
+          onRequestClose={closeModal}
+          contentLabel="Example Modal"
+          className="modal">
+
+
+          {modalContent}
+    
+          <div>
+                  <button onClick={closeModal} className="close-button">X</button>
+          </div>
+
+      
+
+  </Modal>
       </div>
+
+
     );
   }
 }

@@ -189,17 +189,14 @@ tr{
 
 .custom-table .title-header {
   position: sticky;
-  top: 0;
-
-  z-index: 5; /* Ensure the header appears above the table content */
+  /* top: 0; */
+  /* z-index: 1;  */
 }
 
 .custom-table .title-header th{
-  position: sticky;
+  /* position: sticky; */
   text-align: left;
-  top: 0;
-  
-  z-index: 5; /* Ensure the header appears above the table content */
+  /* top: 0; */
 }
 
 .course-title{
