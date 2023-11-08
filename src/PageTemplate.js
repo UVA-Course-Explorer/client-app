@@ -89,6 +89,10 @@ function PageTemplate(props){
           </div>
         </Modal>
         </div>
+
+
+        <h6>
+          The OpenAI API we use to process natural lanugage searches is down. As a result, you may be unable to submit natural language searches. You should still be able to search for courses by department and course number (CS 2130) and use the catalog. You can monitor status of the API here <a href="https://status.openai.com/">status.openai.com</a>. We are sorry for the inconvenience.</h6>
         
         <p className="App-Title">UVA Course Explorer</p>
 
