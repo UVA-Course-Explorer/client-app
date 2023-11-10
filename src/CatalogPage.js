@@ -188,8 +188,8 @@ function CatalogPage() {
         const trClassName = isExpanded ? 'expanded' : 'collapsed';
         const table = [];
         table.push(
-          <tr className="title-header" onClick={() => toggleTableExpansion(tableKey)}>
-          <th colSpan="4" className='course-title'>{course.subject} {course.catalog_number}: {course.descr}</th> 
+          <tr className="title-header">
+          <th colSpan="4" className='course-title' onClick={() => toggleTableExpansion(tableKey)}>{course.subject} {course.catalog_number}: {course.descr}</th> 
           
           <th className="external-buttons">
             <div className = "button-container">
