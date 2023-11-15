@@ -73,7 +73,7 @@ function PageTemplate(props){
             <br></br>
             <br></br>
 
-            <span>Our catalog contains course information for all semesters since Summer 2020. We are currently updating the 2024 Spring catalog every 30 minutes and the 2024 J-Term catalog daily.</span>
+            <span>Our catalog contains course information for all semesters since Summer 2020. We are currently updating the 2024 Spring catalog every hour and the 2024 J-Term catalog daily.</span>
             <br></br>
             <br></br>
 
@@ -82,7 +82,7 @@ function PageTemplate(props){
             For a technical overview of the project, a discussion of its limitations, and planned future features, please refer to our <a href="https://github.com/UVA-Course-Explorer" className="modal-link">GitHub</a>.
             
             <br></br> <br></br>
-            We hope you find this tool useful 😊.
+            We hope you find this tool useful.
           </div>
           <div>
             <button onClick={closeModal} className="close-button">X</button>
