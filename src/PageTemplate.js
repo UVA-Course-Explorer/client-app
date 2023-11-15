@@ -82,7 +82,7 @@ function PageTemplate(props){
             For a technical overview of the project, a discussion of its limitations, and planned future features, please refer to our <a href="https://github.com/UVA-Course-Explorer" className="modal-link">GitHub</a>.
             
             <br></br> <br></br>
-            We hope you find this tool useful.
+            We hope you find this tool useful 😊.
           </div>
           <div>
             <button onClick={closeModal} className="close-button">X</button>
