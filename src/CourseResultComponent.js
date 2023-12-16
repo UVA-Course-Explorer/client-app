@@ -62,7 +62,7 @@ const CourseResultComponent = (props) => {
     <React.Fragment>
       <div className="accordion" style={{paddingBottom:'20px'}}>
         <div className="accordion-item">
-          <a href={getLink()} target="_blank" rel="noopener noreferrer" className="accordion-title">
+          <a href={getLink()} className="accordion-title">
             <div>
               <div className="accordion-title-content">
                 {props.mnemonic} {props.catalog_number}: {props.name} ({props.level})

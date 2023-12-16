@@ -72,6 +72,9 @@ function PageTemplate(props){
             
             <br></br>
             <br></br>
+            You can also explore a 2D visualization of the courses at UVA at this <a href="https://atlas.nomic.ai/map/1396b263-a4fe-4f30-9ce5-d29e63c7ef84/ac2a9fda-7273-42a2-80c3-4891c136ca97?xs=-34.64853&xf=35.80976&ys=-25.79601&yf=26.13196" className="modal-link">link</a>.
+            <br></br>
+            <br></br>
 
             <span>Our catalog contains course information for all semesters since Summer 2020. We are currently updating the 2024 Spring catalog every hour and the 2024 J-Term catalog daily.</span>
             <br></br>
