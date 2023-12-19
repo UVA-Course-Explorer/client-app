@@ -185,7 +185,6 @@ const memoizedHandleSearch = useCallback(async () => {
   setIsLoading(true);
 
   const encodedQuery = encodeURIComponent(searchInput);
-  navigate(`/search/${encodedQuery}?academicLevel=${academicLevelFilter}&semester=${semesterFilter}`);
 
   // const response = await fetch("/search", {
   const response = await fetch("https://server-app.fly.dev/search", {
@@ -203,7 +202,7 @@ const memoizedHandleSearch = useCallback(async () => {
   const data = await response.json();
   const resultData = data["resultData"];
   setSearchResults(generateSearchResults(resultData));
-  history.pushState(null, null, `/search/${encodedQuery}?academicLevel=${academicLevelFilter}&semester=${semesterFilter}`);
+  navigate(`/search/${encodedQuery}?academicLevel=${academicLevelFilter}&semester=${semesterFilter}`);
 }, [searchInput, academicLevelFilter, semesterFilter, generateSearchResults, navigate]);
 
 
@@ -248,8 +247,6 @@ useEffect(() => {
     setSearchInput(`${mnemonicInput} ${catalogNumberInput}`);
 
     const encodedQuery = encodeURIComponent(`${mnemonicInput} ${catalogNumberInput}`);
-    navigate(`/search/${encodedQuery}?academicLevel=${stateRef.academicLevelFilter}&semester=${stateRef.semesterFilter}`);
-
     setIsLoading(true);
 
     const response = await fetch("https://server-app.fly.dev/similar_courses", {
@@ -270,7 +267,7 @@ useEffect(() => {
     const data = await response.json();
     const resultData = data["resultData"];
     setSearchResults(generateSearchResults(resultData));
-    history.pushState(null, null, `/search/${encodedQuery}?academicLevel=${academicLevelFilter}&semester=${semesterFilter}`);
+    navigate(`/search/${encodedQuery}?academicLevel=${academicLevelFilter}&semester=${semesterFilter}`);
   };
 
   useEffect(() => {
