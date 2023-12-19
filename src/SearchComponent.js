@@ -170,7 +170,10 @@ function SearchComponent() {
 
 // Define handleSearch using useCallback
 const memoizedHandleSearch = useCallback(async () => {
-  if (searchInput.length === 0) return;
+  if (searchInput.length === 0) {
+    console.log("search input is empty");
+    return;
+  }
   setIsLoading(true);
 
   const encodedQuery = encodeURIComponent(searchInput);
@@ -212,9 +215,11 @@ useEffect(() => {
   if(encodedSemesterFilter){
     setSemesterFilter(encodedSemesterFilter);
   }
+
   // wait for the search input to be populated
   setTimeout(() => {
     // Code to execute after the delay
+    console.log("triggering search");
     memoizedHandleSearch();
   }, 200);
 
