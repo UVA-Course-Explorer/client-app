@@ -34,11 +34,7 @@ function SearchComponent() {
   const {query: encodedQuery} = useParams();
   const queryParams = new URLSearchParams(location.search);  
   const encodedAcademicFilter = queryParams.get('academicLevel');
-  const encodedSemesterFilter = queryParams.get('semester');
-
-
-  const [shouldTriggerSearch, setShouldTriggerSearch] = useState(true);
-  
+  const encodedSemesterFilter = queryParams.get('semester');  
   
   
   const [placeholderText, setPlaceholderText] = useState('');
@@ -286,6 +282,7 @@ const memoizedHandleSearch = useCallback(async (shouldNavigate = true) => {
 
 
   
+  //eslint-disable-next-line
   useEffect(() => {
     if (encodedAcademicFilter && encodedAcademicFilter !== academicLevelFilter) {
       setAcademicLevelFilter(encodedAcademicFilter);
@@ -300,7 +297,10 @@ const memoizedHandleSearch = useCallback(async (shouldNavigate = true) => {
     }
   }, [encodedQuery, encodedAcademicFilter, encodedSemesterFilter]);
   
+
+
   // This effect runs when searchInput, academicLevelFilter, or semesterFilter changes
+  //eslint-disable-next-line
   useEffect(() => {
     // Only trigger the search if the encoded values match the current state
     if ((encodedAcademicFilter === academicLevelFilter) &&
