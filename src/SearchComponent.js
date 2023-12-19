@@ -187,7 +187,7 @@ const memoizedHandleSearch = useCallback(async () => {
   const data = await response.json();
   const resultData = data["resultData"];
   setSearchResults(generateSearchResults(resultData));
-}, [searchInput, academicLevelFilter, semesterFilter, generateSearchResults]);
+}, [searchInput, academicLevelFilter, semesterFilter, generateSearchResults, navigate]);
 
 
 
@@ -198,6 +198,10 @@ const memoizedHandleSearch = useCallback(async () => {
   const handleMoreLikeThisRequest = async (mnemonicInput, catalogNumberInput) => {
     scrollToTop();
     setSearchInput(`${mnemonicInput} ${catalogNumberInput}`);
+
+    const encodedQuery = encodeURIComponent(searchInput);
+    navigate(`/search/q=${encodedQuery}`);
+    
     setIsLoading(true);
 
     const response = await fetch("https://server-app.fly.dev/similar_courses", {
