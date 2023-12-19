@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback} from "react";
 import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import CourseResultComponent from './CourseResultComponent';
 
