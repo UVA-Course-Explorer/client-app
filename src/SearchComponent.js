@@ -203,17 +203,13 @@ const memoizedHandleSearch = useCallback(async () => {
   const data = await response.json();
   const resultData = data["resultData"];
   setSearchResults(generateSearchResults(resultData));
+  history.pushState(null, null, `/search/${encodedQuery}?academicLevel=${academicLevelFilter}&semester=${semesterFilter}`);
 }, [searchInput, academicLevelFilter, semesterFilter, generateSearchResults, navigate]);
 
 
 
-
-
 useEffect(() => {
-  if (encodedQuery === stateRef.searchInput && 
-    encodedAcademicFilter === stateRef.academicLevelFilter && 
-    encodedSemesterFilter === stateRef.semesterFilter && 
-    !shouldTriggerSearch) {
+  if (!shouldTriggerSearch) {
     return;
   }
   // Decode the query parameter when the component mounts
@@ -274,6 +270,7 @@ useEffect(() => {
     const data = await response.json();
     const resultData = data["resultData"];
     setSearchResults(generateSearchResults(resultData));
+    history.pushState(null, null, `/search/${encodedQuery}?academicLevel=${academicLevelFilter}&semester=${semesterFilter}`);
   };
 
   useEffect(() => {
