@@ -110,7 +110,7 @@ function SearchComponent() {
       // You can call your search function here if needed
       // Example: performSearch(decodedQuery);
     }
-  }, [encodedQuery]);
+  }, [encodedQuery, memoizedHandleSearch]);
 
   // ping the server to wake it up
   // eslint-disable-next-line
