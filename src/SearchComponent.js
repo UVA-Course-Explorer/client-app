@@ -29,14 +29,18 @@ function SearchComponent() {
   const [previousSemesterFilter, setPreviousSemesterFilter] = useState(semesterFilter);
 
   const navigate = useNavigate();
-  const {query: encodedQuery} = useParams(); // fetch query from URL
+  
   const location = useLocation();
-  const params = new URLSearchParams(location.search);
-  const encodedAcademicFilter = params.get('academicLevel');
-  const encodedSemesterFilter = params.get('semester');
+  const {query: encodedQuery} = useParams();
+  const queryParams = new URLSearchParams(location.search);  
+  const encodedAcademicFilter = queryParams.get('academicLevel');
+  const encodedSemesterFilter = queryParams.get('semester');
+
 
   const [shouldTriggerSearch, setShouldTriggerSearch] = useState(true);
-
+  
+  
+  
   const [placeholderText, setPlaceholderText] = useState('');
   const [currentOptionIndex, setCurrentOptionIndex] = useState(0);
 
@@ -171,18 +175,19 @@ function SearchComponent() {
   };
 
 
-  stateRef.searchInput = searchInput;
+  // stateRef.searchInput = searchInput;
   stateRef.semesterFilter = semesterFilter;
   stateRef.academicLevelFilter = academicLevelFilter;
 
 
-// Define handleSearch using useCallback
-const memoizedHandleSearch = useCallback(async () => {
-  if (stateRef.searchInput.length === 0) {
+const memoizedHandleSearch = useCallback(async (shouldNavigate = true) => {
+  if (searchInput.length === 0) {
     console.log("search input is empty");
     return;
   }
   setIsLoading(true);
+
+  console.log("search input in handle search", searchInput);
 
   const encodedQuery = encodeURIComponent(searchInput);
 
@@ -193,49 +198,21 @@ const memoizedHandleSearch = useCallback(async () => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      searchInput: stateRef.searchInput,
-      academicLevelFilter: stateRef.academicLevelFilter,
-      semesterFilter: stateRef.semesterFilter,
+      searchInput: searchInput,
+      academicLevelFilter: academicLevelFilter,
+      semesterFilter: semesterFilter,
       getGraphData: false,
     }),
   });
   const data = await response.json();
   const resultData = data["resultData"];
   setSearchResults(generateSearchResults(resultData));
-  navigate(`/search/${encodedQuery}?academicLevel=${academicLevelFilter}&semester=${semesterFilter}`);
+
+  if (shouldNavigate) {
+    navigate(`/search/${encodedQuery}?academicLevel=${academicLevelFilter}&semester=${semesterFilter}`);
+  }
 }, [searchInput, academicLevelFilter, semesterFilter, generateSearchResults, navigate]);
 
-
-
-useEffect(() => {
-  // if (!shouldTriggerSearch) {
-  //   return;
-  // }
-  // Decode the query parameter when the component mounts
-  if (encodedQuery) {
-    const decodedQuery = decodeURIComponent(encodedQuery);
-    // Set the searchQuery state to automatically populate the search field
-    setSearchInput(decodedQuery);
-  }
-  if(encodedAcademicFilter){
-    console.log("setting academic filter", encodedAcademicFilter);
-    setAcademicLevelFilter(encodedAcademicFilter);
-  }
-
-  if(encodedSemesterFilter){
-    console.log("setting semester filter", encodedSemesterFilter);
-    setSemesterFilter(encodedSemesterFilter);
-  }
-
-  setTimeout(() => {
-    // Code to execute after the delay
-    console.log("triggering search");
-    memoizedHandleSearch();
-  }, 200);
-
-  setShouldTriggerSearch(false);
-
-}, [shouldTriggerSearch, memoizedHandleSearch, encodedQuery, encodedAcademicFilter, encodedSemesterFilter]);
 
 
 
@@ -306,6 +283,33 @@ useEffect(() => {
     { value: "latest", label: `Only ${latestSemsterName}`},
     { value: 'all', label: 'All Semesters' }
   ]
+
+
+  
+  useEffect(() => {
+    if (encodedAcademicFilter && encodedAcademicFilter !== academicLevelFilter) {
+      setAcademicLevelFilter(encodedAcademicFilter);
+    }
+    
+    if (encodedSemesterFilter && encodedSemesterFilter !== semesterFilter) {
+      setSemesterFilter(encodedSemesterFilter);
+    }
+    
+    if (encodedQuery && encodedQuery !== searchInput) {
+      setSearchInput(encodedQuery);
+    }
+  }, [encodedQuery, encodedAcademicFilter, encodedSemesterFilter]);
+  
+  // This effect runs when searchInput, academicLevelFilter, or semesterFilter changes
+  useEffect(() => {
+    // Only trigger the search if the encoded values match the current state
+    if ((encodedAcademicFilter === academicLevelFilter) &&
+        (encodedSemesterFilter === semesterFilter) &&
+        (encodedQuery === searchInput)) {
+      memoizedHandleSearch(false);
+    }
+  }, [searchInput, academicLevelFilter, semesterFilter]); // Add dependencies here
+
   
 
   return (
