@@ -126,5 +126,7 @@ useEffect(() => {
 
 
 
-  this react code is used to power the front end UI for a search engine.
+  this react code is used to power the front end UI for a search engine. Right now, the url changes if i enter new text or if i change the filters.
+
+  but i want to be able to use the arrow buttons on my browser to navigate between different url's. right now the url changes, but the actual search query or results do not change.
 

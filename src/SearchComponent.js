@@ -235,7 +235,7 @@ useEffect(() => {
 
   setShouldTriggerSearch(false);
 
-}, [encodedQuery, encodedAcademicFilter, encodedSemesterFilter, shouldTriggerSearch, memoizedHandleSearch]);
+}, [encodedQuery, encodedAcademicFilter, encodedSemesterFilter, shouldTriggerSearch, memoizedHandleSearch, location.search]);
 
 
 
