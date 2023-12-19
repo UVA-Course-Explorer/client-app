@@ -105,6 +105,7 @@ function SearchComponent() {
       const decodedQuery = decodeURIComponent(encodedQuery);
       // Set the searchQuery state to automatically populate the search field
       setSearchInput(decodedQuery);
+      memoizedHandleSearch();
       // Perform the search based on the decoded query
       // You can call your search function here if needed
       // Example: performSearch(decodedQuery);
@@ -215,7 +216,7 @@ const memoizedHandleSearch = useCallback(async () => {
     setSearchInput(`${mnemonicInput} ${catalogNumberInput}`);
 
     const encodedQuery = encodeURIComponent(searchInput);
-    navigate(`/search/q=${encodedQuery}`);
+    navigate(`/search/${encodedQuery}`);
 
     setIsLoading(true);
 
