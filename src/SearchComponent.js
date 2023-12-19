@@ -207,20 +207,13 @@ const memoizedHandleSearch = useCallback(async () => {
 
 
 
-useEffect(() => {
-  const queryParams = new URLSearchParams(location.search);
-  const encodedAcademicFilter = queryParams.get('academicLevel');
-  const encodedSemesterFilter = queryParams.get('semester');
-
-  // Perform the search based on the URL parameters
-  memoizedHandleSearch(encodedQuery, encodedAcademicFilter, encodedSemesterFilter);
-}, [location, encodedQuery, memoizedHandleSearch]);
 
 
 useEffect(() => {
-
-
-  if (!shouldTriggerSearch) {
+  if (encodedQuery === stateRef.searchInput && 
+    encodedAcademicFilter === stateRef.academicLevelFilter && 
+    encodedSemesterFilter === stateRef.semesterFilter && 
+    !shouldTriggerSearch) {
     return;
   }
   // Decode the query parameter when the component mounts
