@@ -210,9 +210,11 @@ useEffect(() => {
     setSearchInput(decodedQuery);
   }
   if(encodedAcademicFilter){
+    console.log("setting academic filter", encodedAcademicFilter);
     setAcademicLevelFilter(encodedAcademicFilter);
   }
   if(encodedSemesterFilter){
+    console.log("setting semester filter", encodedSemesterFilter);
     setSemesterFilter(encodedSemesterFilter);
   }
 
