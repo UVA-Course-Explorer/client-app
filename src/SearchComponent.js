@@ -231,7 +231,7 @@ const memoizedHandleSearch = useCallback(async () => {
     if (academicLevelFilter !== previousAcademicLevelFilter || semesterFilter !== previousSemesterFilter) {
       memoizedHandleSearch();
     }
-  }, [academicLevelFilter, semesterFilter, previousAcademicLevelFilter, previousSemesterFilter, memoizedHandleSearch]);
+  }, [academicLevelFilter, semesterFilter, previousAcademicLevelFilter, previousSemesterFilter, navigate, memoizedHandleSearch]);
 
   const handleAcademicLevelFilterChange = (event) => {
     setAcademicLevelFilter(event.target.value);
