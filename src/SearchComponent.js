@@ -34,7 +34,7 @@ function SearchComponent() {
   const params = new URLSearchParams(location.search);
   const encodedAcademicFilter = params.get('academicLevel');
   const encodedSemesterFilter = params.get('semester');
-  
+
   const [shouldTriggerSearch, setShouldTriggerSearch] = useState(true);
 
   const [placeholderText, setPlaceholderText] = useState('');
@@ -208,6 +208,18 @@ const memoizedHandleSearch = useCallback(async () => {
 
 
 useEffect(() => {
+  const queryParams = new URLSearchParams(location.search);
+  const encodedAcademicFilter = queryParams.get('academicLevel');
+  const encodedSemesterFilter = queryParams.get('semester');
+
+  // Perform the search based on the URL parameters
+  memoizedHandleSearch(encodedQuery, encodedAcademicFilter, encodedSemesterFilter);
+}, [location, encodedQuery, memoizedHandleSearch]);
+
+
+useEffect(() => {
+
+
   if (!shouldTriggerSearch) {
     return;
   }
