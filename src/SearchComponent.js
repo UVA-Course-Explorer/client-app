@@ -31,7 +31,7 @@ function SearchComponent() {
   const [previousSemesterFilter, setPreviousSemesterFilter] = useState(semesterFilter);
 
   const navigate = useNavigate();
-  const {query: encodedQuery} = useParams(); // fetch query from URL
+  const {query: encodedQuery, encodedAcademicFilter, encodedSemesterFilter} = useParams(); // fetch query from URL
   
   const [placeholderText, setPlaceholderText] = useState('');
   const [currentOptionIndex, setCurrentOptionIndex] = useState(0);
@@ -99,18 +99,6 @@ function SearchComponent() {
   };
 
 
-  useEffect(() => {
-    // Decode the query parameter when the component mounts
-    if (encodedQuery) {
-      const decodedQuery = decodeURIComponent(encodedQuery);
-      // Set the searchQuery state to automatically populate the search field
-      setSearchInput(decodedQuery);
-      memoizedHandleSearch();
-      // Perform the search based on the decoded query
-      // You can call your search function here if needed
-      // Example: performSearch(decodedQuery);
-    }
-  }, [encodedQuery, memoizedHandleSearch]);
 
   // ping the server to wake it up
   // eslint-disable-next-line
@@ -185,7 +173,7 @@ const memoizedHandleSearch = useCallback(async () => {
   setIsLoading(true);
 
   const encodedQuery = encodeURIComponent(searchInput);
-  navigate(`/search/q=${encodedQuery}`);
+  navigate(`/search/${encodedQuery}?category=${academicLevelFilter}&price=${semesterFilter}`);
 
   // const response = await fetch("/search", {
   const response = await fetch("https://server-app.fly.dev/search", {
@@ -207,6 +195,28 @@ const memoizedHandleSearch = useCallback(async () => {
 
 
 
+useEffect(() => {
+  // Decode the query parameter when the component mounts
+  if (encodedQuery) {
+    const decodedQuery = decodeURIComponent(encodedQuery);
+    // Set the searchQuery state to automatically populate the search field
+    setSearchInput(decodedQuery);
+  }
+
+  if(encodedAcademicFilter){
+    setAcademicLevelFilter(encodedAcademicFilter);
+  }
+
+  if(encodedSemesterFilter){
+    setSemesterFilter(encodedSemesterFilter);
+  }
+
+  memoizedHandleSearch();
+
+}, [encodedQuery, encodedAcademicFilter, encodedSemesterFilter, memoizedHandleSearch]);
+
+
+
   stateRef.semesterFilter = semesterFilter;
   stateRef.academicLevelFilter = academicLevelFilter;
 
@@ -216,7 +226,8 @@ const memoizedHandleSearch = useCallback(async () => {
     setSearchInput(`${mnemonicInput} ${catalogNumberInput}`);
 
     const encodedQuery = encodeURIComponent(searchInput);
-    navigate(`/search/${encodedQuery}`);
+    navigate(`/search/${encodedQuery}?category=${academicLevelFilter}&price=${semesterFilter}`);
+
 
     setIsLoading(true);
 
