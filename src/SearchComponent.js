@@ -32,7 +32,7 @@ function SearchComponent() {
 
   const navigate = useNavigate();
   const {query: encodedQuery, encodedAcademicFilter, encodedSemesterFilter} = useParams(); // fetch query from URL
-  const [shouldTriggerSearch, setShouldTriggerSearch] = useState(false);
+  const [shouldTriggerSearch, setShouldTriggerSearch] = useState(true);
 
   const [placeholderText, setPlaceholderText] = useState('');
   const [currentOptionIndex, setCurrentOptionIndex] = useState(0);
@@ -228,7 +228,7 @@ useEffect(() => {
     setSearchInput(`${mnemonicInput} ${catalogNumberInput}`);
 
     const encodedQuery = encodeURIComponent(searchInput);
-    navigate(`/search/${encodedQuery}?academicLevel=${academicLevelFilter}&semester=${semesterFilter}`);
+    navigate(`/search/${encodedQuery}?academicLevel=${stateRef.academicLevelFilter}&semester=${stateRef.semesterFilter}`);
 
     setIsLoading(true);
 
