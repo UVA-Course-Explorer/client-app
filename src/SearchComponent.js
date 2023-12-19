@@ -208,9 +208,9 @@ const memoizedHandleSearch = useCallback(async () => {
 
 
 useEffect(() => {
-  // if (!shouldTriggerSearch) {
-  //   return;
-  // }
+  if (!shouldTriggerSearch) {
+    return;
+  }
   // Decode the query parameter when the component mounts
   if (encodedQuery) {
     const decodedQuery = decodeURIComponent(encodedQuery);
@@ -221,12 +221,12 @@ useEffect(() => {
     console.log("setting academic filter", encodedAcademicFilter);
     setAcademicLevelFilter(encodedAcademicFilter);
   }
+
   if(encodedSemesterFilter){
     console.log("setting semester filter", encodedSemesterFilter);
     setSemesterFilter(encodedSemesterFilter);
   }
 
-  // wait for the search input to be populated
   setTimeout(() => {
     // Code to execute after the delay
     console.log("triggering search");
@@ -236,8 +236,6 @@ useEffect(() => {
   setShouldTriggerSearch(false);
 
 }, [encodedQuery, encodedAcademicFilter, encodedSemesterFilter, shouldTriggerSearch, memoizedHandleSearch]);
-
-
 
 
 
