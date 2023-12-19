@@ -30,9 +30,11 @@ function SearchComponent() {
   const [previousSemesterFilter, setPreviousSemesterFilter] = useState(semesterFilter);
 
   const navigate = useNavigate();
+  const {query: encodedQuery} = useParams(); // fetch query from URL
   
   const [placeholderText, setPlaceholderText] = useState('');
   const [currentOptionIndex, setCurrentOptionIndex] = useState(0);
+
   const typingSpeed = 50; // Adjust the typing speed (milliseconds per character)
 
   // Function to simulate typing for the current placeholder option
@@ -95,6 +97,18 @@ function SearchComponent() {
     }
   };
 
+
+  useEffect(() => {
+    // Decode the query parameter when the component mounts
+    if (encodedQuery) {
+      const decodedQuery = decodeURIComponent(encodedQuery);
+      // Set the searchQuery state to automatically populate the search field
+      setSearchInput(decodedQuery);
+      // Perform the search based on the decoded query
+      // You can call your search function here if needed
+      // Example: performSearch(decodedQuery);
+    }
+  }, [encodedQuery]);
 
   // ping the server to wake it up
   // eslint-disable-next-line
@@ -201,7 +215,7 @@ const memoizedHandleSearch = useCallback(async () => {
 
     const encodedQuery = encodeURIComponent(searchInput);
     navigate(`/search/q=${encodedQuery}`);
-    
+
     setIsLoading(true);
 
     const response = await fetch("https://server-app.fly.dev/similar_courses", {
