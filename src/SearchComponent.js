@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback} from "react";
+import { useNavigate } from 'react-router-dom';
+
 import CourseResultComponent from './CourseResultComponent';
 
 import sabreImage from './sabre.png';
@@ -26,6 +28,8 @@ function SearchComponent() {
   const [semesterFilter, setSemesterFilter] = useState("latest");
   const [previousAcademicLevelFilter, setPreviousAcademicLevelFilter] = useState(academicLevelFilter);
   const [previousSemesterFilter, setPreviousSemesterFilter] = useState(semesterFilter);
+
+  const navigate = useNavigate();
   
   const [placeholderText, setPlaceholderText] = useState('');
   const [currentOptionIndex, setCurrentOptionIndex] = useState(0);
@@ -163,6 +167,9 @@ function SearchComponent() {
 const memoizedHandleSearch = useCallback(async () => {
   if (searchInput.length === 0) return;
   setIsLoading(true);
+
+  const encodedQuery = encodeURIComponent(searchInput);
+  navigate(`/search/q=${encodedQuery}`);
 
   // const response = await fetch("/search", {
   const response = await fetch("https://server-app.fly.dev/search", {
