@@ -208,9 +208,9 @@ const memoizedHandleSearch = useCallback(async () => {
 
 
 useEffect(() => {
-  if (!shouldTriggerSearch) {
-    return;
-  }
+  // if (!shouldTriggerSearch) {
+  //   return;
+  // }
   // Decode the query parameter when the component mounts
   if (encodedQuery) {
     const decodedQuery = decodeURIComponent(encodedQuery);
