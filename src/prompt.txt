@@ -1,0 +1,132 @@
+I have this code:
+
+
+
+
+function SearchComponent() {
+  const [searchInput, setSearchInput] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [academicLevelFilter, setAcademicLevelFilter] = useState("all");
+  const [semesterFilter, setSemesterFilter] = useState("latest");
+  const [previousAcademicLevelFilter, setPreviousAcademicLevelFilter] = useState(academicLevelFilter);
+  const [previousSemesterFilter, setPreviousSemesterFilter] = useState(semesterFilter);
+
+  const navigate = useNavigate();
+  const {query: encodedQuery} = useParams(); // fetch query from URL
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const encodedAcademicFilter = params.get('academicLevel');
+  const encodedSemesterFilter = params.get('semester');
+
+  const [shouldTriggerSearch, setShouldTriggerSearch] = useState(true);
+
+  const [placeholderText, setPlaceholderText] = useState('');
+  const [currentOptionIndex, setCurrentOptionIndex] = useState(0);
+
+
+
+  stateRef.searchInput = searchInput;
+  stateRef.semesterFilter = semesterFilter;
+  stateRef.academicLevelFilter = academicLevelFilter;
+
+
+  // Define handleSearch using useCallback
+const memoizedHandleSearch = useCallback(async () => {
+  if (stateRef.searchInput.length === 0) {
+    console.log("search input is empty");
+    return;
+  }
+  setIsLoading(true);
+
+  const encodedQuery = encodeURIComponent(searchInput);
+
+  // const response = await fetch("/search", {
+  const response = await fetch("https://server-app.fly.dev/search", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      searchInput: stateRef.searchInput,
+      academicLevelFilter: stateRef.academicLevelFilter,
+      semesterFilter: stateRef.semesterFilter,
+      getGraphData: false,
+    }),
+  });
+  const data = await response.json();
+  const resultData = data["resultData"];
+  setSearchResults(generateSearchResults(resultData));
+  navigate(`/search/${encodedQuery}?academicLevel=${academicLevelFilter}&semester=${semesterFilter}`);
+}, [searchInput, academicLevelFilter, semesterFilter, generateSearchResults, navigate]);
+
+
+
+useEffect(() => {
+  if (!shouldTriggerSearch) {
+    return;
+  }
+  // Decode the query parameter when the component mounts
+  if (encodedQuery) {
+    const decodedQuery = decodeURIComponent(encodedQuery);
+    // Set the searchQuery state to automatically populate the search field
+    setSearchInput(decodedQuery);
+  }
+  if(encodedAcademicFilter){
+    console.log("setting academic filter", encodedAcademicFilter);
+    setAcademicLevelFilter(encodedAcademicFilter);
+  }
+
+  if(encodedSemesterFilter){
+    console.log("setting semester filter", encodedSemesterFilter);
+    setSemesterFilter(encodedSemesterFilter);
+  }
+
+  setTimeout(() => {
+    // Code to execute after the delay
+    console.log("triggering search");
+    memoizedHandleSearch();
+  }, 200);
+
+  setShouldTriggerSearch(false);
+
+}, [encodedQuery, encodedAcademicFilter, encodedSemesterFilter, shouldTriggerSearch, memoizedHandleSearch]);
+
+
+
+
+
+  const handleMoreLikeThisRequest = async (mnemonicInput, catalogNumberInput) => {
+    scrollToTop();
+    setSearchInput(`${mnemonicInput} ${catalogNumberInput}`);
+
+    const encodedQuery = encodeURIComponent(`${mnemonicInput} ${catalogNumberInput}`);
+    setIsLoading(true);
+
+    const response = await fetch("https://server-app.fly.dev/similar_courses", {
+    // const response = await fetch("/similar_courses", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        mnemonic: mnemonicInput,
+        catalog_number: catalogNumberInput,
+        academicLevelFilter: stateRef.academicLevelFilter,
+        semesterFilter: stateRef.semesterFilter,
+        getGraphData: false 
+      })
+    });
+
+    const data = await response.json();
+    const resultData = data["resultData"];
+    setSearchResults(generateSearchResults(resultData));
+    navigate(`/search/${encodedQuery}?academicLevel=${academicLevelFilter}&semester=${semesterFilter}`);
+  };
+
+
+
+  this react code is used to power the front end UI for a search engine. Right now, the url changes if i enter new text or if i change the filters.
+
+  but i want to be able to use the arrow buttons on my browser to navigate between different url's. right now the url changes, but the actual search query or results do not change.
+

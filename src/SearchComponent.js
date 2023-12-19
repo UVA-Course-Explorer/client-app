@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback} from "react";
-import CourseResultComponent from './CourseResultComponent';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
 
+import CourseResultComponent from './CourseResultComponent';
 import sabreImage from './sabre.png';
 import './index.css'
 import SampleSearches from "./SampleSearches";
@@ -26,9 +27,19 @@ function SearchComponent() {
   const [semesterFilter, setSemesterFilter] = useState("latest");
   const [previousAcademicLevelFilter, setPreviousAcademicLevelFilter] = useState(academicLevelFilter);
   const [previousSemesterFilter, setPreviousSemesterFilter] = useState(semesterFilter);
+
+  const navigate = useNavigate();
+  
+  const location = useLocation();
+  const {query: encodedQuery} = useParams();
+  const queryParams = new URLSearchParams(location.search);  
+  const encodedAcademicFilter = queryParams.get('academicLevel');
+  const encodedSemesterFilter = queryParams.get('semester');  
+  
   
   const [placeholderText, setPlaceholderText] = useState('');
   const [currentOptionIndex, setCurrentOptionIndex] = useState(0);
+
   const typingSpeed = 50; // Adjust the typing speed (milliseconds per character)
 
   // Function to simulate typing for the current placeholder option
@@ -90,6 +101,7 @@ function SearchComponent() {
       memoizedHandleSearch();
     }
   };
+
 
 
   // ping the server to wake it up
@@ -159,10 +171,19 @@ function SearchComponent() {
   };
 
 
-// Define handleSearch using useCallback
-const memoizedHandleSearch = useCallback(async () => {
-  if (searchInput.length === 0) return;
+  // stateRef.searchInput = searchInput;
+  stateRef.semesterFilter = semesterFilter;
+  stateRef.academicLevelFilter = academicLevelFilter;
+
+
+const memoizedHandleSearch = useCallback(async (shouldNavigate = true) => {
+  if (searchInput.length === 0) {
+    return;
+  }
   setIsLoading(true);
+
+
+  const encodedQuery = encodeURIComponent(searchInput);
 
   // const response = await fetch("/search", {
   const response = await fetch("https://server-app.fly.dev/search", {
@@ -180,17 +201,20 @@ const memoizedHandleSearch = useCallback(async () => {
   const data = await response.json();
   const resultData = data["resultData"];
   setSearchResults(generateSearchResults(resultData));
-}, [searchInput, academicLevelFilter, semesterFilter, generateSearchResults]);
+
+  if (shouldNavigate) {
+    navigate(`/search/${encodedQuery}?academicLevel=${academicLevelFilter}&semester=${semesterFilter}`);
+  }
+}, [searchInput, academicLevelFilter, semesterFilter, generateSearchResults, navigate]);
 
 
-
-  stateRef.semesterFilter = semesterFilter;
-  stateRef.academicLevelFilter = academicLevelFilter;
 
 
   const handleMoreLikeThisRequest = async (mnemonicInput, catalogNumberInput) => {
     scrollToTop();
     setSearchInput(`${mnemonicInput} ${catalogNumberInput}`);
+
+    const encodedQuery = encodeURIComponent(`${mnemonicInput} ${catalogNumberInput}`);
     setIsLoading(true);
 
     const response = await fetch("https://server-app.fly.dev/similar_courses", {
@@ -211,7 +235,9 @@ const memoizedHandleSearch = useCallback(async () => {
     const data = await response.json();
     const resultData = data["resultData"];
     setSearchResults(generateSearchResults(resultData));
+    navigate(`/search/${encodedQuery}?academicLevel=${academicLevelFilter}&semester=${semesterFilter}`);
   };
+
 
   useEffect(() => {
     // Update the previous filters when they change
@@ -224,7 +250,7 @@ const memoizedHandleSearch = useCallback(async () => {
     if (academicLevelFilter !== previousAcademicLevelFilter || semesterFilter !== previousSemesterFilter) {
       memoizedHandleSearch();
     }
-  }, [academicLevelFilter, semesterFilter, previousAcademicLevelFilter, previousSemesterFilter, memoizedHandleSearch]);
+  }, [academicLevelFilter, semesterFilter, previousAcademicLevelFilter, previousSemesterFilter, navigate, memoizedHandleSearch]);
 
   const handleAcademicLevelFilterChange = (event) => {
     setAcademicLevelFilter(event.target.value);
@@ -250,6 +276,39 @@ const memoizedHandleSearch = useCallback(async () => {
     { value: "latest", label: `Only ${latestSemsterName}`},
     { value: 'all', label: 'All Semesters' }
   ]
+
+
+  
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    if (encodedAcademicFilter && encodedAcademicFilter !== academicLevelFilter) {
+      setAcademicLevelFilter(encodedAcademicFilter);
+    }
+    
+    if (encodedSemesterFilter && encodedSemesterFilter !== semesterFilter) {
+      setSemesterFilter(encodedSemesterFilter);
+    }
+    
+    if (encodedQuery && encodedQuery !== searchInput) {
+      setSearchInput(encodedQuery);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [encodedQuery, encodedAcademicFilter, encodedSemesterFilter]);
+  
+
+
+  // This effect runs when searchInput, academicLevelFilter, or semesterFilter changes
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    // Only trigger the search if the encoded values match the current state
+    if ((encodedAcademicFilter === academicLevelFilter) &&
+        (encodedSemesterFilter === semesterFilter) &&
+        (encodedQuery === searchInput)) {
+      memoizedHandleSearch(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchInput, academicLevelFilter, semesterFilter]); // Add dependencies here
+
   
 
   return (
