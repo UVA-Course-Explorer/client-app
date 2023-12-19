@@ -280,26 +280,21 @@ useEffect(() => {
       const semester = params.get('semester');
   
       if (encodedQueryVar) {
-        const decodedQuery = decodeURIComponent(encodedQuery);
-        setSearchInput(decodedQuery);
+        const decodedQueryVar = decodeURIComponent(encodedQueryVar);
+        setSearchInput(decodedQueryVar);
       }
-  
       if (academicLevel) {
         setAcademicLevelFilter(academicLevel);
       }
-  
       if (semester) {
         setSemesterFilter(semester);
       }
-  
       // Only trigger search if there is a query
-      if (encodedQuery) {
-        setIsLoading(true);
+      if (encodedQueryVar) {
         await memoizedHandleSearch();
-        setIsLoading(false);
       }
     };
-  
+
     handleUrlChange();
   }, [location.search, memoizedHandleSearch]); // Depend on location.search to re-run the effect when URL search params change
 
