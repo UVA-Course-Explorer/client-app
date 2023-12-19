@@ -1,9 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback} from "react";
-import { useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
 
 import CourseResultComponent from './CourseResultComponent';
-
 import sabreImage from './sabre.png';
 import './index.css'
 import SampleSearches from "./SampleSearches";
@@ -31,7 +29,12 @@ function SearchComponent() {
   const [previousSemesterFilter, setPreviousSemesterFilter] = useState(semesterFilter);
 
   const navigate = useNavigate();
-  const {query: encodedQuery, encodedAcademicFilter, encodedSemesterFilter} = useParams(); // fetch query from URL
+  const {query: encodedQuery} = useParams(); // fetch query from URL
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const encodedAcademicFilter = params.get('academicLevel');
+  const encodedSemesterFilter = params.get('semester');
+  
   const [shouldTriggerSearch, setShouldTriggerSearch] = useState(true);
 
   const [placeholderText, setPlaceholderText] = useState('');
@@ -168,9 +171,14 @@ function SearchComponent() {
   };
 
 
+  stateRef.searchInput = searchInput;
+  stateRef.semesterFilter = semesterFilter;
+  stateRef.academicLevelFilter = academicLevelFilter;
+
+
 // Define handleSearch using useCallback
 const memoizedHandleSearch = useCallback(async () => {
-  if (searchInput.length === 0) {
+  if (stateRef.searchInput.length === 0) {
     console.log("search input is empty");
     return;
   }
@@ -186,9 +194,9 @@ const memoizedHandleSearch = useCallback(async () => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      searchInput: searchInput,
-      academicLevelFilter: academicLevelFilter,
-      semesterFilter: semesterFilter,
+      searchInput: stateRef.searchInput,
+      academicLevelFilter: stateRef.academicLevelFilter,
+      semesterFilter: stateRef.semesterFilter,
       getGraphData: false,
     }),
   });
@@ -231,8 +239,7 @@ useEffect(() => {
 
 
 
-  stateRef.semesterFilter = semesterFilter;
-  stateRef.academicLevelFilter = academicLevelFilter;
+
 
 
   const handleMoreLikeThisRequest = async (mnemonicInput, catalogNumberInput) => {
