@@ -178,12 +178,10 @@ function SearchComponent() {
 
 const memoizedHandleSearch = useCallback(async (shouldNavigate = true) => {
   if (searchInput.length === 0) {
-    console.log("search input is empty");
     return;
   }
   setIsLoading(true);
 
-  console.log("search input in handle search", searchInput);
 
   const encodedQuery = encodeURIComponent(searchInput);
 
@@ -282,7 +280,7 @@ const memoizedHandleSearch = useCallback(async (shouldNavigate = true) => {
 
 
   
-  //eslint-disable-next-line
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (encodedAcademicFilter && encodedAcademicFilter !== academicLevelFilter) {
       setAcademicLevelFilter(encodedAcademicFilter);
@@ -300,7 +298,7 @@ const memoizedHandleSearch = useCallback(async (shouldNavigate = true) => {
 
 
   // This effect runs when searchInput, academicLevelFilter, or semesterFilter changes
-  //eslint-disable-next-line
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     // Only trigger the search if the encoded values match the current state
     if ((encodedAcademicFilter === academicLevelFilter) &&
