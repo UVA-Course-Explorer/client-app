@@ -301,11 +301,11 @@ useEffect(() => {
     };
   
     handleUrlChange();
-  }, [location.search]); // Depend on location.search to re-run the effect when URL search params change
+  }, [location.search, memoizedHandleSearch]); // Depend on location.search to re-run the effect when URL search params change
 
   
 
-  
+
   useEffect(() => {
     // Update the previous filters when they change
     setPreviousAcademicLevelFilter(academicLevelFilter);
