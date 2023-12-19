@@ -32,7 +32,8 @@ function SearchComponent() {
 
   const navigate = useNavigate();
   const {query: encodedQuery, encodedAcademicFilter, encodedSemesterFilter} = useParams(); // fetch query from URL
-  
+  const [shouldTriggerSearch, setShouldTriggerSearch] = useState(false);
+
   const [placeholderText, setPlaceholderText] = useState('');
   const [currentOptionIndex, setCurrentOptionIndex] = useState(0);
 
@@ -173,7 +174,7 @@ const memoizedHandleSearch = useCallback(async () => {
   setIsLoading(true);
 
   const encodedQuery = encodeURIComponent(searchInput);
-  navigate(`/search/${encodedQuery}?category=${academicLevelFilter}&price=${semesterFilter}`);
+  navigate(`/search/${encodedQuery}?academicLevel=${academicLevelFilter}&semester=${semesterFilter}`);
 
   // const response = await fetch("/search", {
   const response = await fetch("https://server-app.fly.dev/search", {
@@ -196,24 +197,25 @@ const memoizedHandleSearch = useCallback(async () => {
 
 
 useEffect(() => {
+  if (!shouldTriggerSearch) {
+    return;
+  }
   // Decode the query parameter when the component mounts
   if (encodedQuery) {
     const decodedQuery = decodeURIComponent(encodedQuery);
     // Set the searchQuery state to automatically populate the search field
     setSearchInput(decodedQuery);
   }
-
   if(encodedAcademicFilter){
     setAcademicLevelFilter(encodedAcademicFilter);
   }
-
   if(encodedSemesterFilter){
     setSemesterFilter(encodedSemesterFilter);
   }
-
   memoizedHandleSearch();
+  setShouldTriggerSearch(false);
 
-}, [encodedQuery, encodedAcademicFilter, encodedSemesterFilter, memoizedHandleSearch]);
+}, [encodedQuery, encodedAcademicFilter, encodedSemesterFilter, shouldTriggerSearch, memoizedHandleSearch]);
 
 
 
@@ -226,8 +228,7 @@ useEffect(() => {
     setSearchInput(`${mnemonicInput} ${catalogNumberInput}`);
 
     const encodedQuery = encodeURIComponent(searchInput);
-    navigate(`/search/${encodedQuery}?category=${academicLevelFilter}&price=${semesterFilter}`);
-
+    navigate(`/search/${encodedQuery}?academicLevel=${academicLevelFilter}&semester=${semesterFilter}`);
 
     setIsLoading(true);
 
