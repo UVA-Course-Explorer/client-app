@@ -216,7 +216,7 @@ useEffect(() => {
   setTimeout(() => {
     // Code to execute after the delay
     memoizedHandleSearch();
-  }, 50);
+  }, 200);
 
   setShouldTriggerSearch(false);
 
@@ -232,7 +232,7 @@ useEffect(() => {
     scrollToTop();
     setSearchInput(`${mnemonicInput} ${catalogNumberInput}`);
 
-    const encodedQuery = encodeURIComponent(searchInput);
+    const encodedQuery = encodeURIComponent(`${mnemonicInput} ${catalogNumberInput}`);
     navigate(`/search/${encodedQuery}?academicLevel=${stateRef.academicLevelFilter}&semester=${stateRef.semesterFilter}`);
 
     setIsLoading(true);
