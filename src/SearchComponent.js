@@ -235,7 +235,6 @@ useEffect(() => {
 
   setShouldTriggerSearch(false);
 
-// }, [encodedQuery, encodedAcademicFilter, encodedSemesterFilter, shouldTriggerSearch, memoizedHandleSearch, location.search]);
 }, [shouldTriggerSearch, memoizedHandleSearch, location.search]);
 
 
@@ -269,6 +268,44 @@ useEffect(() => {
     navigate(`/search/${encodedQuery}?academicLevel=${academicLevelFilter}&semester=${semesterFilter}`);
   };
 
+
+
+
+  useEffect(() => {
+    // This effect runs when the component mounts and any time the URL changes
+    const handleUrlChange = async () => {
+      const params = new URLSearchParams(location.search);
+      const encodedQuery = params.get('query');
+      const academicLevel = params.get('academicLevel');
+      const semester = params.get('semester');
+  
+      if (encodedQuery) {
+        const decodedQuery = decodeURIComponent(encodedQuery);
+        setSearchInput(decodedQuery);
+      }
+  
+      if (academicLevel) {
+        setAcademicLevelFilter(academicLevel);
+      }
+  
+      if (semester) {
+        setSemesterFilter(semester);
+      }
+  
+      // Only trigger search if there is a query
+      if (encodedQuery) {
+        setIsLoading(true);
+        await memoizedHandleSearch();
+        setIsLoading(false);
+      }
+    };
+  
+    handleUrlChange();
+  }, [location.search]); // Depend on location.search to re-run the effect when URL search params change
+
+  
+
+  
   useEffect(() => {
     // Update the previous filters when they change
     setPreviousAcademicLevelFilter(academicLevelFilter);
