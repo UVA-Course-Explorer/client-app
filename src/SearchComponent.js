@@ -210,7 +210,6 @@ const memoizedHandleSearch = useCallback(async (shouldNavigate = true) => {
 
 
 
-
   const handleMoreLikeThisRequest = async (mnemonicInput, catalogNumberInput) => {
     scrollToTop();
     setSearchInput(`${mnemonicInput} ${catalogNumberInput}`);
@@ -293,6 +292,7 @@ const memoizedHandleSearch = useCallback(async (shouldNavigate = true) => {
     if (encodedQuery && encodedQuery !== searchInput) {
       setSearchInput(encodedQuery);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [encodedQuery, encodedAcademicFilter, encodedSemesterFilter]);
   
 
@@ -306,6 +306,7 @@ const memoizedHandleSearch = useCallback(async (shouldNavigate = true) => {
         (encodedQuery === searchInput)) {
       memoizedHandleSearch(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchInput, academicLevelFilter, semesterFilter]); // Add dependencies here
 
   
