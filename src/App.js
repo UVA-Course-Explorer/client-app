@@ -23,7 +23,7 @@ return (
     <Route path="/catalog/semesters" element={<PageTemplate target={"catalog-semester-list"}/>} />
 
     <Route path="/search" element={<PageTemplate target={"search"}/>}/>
-    <Route path="/search/" element={<PageTemplate target={"search"}/>}/>
+    <Route path="/search/:query" element={<PageTemplate target={"search"}/>}/>
     <Route path="/" element={<PageTemplate target={"search"}/>} />
     </Routes>
   </Router>
