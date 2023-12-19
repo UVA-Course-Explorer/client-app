@@ -271,32 +271,32 @@ useEffect(() => {
 
 
 
-  useEffect(() => {
-    // This effect runs when the component mounts and any time the URL changes
-    const handleUrlChange = async () => {
-      const params = new URLSearchParams(location.search);
-      const encodedQueryVar = params.get('query');
-      const academicLevel = params.get('academicLevel');
-      const semester = params.get('semester');
+  // useEffect(() => {
+  //   // This effect runs when the component mounts and any time the URL changes
+  //   const handleUrlChange = async () => {
+  //     const params = new URLSearchParams(location.search);
+  //     const encodedQueryVar = params.get('query');
+  //     const academicLevel = params.get('academicLevel');
+  //     const semester = params.get('semester');
   
-      if (encodedQueryVar) {
-        const decodedQueryVar = decodeURIComponent(encodedQueryVar);
-        setSearchInput(decodedQueryVar);
-      }
-      if (academicLevel) {
-        setAcademicLevelFilter(academicLevel);
-      }
-      if (semester) {
-        setSemesterFilter(semester);
-      }
-      // Only trigger search if there is a query
-      if (encodedQueryVar) {
-        await memoizedHandleSearch();
-      }
-    };
+  //     if (encodedQueryVar) {
+  //       const decodedQueryVar = decodeURIComponent(encodedQueryVar);
+  //       setSearchInput(decodedQueryVar);
+  //     }
+  //     if (academicLevel) {
+  //       setAcademicLevelFilter(academicLevel);
+  //     }
+  //     if (semester) {
+  //       setSemesterFilter(semester);
+  //     }
+  //     // Only trigger search if there is a query
+  //     if (encodedQueryVar) {
+  //       await memoizedHandleSearch();
+  //     }
+  //   };
 
-    handleUrlChange();
-  }, [location.search, memoizedHandleSearch]); // Depend on location.search to re-run the effect when URL search params change
+  //   handleUrlChange();
+  // }, [location.search, memoizedHandleSearch]); // Depend on location.search to re-run the effect when URL search params change
 
   
 
