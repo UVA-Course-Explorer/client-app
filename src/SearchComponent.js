@@ -212,7 +212,12 @@ useEffect(() => {
   if(encodedSemesterFilter){
     setSemesterFilter(encodedSemesterFilter);
   }
-  memoizedHandleSearch();
+  // wait for the search input to be populated
+  setTimeout(() => {
+    // Code to execute after the delay
+    memoizedHandleSearch();
+  }, 50);
+
   setShouldTriggerSearch(false);
 
 }, [encodedQuery, encodedAcademicFilter, encodedSemesterFilter, shouldTriggerSearch, memoizedHandleSearch]);
