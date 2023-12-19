@@ -235,7 +235,7 @@ useEffect(() => {
 
   setShouldTriggerSearch(false);
 
-}, [shouldTriggerSearch, memoizedHandleSearch, location.search]);
+}, [shouldTriggerSearch, memoizedHandleSearch, encodedQuery, encodedAcademicFilter, encodedSemesterFilter]);
 
 
 
@@ -275,11 +275,11 @@ useEffect(() => {
     // This effect runs when the component mounts and any time the URL changes
     const handleUrlChange = async () => {
       const params = new URLSearchParams(location.search);
-      const encodedQuery = params.get('query');
+      const encodedQueryVar = params.get('query');
       const academicLevel = params.get('academicLevel');
       const semester = params.get('semester');
   
-      if (encodedQuery) {
+      if (encodedQueryVar) {
         const decodedQuery = decodeURIComponent(encodedQuery);
         setSearchInput(decodedQuery);
       }
