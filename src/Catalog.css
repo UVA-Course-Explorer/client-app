@@ -439,13 +439,13 @@ tr.title-header:hover th{
   .catalogPage .instructor{
     width: 10%;
     padding: 0px;
-    font-size: max(min(calc(4vw - 12px), 15px), 9px);
+    font-size: max(min(calc(4vw - 12px), 15px), 8px);
   }
 
   .catalogPage .enrollment{
     width: 1%;
     padding: 0px;
-    font-size: max(min(calc(4vw - 12px), 15px), 10px);
+    font-size: max(min(calc(4vw - 12px), 15px), 8px);
 
   }
   .catalogPage .meeting-table{
