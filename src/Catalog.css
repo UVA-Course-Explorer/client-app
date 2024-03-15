@@ -1,3 +1,4 @@
+
 table{
   width: 100%; /* Set the fixed width for the entire table */
   border: none;
@@ -69,37 +70,6 @@ body{
   display: flex;
   justify-content: flex-end;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -190,7 +160,7 @@ tr{
 
 .custom-table .title-header {
   position: sticky;
-  top: 0;
+  /* top: 0; */
 
   z-index: 5; /* Ensure the header appears above the table content */
 }
@@ -198,7 +168,7 @@ tr{
 .custom-table .title-header th{
   position: sticky;
   text-align: left;
-  top: 0;
+  /* top: 0; */
   
   z-index: 5; /* Ensure the header appears above the table content */
 }
@@ -214,28 +184,9 @@ tr{
 
 .external-buttons{
   width: 20%;
+  min-width: 350px;
     text-align: right;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -316,7 +267,7 @@ tr.title-header:hover th{
 }
 
 .toggle-button:hover{
-  background-color: #b4b0b0;
+  background-color: #d7d3d3;
 }
 
 
@@ -337,9 +288,15 @@ tr.title-header:hover th{
 
 
   .catalogPage .catalog-button:hover{
-    background-color: #9d9a9a;
+    background-color: #c1baba;
+
   }
 
+  .toggle-button{
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 5px;
+  }
 
   .catalogPage .custom-table {
     border: 1px solid #000000;
@@ -351,15 +308,13 @@ tr.title-header:hover th{
   .catalogPage .custom-table th {
     /* background-color: #ffdeb3; */
     background-color: #fff4e6;
-    background-color: #e4e3e1;
+    background-color: #e7e7e7;
 
   }
   /* Style for even rows */
   .catalogPage .custom-table tr:nth-child(even) {
     /* background-color: #fff4e6; */
-    background-color: #ffdeb3; 
-           
-
+    background-color: #f8d7a9; 
   }
   
   /* Style for odd rows */
@@ -378,6 +333,8 @@ tr.title-header:hover th{
   .catalogPage .custom-table button{
     /* background: #e88c42; */
     background-color: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 5px;
   }
 
 }

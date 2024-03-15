@@ -76,7 +76,7 @@ function PageTemplate(props){
             <br></br>
             <br></br>
 
-            <span>Our catalog contains course information for all semesters since Summer 2020. We are currently updating the 2024 Spring catalog every hour and the 2024 J-Term catalog daily.</span>
+            <span>Our catalog contains course information for all semesters since Summer 2020. We are currently updating the 2024 Fall catalog every hour and the 2024 Summer catalog daily.</span>
             <br></br>
             <br></br>
 
