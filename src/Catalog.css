@@ -410,36 +410,36 @@ tr.title-header:hover th{
   }
   
   .catalogPage a {
-    font-size: max(min(calc(4vw - 12px), 15px), 10px);
+    font-size: max(min(calc(4vw - 12px), 15px), 7px);
   }
 
   .catalogPage p{
-    font-size: max(min(calc(4vw - 12px), 15px), 10px);
+    font-size: max(min(calc(4vw - 12px), 15px), 7px);
   }
 
   .catalogPage tr{
-    font-size: max(min(calc(4vw - 12px), 15px), 10px);
+    font-size: max(min(calc(4vw - 12px), 15px), 7px);
   }
 
   .catalogPage .table-header {
-    font-size: max(min(calc(4vw - 12px), 15px), 10px);
+    font-size: max(min(calc(4vw - 12px), 15px), 7px);
   }
 
   .catalogPage .section-type{
     width: 10%;
-    font-size: max(min(calc(4vw - 12px), 15px), 10px);
+    font-size: max(min(calc(4vw - 12px), 15px), 7px);
   }
 
   .catalogPage .section-number{
     width: 10%;
     padding: 0px;
-    font-size: max(min(calc(4vw - 12px), 15px), 10px);
+    font-size: max(min(calc(4vw - 12px), 15px), 7px);
   }
 
   .catalogPage .instructor{
     width: 10%;
     padding: 0px;
-    font-size: max(min(calc(4vw - 12px), 15px), 10px);
+    font-size: max(min(calc(4vw - 12px), 15px), 9px);
   }
 
   .catalogPage .enrollment{
