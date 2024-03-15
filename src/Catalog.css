@@ -467,7 +467,7 @@ tr.title-header:hover th{
 
 @media (max-width: 768px) { /* Adjust the breakpoint as needed */
   .section-title{
-    font-size: 20px;
+    font-size: 25px;
   }
   .catalog-section {
     padding: 10px; /* Add some padding to the section for narrower screens */
