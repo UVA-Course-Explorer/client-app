@@ -184,7 +184,7 @@ tr{
 
 .external-buttons{
   width: 20%;
-  min-width: 350px;
+  /* min-width: 350px; */
     text-align: right;
 }
 
