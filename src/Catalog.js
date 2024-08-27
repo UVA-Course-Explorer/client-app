@@ -84,7 +84,7 @@ function Catalog() {
         </select>
 
         {metadata && metadata?.semester && metadata?.last_updated && (
-          <h3>{metadata.semester} - Last Updated on {userTime}</h3>
+          <h3>Last Updated on {userTime}</h3>
         )}
 
 {data &&
