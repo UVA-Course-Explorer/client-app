@@ -9,6 +9,7 @@ function Catalog() {
   const [data, setData] = useState(null);
   const [expandedSections, setExpandedSections] = useState({});
   const [metadata, setMetadata] = useState(null);
+
   const [allSemesters, setAllSemesters] = useState([]);
   const [selectedSemester, setSelectedSemester] = useState(semester);
 
