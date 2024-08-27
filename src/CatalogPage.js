@@ -16,6 +16,10 @@ function CatalogPage() {
   const [allSemesters, setAllSemesters] = useState([]);
   const [selectedSemester, setSelectedSemester] = useState(semester);
 
+  const [noDataFound, setNoDataFound] = useState(false);
+
+
+
 
     // Fetch all semesters
     useEffect(() => {
@@ -45,27 +49,38 @@ function CatalogPage() {
     }
   }, [data, allTablesExpanded]);
 
+
+
   const fetchCatalogIndexData = useCallback(async () => {
+    setNoDataFound(false);
     try {
-      // const response = await fetch(`https://uva-course-explorer.github.io/json/${department}.json`);
-      const response = await fetch(`https://raw.githubusercontent.com/UVA-Course-Explorer/course-data/main/data/${semester}/${department}.json`)
+      const response = await fetch(`https://raw.githubusercontent.com/UVA-Course-Explorer/course-data/main/data/${semester}/${department}.json`);
+      if (!response.ok) {
+        throw new Error('Data not found');
+      }
       const jsonData = await response.json();
       setData(jsonData);
-
+  
       const metadataResponse = await fetch(`https://raw.githubusercontent.com/UVA-Course-Explorer/course-data/main/data/${semester}/metadata.json`);
-      const metadata = await metadataResponse.json();
-      setMetadata(metadata);
-
-      
+      if (metadataResponse.ok) {
+        const metadata = await metadataResponse.json();
+        setMetadata(metadata);
+      }
     } catch (error) {
       console.error('Error fetching data:', error);
+      setData(null);
+      setMetadata(null);
+      setNoDataFound(true);
+    } finally {
     }
-  }, [department, semester]); // Include department in the dependency array
-  
+  }, [department, semester]);
+
+
+
+
   useEffect(() => {
     fetchCatalogIndexData();
-  }, [fetchCatalogIndexData]); 
-
+  }, [fetchCatalogIndexData]);
 
   useEffect(() => {
     // Check URL parameters and scroll to the desired table if present
@@ -193,6 +208,22 @@ function CatalogPage() {
 
 
 
+
+
+  elements.push(
+    <div>
+    <select value={selectedSemester} onChange={handleSemesterChange}>
+      {allSemesters.map((sem) => (
+        <option key={sem.strm} value={sem.strm}>
+          {sem.name}
+        </option>
+      ))}
+    </select>
+    </div>
+  );
+
+
+
   if(data) {
 
     elements.push(        
@@ -263,38 +294,14 @@ table.push(<tr className={`column-names ${trClassName}`}>
     }
 
 
-
-    if(data) {
-      return (    
-        <div className="catalogPage">
-          <div>
-            <select value={selectedSemester} onChange={handleSemesterChange}>
-              {allSemesters.map((sem) => (
-                <option key={sem.strm} value={sem.strm}>
-                  {sem.name}
-                </option>
-              ))}
-            </select>
-  
-            {/* Existing elements */}
-            {elements}
-          </div>
-        </div>
-      );
-    }
-
-    return (    
-      <div className="catalogPage">
-        <div>
-
-
-          {elements}
-        </div>
-      </div>
-    );
   }
-
-
-
+  return (
+    <div className="catalogPage">
+      <div>
+        {elements}
+        {noDataFound && <h4>No classes found for {department} in the semester.</h4>}
+      </div>
+    </div>
+  );
 }
 export default CatalogPage;
