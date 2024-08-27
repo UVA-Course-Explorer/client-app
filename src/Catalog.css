@@ -10,6 +10,27 @@ body{
 }
 
 
+.department-container {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.department-container.expanded {
+  max-height: 1000px; /* Adjust this value based on your content */
+  transition: max-height 0.5s ease-in;
+}
+
+.department-table {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.department-item {
+  padding: 5px 0;
+}
+
 
 
 /* .minimized-table td {
@@ -19,7 +40,6 @@ body{
 /* .minimized-table tr {
   display: none; /* Hide the table contents */
 /* } */
-
 
 
 

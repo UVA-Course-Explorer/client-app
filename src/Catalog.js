@@ -1,31 +1,47 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useParams} from 'react-router-dom';
-
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import './Catalog.css';
 
 function Catalog() {
-  const {semester} = useParams();
+  const { semester } = useParams();
+  const navigate = useNavigate();
 
   const [data, setData] = useState(null);
   const [expandedSections, setExpandedSections] = useState({});
   const [metadata, setMetadata] = useState(null);
 
+  const [allSemesters, setAllSemesters] = useState([]);
+  const [selectedSemester, setSelectedSemester] = useState(semester);
+
   let userTime;
 
+  useEffect(() => {
+    fetchAllSemesters();
+    if (selectedSemester) {
+      fetchCatalogIndexData(selectedSemester);
+    }
+  }, [selectedSemester]);
 
-  async function fetchCatalogIndexData() {
+  async function fetchAllSemesters() {
     try {
+      const response = await fetch('https://raw.githubusercontent.com/UVA-Course-Explorer/course-data/main/previousSemesters.json');
+      const jsonData = await response.json();
+      setAllSemesters(jsonData.reverse());
+    } catch (error) {
+      console.error('Error fetching semesters:', error);
+    }
+  }
 
-      const response = await fetch(`https://raw.githubusercontent.com/UVA-Course-Explorer/course-data/main/data/${semester}/latest_sem.json`);
+  async function fetchCatalogIndexData(sem) {
+    try {
+      const response = await fetch(`https://raw.githubusercontent.com/UVA-Course-Explorer/course-data/main/data/${sem}/latest_sem.json`);
       const jsonData = await response.json();
       setData(jsonData);
 
-      const metadataResponse = await fetch(`https://raw.githubusercontent.com/UVA-Course-Explorer/course-data/main/data/${semester}/metadata.json`);
+      const metadataResponse = await fetch(`https://raw.githubusercontent.com/UVA-Course-Explorer/course-data/main/data/${sem}/metadata.json`);
       const metadata = await metadataResponse.json();
       setMetadata(metadata);
 
-      // Initialize the expandedSections state to have all sections collapsed initially
       const initialExpandedState = {};
       Object.keys(jsonData).forEach(school => {
         initialExpandedState[school] = false;
@@ -36,10 +52,6 @@ function Catalog() {
     }
   }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => {fetchCatalogIndexData();}, []);
-
-  // Function to toggle the expansion state of a section
   const toggleSection = (school) => {
     setExpandedSections({
       ...expandedSections,
@@ -47,46 +59,52 @@ function Catalog() {
     });
   };
 
+  const handleSemesterChange = (event) => {
+    const newSemester = event.target.value;
+    setSelectedSemester(newSemester);
+    navigate(`/catalog/${newSemester}`);
+  };
+
   if (metadata && metadata?.semester && metadata?.last_updated) {
-
-    // Create a Date object from the UTC time string
     const utcDate = new Date(metadata.last_updated);
-
-    // Get the user's current timezone
     const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-    // Format the UTC time to the user's timezone
     const userTimeOptions = { timeZone: userTimezone, hour12: true, year: '2-digit', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'};
     userTime = utcDate.toLocaleTimeString(undefined, userTimeOptions);
-
-}
+  }
 
   return (
     <div className="catalog">
       <div>
-        {metadata && metadata?.semester && metadata?.last_updated && <h3>{metadata.semester} - Last Updated on {userTime}</h3>}
-              <Link to={`/catalog/semesters`}><h3>Other Semesters</h3></Link>
-            <br></br>
+        <select value={selectedSemester} onChange={handleSemesterChange}>
+          {allSemesters.map((sem) => (
+            <option key={sem.strm} value={sem.strm}>
+              {sem.name}
+            </option>
+          ))}
+        </select>
 
+        {metadata && metadata?.semester && metadata?.last_updated && (
+          <h3>{metadata.semester} - Last Updated on {userTime}</h3>
+        )}
 
-        {data &&
+{data &&
           Object.entries(data).map(([school, departments]) => (
             <div key={school} className='catalog-section'>
               <div onClick={() => toggleSection(school)} className='section-title'>
                 {school}
                 {expandedSections[school] ? ' -' : ' +'}
               </div>
-              {expandedSections[school] && (
+              <div className={`department-container ${expandedSections[school] ? 'expanded' : ''}`}>
                 <ul className="department-table">
                   {departments.map((department, index) => (
                     <li key={index} className="department-item">
-                      <Link to={`/catalog/${semester}/${department.abbr}`}>
+                      <Link to={`/catalog/${selectedSemester}/${department.abbr}`}>
                         <strong className="department-name">{department.name}</strong>
                       </Link>
                     </li>
                   ))}
                 </ul>
-              )}
+              </div>
             </div>
           ))}
       </div>

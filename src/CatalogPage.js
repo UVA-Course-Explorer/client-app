@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback} from 'react';
-import { useParams} from 'react-router-dom';
+import { useParams, useNavigate} from 'react-router-dom';
 import './Catalog.css'
 import './Catalog.css'
 import { requirementMapping } from './RequirementMap';
@@ -8,10 +8,28 @@ function CatalogPage() {
   const { semester, department, org, number} = useParams();
   const [data, setData] = useState(null);
   const [metadata, setMetadata] = useState(null);
+  const navigate = useNavigate();
 
   const [tableExpansions, setTableExpansions] = useState({});
   const [allTablesExpanded, setAllTablesExpanded] = useState(true); // state for overall table expansion
 
+  const [allSemesters, setAllSemesters] = useState([]);
+  const [selectedSemester, setSelectedSemester] = useState(semester);
+
+
+    // Fetch all semesters
+    useEffect(() => {
+      async function fetchAllSemesters() {
+        try {
+          const response = await fetch('https://raw.githubusercontent.com/UVA-Course-Explorer/course-data/main/previousSemesters.json');
+          const jsonData = await response.json();
+          setAllSemesters(jsonData.reverse());
+        } catch (error) {
+          console.error('Error fetching semesters:', error);
+        }
+      }
+      fetchAllSemesters();
+    }, []);
 
 
   useEffect(() => {
@@ -139,6 +157,11 @@ function CatalogPage() {
     return `https://thecourseforum.com/course/${subject}/${catalog_number}`
   }
 
+  const handleSemesterChange = (event) => {
+    const newSemester = event.target.value;
+    setSelectedSemester(newSemester);
+    navigate(`/catalog/${newSemester}/${department}`);
+  };
 
 
   const elements = [];
@@ -184,8 +207,10 @@ function CatalogPage() {
         const tableKey = `${course.subject}${course.catalog_number}`;
         const isExpanded = tableExpansions[tableKey];
 
+        const trClassName = `${isExpanded ? 'expanded' : 'collapsed'} animate-expansion`;
+
         // console.log(`Rendering table ${tableKey}: ${isExpanded ? 'expanded' : 'collapsed'}`);
-        const trClassName = isExpanded ? 'expanded' : 'collapsed';
+        // const trClassName = isExpanded ? 'expanded' : 'collapsed';
         const table = [];
         table.push(
           <tr className="title-header">
@@ -236,6 +261,28 @@ table.push(<tr className={`column-names ${trClassName}`}>
 
       }
     }
+
+
+
+    if(data) {
+      return (    
+        <div className="catalogPage">
+          <div>
+            <select value={selectedSemester} onChange={handleSemesterChange}>
+              {allSemesters.map((sem) => (
+                <option key={sem.strm} value={sem.strm}>
+                  {sem.name}
+                </option>
+              ))}
+            </select>
+  
+            {/* Existing elements */}
+            {elements}
+          </div>
+        </div>
+      );
+    }
+
     return (    
       <div className="catalogPage">
         <div>
@@ -246,5 +293,8 @@ table.push(<tr className={`column-names ${trClassName}`}>
       </div>
     );
   }
+
+
+
 }
 export default CatalogPage;
