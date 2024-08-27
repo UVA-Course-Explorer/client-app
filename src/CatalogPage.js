@@ -188,7 +188,7 @@ function CatalogPage() {
         // Format the UTC time to the user's timezone
         const userTimeOptions = { timeZone: userTimezone, hour12: true, year: '2-digit', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'};
         const userTime = utcDate.toLocaleTimeString(undefined, userTimeOptions);
-    elements.push(<h3>{metadata.semester} - Last Updated on {userTime}</h3>);
+    elements.push(<h3>Last Updated on {userTime}</h3>);
   }
 
 
