@@ -18,7 +18,29 @@ function CatalogPage() {
 
   const [noDataFound, setNoDataFound] = useState(false);
 
+  const [showBackToTop, setShowBackToTop] = useState(false);
 
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > 0 && currentScrollY < lastScrollY) {
+        setShowBackToTop(true);
+      } else {
+        setShowBackToTop(false);
+      }
+      lastScrollY = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
 
     // Fetch all semesters
@@ -295,13 +317,36 @@ table.push(<tr className={`column-names ${trClassName}`}>
 
 
   }
+
+
+
+
   return (
     <div className="catalogPage">
       <div>
         {elements}
         {noDataFound && <h4>No classes found for {department} in the semester.</h4>}
       </div>
+      {showBackToTop && (
+        <button onClick={scrollToTop} className="back-to-top show">
+          ↑
+        </button>
+      )}
     </div>
   );
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
 export default CatalogPage;
