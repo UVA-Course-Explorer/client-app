@@ -61,18 +61,17 @@ body{
 
 @media (max-width: 768px) {
   .back-to-top {
-    padding: 8px 16px; /* Smaller padding for smaller screens */
-    font-size: 13px; /* Smaller font size for smaller screens */
+    padding: 10px 20px; /* Increase padding for smaller screens */
+    font-size: 15px; /* Increase font size for smaller screens */
   }
 }
 
 @media (max-width: 480px) {
   .back-to-top {
-    padding: 6px 12px; /* Even smaller padding for very small screens */
-    font-size: 11px; /* Even smaller font size for very small screens */
+    padding: 8px 16px; /* Increase padding for very small screens */
+    font-size: 13px; /* Increase font size for very small screens */
   }
 }
-
 
 .department-container {
   max-height: 0;
