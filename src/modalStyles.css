@@ -22,6 +22,14 @@
 }
 
 
+
+@media (prefers-color-scheme: dark) {
+  .ReactModal__Overlay {
+    background-color: rgba(18, 18, 18, 0.85) !important; /* Dark mode background */
+  }
+}
+
+
 .modal-link{
   font-size: 15px;
 }

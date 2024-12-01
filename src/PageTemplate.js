@@ -7,6 +7,8 @@ import './modalStyles.css'
 import {latestSemester} from './LatestSemester';
 import AllSemesters from './AllSemesters';
 
+
+
 function PageTemplate(props){
     
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,6 +23,8 @@ function PageTemplate(props){
     setIsModalOpen(false);
   };
 
+
+  
   const renderTarget = props.target;
   console.log(renderTarget);
   let content;
