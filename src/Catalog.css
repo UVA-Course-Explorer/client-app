@@ -1,24 +1,4 @@
 
-@media (min-width: 1024px) { /* Adjust the breakpoint as needed */
-  body, p, a, tr, .section-title, .course-title, .subject, .custom-table button {
-    font-size: 0.9em; /* Reduce font size by 10% */
-  }
-
-  h1, h2, h3, h4, h5 {
-    font-size: 0.9em; /* Reduce font size by 10% */
-  }
-
-  .catalogPage .custom-table th, .catalogPage .custom-table td {
-    font-size: 0.9em; /* Reduce font size by 10% */
-  }
-
-  .toggle-button, .back-to-top {
-    font-size: 0.9em; /* Reduce font size by 10% */
-  }
-}
-
-
-
 
 table{
   width: 100%; /* Set the fixed width for the entire table */
