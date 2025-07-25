@@ -6,6 +6,9 @@
 
 .App {
   text-align: center;
+  width: 100%;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  position: relative; /* Ensure proper positioning context */
 }
 
 .App-logo {
@@ -84,6 +87,9 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  width: 100%;
+  padding: 0 1rem; /* Add horizontal padding for mobile */
+  box-sizing: border-box; /* Include padding in width calculation */
 }
 
 
@@ -99,6 +105,32 @@ body {
   font-weight: 500;
   font-size: 50px;
   margin-bottom: 0.25em;
+}
+
+/* Responsive title styles */
+@media (max-width: 768px) {
+  .App-Title {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .App-Title {
+    font-size: 32px;
+    margin-bottom: 0.5em;
+  }
+}
+
+/* Landscape mobile specific styles */
+@media (max-width: 896px) and (orientation: landscape) {
+  .App-Title {
+    font-size: 36px;
+  }
+  
+  .App-header {
+    min-height: auto;
+    padding: 1rem;
+  }
 }
 
 

@@ -9,6 +9,12 @@
 
 * {
   font-family: var(--font-primary);
+  box-sizing: border-box; /* Add global box-sizing */
+}
+
+html {
+  overflow-x: hidden; /* Prevent horizontal scroll on html */
+  width: 100%; /* Ensure full width */
 }
 
 body {
@@ -16,6 +22,8 @@ body {
   font-family: var(--font-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  width: 100vw; /* Ensure body takes full viewport width */
 }
 
 code {
@@ -308,11 +316,23 @@ select:active {
 
 
 
-@media (max-width: 786px){
+@media (max-width: 768px){
   .search-info{
     font-size: 0.72em;
   }
 
+}
+
+/* Very small screens */
+@media (max-width: 360px) {
+  .search-info-container {
+    gap: 0.15rem;
+  }
+  
+  .search-info {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.3rem;
+  }
 }
 
 /* Use media queries to adjust the font size based on screen width */
