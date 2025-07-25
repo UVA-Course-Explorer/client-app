@@ -1,3 +1,9 @@
+:root {
+  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+}
+
 .App {
   text-align: center;
 }
@@ -15,21 +21,57 @@
 }
 
 
-.nav-button{
-  padding: 1em;
-  font-size: 30px;
-  font-weight: 400;
+.nav-button {
+  padding: 0.75em 1.5em;
+  margin: 0 0.5em;
+  font-size: 24px;
+  font-weight: 500;
   text-decoration: none;
+  color: rgba(255, 255, 255, 0.8);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  letter-spacing: 0.3px;
+}
+
+.nav-button:hover {
+  color: rgba(255, 255, 255, 1);
+  transform: translateY(-2px);
+}
+
+.nav-button::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #ee6c4d 0%, #f48b70 100%);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+.nav-button:hover::after {
+  width: 80%;
 }
 
 .nav-bar {
   padding-bottom: 0.5em;
+  margin-bottom: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2em;
 }
 
+.underlined {
+  color: rgba(255, 255, 255, 1);
+  font-weight: 600;
+}
 
-.underlined{
-  text-decoration: underline;
-  /* border-bottom: 1px solid black; Set the desired thickness and color */
+.underlined::after {
+  width: 100%;
+  background: linear-gradient(90deg, #9c5419 0%, #c9732c 100%);
 }
 
 
@@ -52,9 +94,7 @@ body {
 
 .App-Title {
   color: #ffffff;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-  sans-serif;
+  font-family: var(--font-primary);
   font-size: 90px;
   font-weight: 500;
   font-size: 50px;
@@ -72,6 +112,26 @@ body {
   .App-Title {
     color: #191c21;
   }
+  
+  .nav-button {
+    color: rgba(25, 28, 33, 0.7);
+  }
+  
+  .nav-button:hover {
+    color: rgba(25, 28, 33, 1);
+  }
+  
+  .nav-button::after {
+    background: linear-gradient(90deg, #ee6c4d 0%, #f48b70 100%);
+  }
+  
+  .underlined {
+    color: rgba(25, 28, 33, 1);
+  }
+  
+  .underlined::after {
+    background: linear-gradient(90deg, #ee6c4d 0%, #e85a3a 100%);
+  }
 }
 
 
@@ -86,6 +146,38 @@ body {
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+/* Responsive navigation styles */
+@media (max-width: 768px) {
+  .nav-button {
+    font-size: 20px;
+    padding: 0.6em 1.2em;
+    margin: 0 0.3em;
+  }
+  
+  .nav-bar {
+    gap: 1.5em;
+    margin-bottom: 0.75em;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-button {
+    font-size: 18px;
+    padding: 0.5em 1em;
+    margin: 0 0.2em;
+  }
+  
+  .nav-bar {
+    gap: 1em;
+    margin-bottom: 1em;
+  }
+  
+  .nav-button::after {
+    bottom: -3px;
+    height: 2px;
   }
 }
 

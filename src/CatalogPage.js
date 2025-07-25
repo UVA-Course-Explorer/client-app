@@ -9,6 +9,7 @@ function CatalogPage() {
   const [data, setData] = useState(null);
   const [metadata, setMetadata] = useState(null);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
   const [tableExpansions, setTableExpansions] = useState({});
   const [allTablesExpanded, setAllTablesExpanded] = useState(true); // state for overall table expansion
@@ -19,6 +20,8 @@ function CatalogPage() {
   const [noDataFound, setNoDataFound] = useState(false);
 
   const [showBackToTop, setShowBackToTop] = useState(false);
+
+  const [hasToggledAll, setHasToggledAll] = useState(false);
 
 
   const scrollToTop = () => {
@@ -52,6 +55,8 @@ function CatalogPage() {
           setAllSemesters(jsonData.reverse());
         } catch (error) {
           console.error('Error fetching semesters:', error);
+        } finally {
+          setLoading(false);
         }
       }
       fetchAllSemesters();
@@ -72,9 +77,17 @@ function CatalogPage() {
   }, [data, allTablesExpanded]);
 
 
+  useEffect(() => {
+    // If there's an org and number, we shouldn't expand all tables by default
+    if (org && number) {
+      setAllTablesExpanded(false);
+    }
+  }, [org, number]);
+
 
   const fetchCatalogIndexData = useCallback(async () => {
     setNoDataFound(false);
+    setLoading(true);
     try {
       const response = await fetch(`https://raw.githubusercontent.com/UVA-Course-Explorer/course-data/main/data/${semester}/${department}.json`);
       if (!response.ok) {
@@ -94,6 +107,7 @@ function CatalogPage() {
       setMetadata(null);
       setNoDataFound(true);
     } finally {
+      setLoading(false);
     }
   }, [department, semester]);
 
@@ -105,21 +119,36 @@ function CatalogPage() {
   }, [fetchCatalogIndexData]);
 
   useEffect(() => {
-    // Check URL parameters and scroll to the desired table if present
-    let scrollKey = null;
-    if(org && number){
-      scrollKey = org + number;
-    }
-    if (scrollKey) {
-      setTimeout(() => {
-      // Use JavaScript to scroll to the specified table
-      const tableElement = document.getElementById(scrollKey);
-      if (tableElement) {
-        tableElement.scrollIntoView({ behavior: 'smooth' });
+    if (data) {
+      const scrollKey = org && number ? org + number : null;
+      const newTableExpansions = {};
+  
+      for (const [, courseArr] of Object.entries(data)) {
+        for (const course of courseArr) {
+          const tableKey = `${course.subject}${course.catalog_number}`;
+          if (hasToggledAll) {
+            newTableExpansions[tableKey] = allTablesExpanded;
+          } else {
+            newTableExpansions[tableKey] = scrollKey ? tableKey === scrollKey : allTablesExpanded;
+          }
+        }
       }
-      }, 750);
+  
+      setTableExpansions(newTableExpansions);
     }
-  }, [number, org]);
+  }, [data, org, number, allTablesExpanded, hasToggledAll]);
+
+  useEffect(() => {
+    if (org && number && data) {
+      const scrollKey = org + number;
+      setTimeout(() => {
+        const tableElement = document.getElementById(scrollKey);
+        if (tableElement) {
+          tableElement.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  }, [data, org, number]);
 
 
   const toggleTableExpansion = (tableKey) => {
@@ -130,12 +159,8 @@ function CatalogPage() {
 
   // Toggle the expansion state of all tables
   const toggleAllTablesExpansion = () => {
+    setHasToggledAll(true);
     setAllTablesExpanded((prev) => !prev);
-    const newExpansionState = Object.keys(tableExpansions).reduce((state, tableKey) => {
-      state[tableKey] = !allTablesExpanded;
-      return state;
-    }, {});
-    setTableExpansions(newExpansionState);
   };
 
 
@@ -184,6 +209,17 @@ function CatalogPage() {
   const getSisLink = (subject, catalog_number) => {
     return `https://sisuva.admin.virginia.edu/psp/ihprd/UVSS/SA/s/WEBLIB_HCX_CM.H_CLASS_SEARCH.FieldFormula.IScript_Main?catalog_nbr=${catalog_number}&subject=${subject}`;
 }
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div className="loading-dots">
+          <div className="loading-dot"></div>
+          <div className="loading-dot"></div>
+          <div className="loading-dot"></div>
+        </div>
+      </div>
+    );
+  }
 
   const getVAGradesLink = (subject, catalog_number) => {
     return `https://vagrades.com/uva/${subject}${catalog_number}`
@@ -249,7 +285,7 @@ function CatalogPage() {
   if(data) {
 
     elements.push(        
-      <button onClick={toggleAllTablesExpansion} className='toggle-button'>
+      <button onClick={toggleAllTablesExpansion} className={`toggle-button ${allTablesExpanded ? 'minimize' : 'expand'}`}> 
         {allTablesExpanded ? 'Minimize' : 'Expand'} All Tables
       </button>);
 
@@ -301,16 +337,16 @@ table.push(<tr className={`column-names ${trClassName}`}>
 
           elements.push(
             <div>
-              <table className={'custom-table'} id={tableKey}>
+              <table className={`custom-table ${isExpanded ? 'expanded' : 'collapsed'}`} id={tableKey}>
                 <tbody>{table}</tbody>
               </table>
             </div>
           );
 
-          if (isExpanded) {
+          /*if (isExpanded) {
             elements.push(<br />);
             elements.push(<br />);
-          }
+          }*/
 
       }
     }
