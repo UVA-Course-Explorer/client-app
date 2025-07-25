@@ -74,7 +74,7 @@ const CourseResultComponent = (props) => {
 
 
 
-            <div className="search-info-container">
+            <div style={{display: 'flex' , flexDirection: 'row', flexWrap: 'nowrap', justifyContent: 'space-between', alignItems: 'center'}}>
               <div className="search-info">Similarity Score: {(props.similarity_score * 100).toFixed(1)}%</div>
               <div className="search-info">Credits: {props.credits}</div>
               <div className="search-info">Latest Sem: {mapNumberToSeasonWithMiddleDigits(props.strm)}</div>

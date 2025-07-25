@@ -1,31 +1,24 @@
 
-:root {
-  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-}
 
 /* Modal Content */
 .modal {
-  background: linear-gradient(135deg, #2a3a66 0%, #1e2b53 100%);
+  background-color: #282c34;
   color: white;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 3em;
-  border-radius: 16px;
+  padding-left: 3.5em;
+  padding-right: 3.5em;
+  padding-top: 2em;
+  padding-bottom: 2em;
+  border-radius: 8px;
   width: 60%;
   height: 80%;
-  max-width: 800px;
-  max-height: 600px;
-  font-size: 16px;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-primary);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3),
-              0 8px 16px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 100%;
+  align-items: center; /* Vertical centering */
+  justify-content: center; /* Horizontal centering */
+  font-size: 15px;
 }
 
 
@@ -37,138 +30,59 @@
 }
 
 
-.modal-link {
-  font-size: 16px;
-  color: #f48b70;
-  text-decoration: underline;
-  transition: all 0.2s ease;
-}
-
-.modal-link:hover {
-  color: #ff9980;
-  text-decoration-color: #ff9980;
+.modal-link{
+  font-size: 15px;
 }
 
 .fixed-button {
-  font-family: var(--font-primary);
-  background: linear-gradient(135deg, #b85d1b 0%, #9c5419 100%);
+  font-family: Helvetica, sans-serif;
+  background: #9c5419;;
   color: white;
-  position: absolute; /* Changed from fixed to absolute */
-  top: 1.5em;
-  right: 1.5em;
+  position: fixed;
+  top: 1em;
+  right: 1em;
   border: none;
-  border-radius: 50%;
-  font-size: 16px;
-  font-weight: 600;
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(156, 84, 25, 0.3),
-              0 2px 6px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 9999; /* Ensure button stays on top */
+  border-radius: 5px;
+  font-size: 100%;
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
+  font-weight: 500;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1rem;
+  text-align: "center";
+  margin: "0 auto";
 }
 
 .fixed-button:hover {
-  background: linear-gradient(135deg, #d46f24 0%, #b8641e 100%);
-  transform: scale(1.05) translateY(-2px);
-  box-shadow: 0 6px 20px rgba(156, 84, 25, 0.4),
-              0 3px 8px rgba(0, 0, 0, 0.15);
+    background: #c9732c;
 }
 
-.fixed-button:active {
-  transform: scale(0.98);
-  box-shadow: 0 2px 8px rgba(156, 84, 25, 0.3),
-              0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.info-character {
-  font-style: normal; /* Changed from italic to normal */
-  font-weight: 700;
-}
-
-/* Responsive sizing for the info button */
-@media (max-width: 768px) {
-  .fixed-button {
-    width: 40px;
-    height: 40px;
-    font-size: 14px;
-    top: 1em;
-    right: 1em;
-  }
-}
-
-@media (max-width: 480px) {
-  .fixed-button {
-    width: 36px;
-    height: 36px;
-    font-size: 13px;
-    top: 0.75em;
-    right: 0.75em;
-  }
-}
 
 
 /* Close Button */
 .close-button {
-  color: rgba(255, 255, 255, 0.8);
-  position: absolute;
-  top: 1.5em;
-  right: 1.5em;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  font-weight: 600;
+  color: white;
+  position: fixed;
+  top: 1em;
+  right: 1em;
+  background: none;
+  border: none;
+  font-size: 100%;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  font-family: var(--font-primary);
 }
+
 
 .close-button:hover {
-  color: white;
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.3);
-  transform: scale(1.1);
+  color: #c9732c;
 }
 
-.close-button:active {
-  transform: scale(0.95);
-}
-
-.scroll-div {
+.scroll-div{
   height: 100%;
   width: 100%;
-  overflow-y: auto;
-  justify-content: center;
-  padding-right: 2em;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
-}
-
-.scroll-div::-webkit-scrollbar {
-  width: 8px;
-}
-
-.scroll-div::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.scroll-div::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.3);
-  border-radius: 4px;
-}
-
-.scroll-div::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(255, 255, 255, 0.5);
+  overflow-y: scroll;
+  justify-content: center; /* Horizontal centering */
+  padding-right: 10%;
 }
 
 /* modalStyles.css */
@@ -192,55 +106,26 @@ a {
 
 @media (prefers-color-scheme: light) {
   .fixed-button {
-    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-    color: #1a1a1a;
-    border: 1px solid rgba(0, 0, 0, 0.12);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1),
-                0 2px 6px rgba(0, 0, 0, 0.05);
-    z-index: 9999; /* Ensure button stays on top in light mode too */
+    background: #ee6c4d;
+    color: white;
+    border: 2px solid black; /* Adding a white solid border */
   }
-  
   .fixed-button:hover {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    border-color: rgba(0, 0, 0, 0.2);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15),
-                0 3px 8px rgba(0, 0, 0, 0.08);
+    background: #f48b70;
   }
-  
   .close-button {
-    color: rgba(0, 0, 0, 0.6);
-    background: rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: black;
   }
-  
   .close-button:hover {
-    color: rgba(0, 0, 0, 0.8);
-    background: rgba(0, 0, 0, 0.1);
-    border-color: rgba(0, 0, 0, 0.2);
-  }
-  
-  .modal {
-    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-    color: #1a1a1a;
-    border: 1px solid rgba(0, 0, 0, 0.12);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15),
-                0 8px 16px rgba(0, 0, 0, 0.1);
-  }
-  
-  .modal-link {
-    color: #e85a3a;
-  }
-  
-  .modal-link:hover {
     color: #ee6c4d;
   }
-  
-  .scroll-div::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.2);
+  .modal {
+    background-color: #fffaf1;
+    color: black;
+    border: 2px solid black; /* Adding a white solid border */
   }
-  
-  .scroll-div::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(0, 0, 0, 0.3);
+  a {
+    color: black;
   }
 }
   
