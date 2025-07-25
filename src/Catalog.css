@@ -86,15 +86,40 @@ body{
 }
 
 .department-table {
-  padding: 0;
+  padding: 15px 0;
   margin: 0;
   list-style-type: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 15px;
+  width: 100%;
 }
 
 .department-item {
-  padding: 5px 0;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+  text-align: left;
+  box-sizing: border-box;
 }
 
+.department-item:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.department-item a {
+  display: block;
+  padding: 20px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.department-item a .department-name {
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+}
 
 
 /* .minimized-table td {
@@ -117,20 +142,8 @@ body{
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding-bottom: 25px;
-}
-
-.department-table {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 10px;
-  width: 100%; /* Set a fixed width to fill the available space */
-}
-
-.department-item {
-  /* Add any additional styling for department items */
-  text-align: left; /* Align text to the left */
-  box-sizing: border-box; /* Include padding and border in the item width */
+  padding-bottom: 10px;
+  border-bottom: 1px solid #333;
 }
 
 /* Example to limit the width of the entire catalog container */
@@ -141,12 +154,33 @@ body{
 
 
 
-.section-title{
-  font-size: 30px;
-  font-weight: bold;
-  color: white;
-  text-align: left;
-  cursor: pointer;
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    text-align: left;
+    cursor: pointer;
+    padding: 10px 0;
+}
+
+.chevron {
+    border-style: solid;
+    border-width: 0.1em 0.1em 0 0;
+    content: '';
+    display: inline-block;
+    height: 0.3em;
+    width: 0.3em;
+    transform: rotate(135deg);
+    transition: transform 0.3s ease-out;
+    border-color: #888;
+}
+
+.chevron.expanded {
+    transform: rotate(-45deg);
 }
 
 
@@ -366,8 +400,27 @@ tr.title-header:hover th{
   .section-title{
     color: #000000;
   }
+
+  .chevron {
+    border-color: #999;
+  }
+  
   h1, h2, h3, h4, h5 {
     color: #000000;
+  }
+
+  .department-item {
+    background: #f1f1f1;
+    border: 1px solid #e5e5e5;
+  }
+
+  .department-item:hover {
+    background: #e9e9e9;
+    border-color: #ddd;
+  }
+  
+  .department-item a .department-name {
+    color: #000;
   }
 
 
@@ -560,7 +613,7 @@ tr.title-header:hover th{
     grid-template-columns: 1fr; /* One column when the screen is under 768 pixels */
   }
   .department-item {
-    flex-basis: 100%; /* Set it to 100% to display one item per row on mobile */
+    /* flex-basis: 100%; /* Set it to 100% to display one item per row on mobile */
   }
   strong{
     font-size: 14px;

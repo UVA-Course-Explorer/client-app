@@ -92,7 +92,7 @@ function Catalog() {
             <div key={school} className='catalog-section'>
               <div onClick={() => toggleSection(school)} className='section-title'>
                 {school}
-                {expandedSections[school] ? ' -' : ' +'}
+                <span className={`chevron ${expandedSections[school] ? 'expanded' : ''}`}></span>
               </div>
               <div className={`department-container ${expandedSections[school] ? 'expanded' : ''}`}>
                 <ul className="department-table">
