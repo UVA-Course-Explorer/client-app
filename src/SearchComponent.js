@@ -315,9 +315,6 @@ const memoizedHandleSearch = useCallback(async (shouldNavigate = true) => {
     <div>
       <div style={{position: 'relative'}}>
         <textarea placeholder={placeholderText} value={searchInput} onKeyDown={handleKeyPress} onChange={handleSearchInputChange} />
-        <div className="character-count">
-          {searchInput.length}/{maxLength}
-        </div>
       </div>
       <div><button className={"searchButton"} onClick={memoizedHandleSearch}>Search</button></div>
 
