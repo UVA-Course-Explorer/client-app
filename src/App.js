@@ -1,9 +1,9 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate} from 'react-router-dom';
 import PageTemplate from './PageTemplate';
 import './modalStyles.css'
 import './App.css';
-
+import { latestSemester } from './LatestSemester';
 
 
 function App() {
@@ -24,7 +24,7 @@ return (
 
     <Route path="/search" element={<PageTemplate target={"search"}/>}/>
     <Route path="/search/:query" element={<PageTemplate target={"search"}/>}/>
-    <Route path="/" element={<PageTemplate target={"search"}/>} />
+    <Route path="/" element={<Navigate to={`/catalog/${latestSemester}`} />} />
     </Routes>
   </Router>
 )
