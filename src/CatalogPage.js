@@ -11,7 +11,7 @@ function CatalogPage() {
   const navigate = useNavigate();
 
   const [tableExpansions, setTableExpansions] = useState({});
-  const [allTablesExpanded, setAllTablesExpanded] = useState(true); // state for overall table expansion
+  const [allTablesExpanded, setAllTablesExpanded] = useState(false); // state for overall table expansion
 
   const [allSemesters, setAllSemesters] = useState([]);
   const [selectedSemester, setSelectedSemester] = useState(semester);
@@ -64,12 +64,16 @@ function CatalogPage() {
       for (const [, courseArr] of Object.entries(data)) {
         for (const course of courseArr) {
           const tableKey = `${course.subject}${course.catalog_number}`;
-          newTableExpansions[tableKey] = allTablesExpanded;
+          newTableExpansions[tableKey] = false;
         }
       }
+      if (org && number) {
+        newTableExpansions[`${org}${number}`] = true;
+      }
       setTableExpansions(newTableExpansions);
+      setAllTablesExpanded(false);
     }
-  }, [data, allTablesExpanded]);
+  }, [data, org, number]);
 
 
 
@@ -130,12 +134,15 @@ function CatalogPage() {
 
   // Toggle the expansion state of all tables
   const toggleAllTablesExpansion = () => {
-    setAllTablesExpanded((prev) => !prev);
-    const newExpansionState = Object.keys(tableExpansions).reduce((state, tableKey) => {
-      state[tableKey] = !allTablesExpanded;
-      return state;
-    }, {});
-    setTableExpansions(newExpansionState);
+    setAllTablesExpanded(prev => {
+      const newState = !prev;
+      const newExpansionState = Object.keys(tableExpansions).reduce((state, tableKey) => {
+        state[tableKey] = newState;
+        return state;
+      }, {});
+      setTableExpansions(newExpansionState);
+      return newState;
+    });
   };
 
 
