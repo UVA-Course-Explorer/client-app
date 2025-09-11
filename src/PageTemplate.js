@@ -106,8 +106,8 @@ function PageTemplate(props){
 
 
         <div className="nav-bar">
-          <a className={`nav-button ${renderTarget === 'search' ? 'underlined' : ''}`} href="/search">Search</a>
           <a className={`nav-button ${renderTarget === 'catalog' || renderTarget === 'catalog-page' || renderTarget === 'catalog-semester-list' ? 'underlined' : ''}`} href={`/catalog/${latestSemester}`}>Catalog</a>
+          <a className={`nav-button ${renderTarget === 'search' ? 'underlined' : ''}`} href="/search">Search</a>
         </div>
         {content}
       </header>
