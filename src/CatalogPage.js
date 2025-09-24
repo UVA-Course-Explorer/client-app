@@ -147,29 +147,30 @@ function CatalogPage() {
 
 
   const generateMeetingTable = (meetings) => {
-    if(!meetings){
-        return "TBA";
+    if (!meetings) {
+      return "TBA";
     }
     const table = [];
-    
-    for (const meeting of meetings){
-      if(meeting.days === '-'){
-        meeting.days = 'TBA';
-      }
 
-      if(meeting.facility_descr === '-'){
-        meeting.facility_descr = 'TBA';
-      }
+    for (const meeting of meetings) {
+      const meetingDays = meeting.days === '-' ? 'TBA' : meeting.days;
 
-      const meetingTimeString = meeting.start_time !== '' && meeting.end_time !== ''
-      ? `${meeting.start_time}-${meeting.end_time}`
-      : 'TBA';
+      const hasTime =
+        meeting.start_time &&
+        meeting.end_time &&
+        meeting.start_time !== '-' &&
+        meeting.end_time !== '-';
 
-        table.push(<tr className='meeting-table'>
-          <td className="days">{meeting.days}</td>
+      const meetingTimeString = hasTime
+        ? `${meeting.start_time}-${meeting.end_time}`
+        : 'TBA';
+
+      table.push(
+        <tr className='meeting-table'>
+          <td className="days">{meetingDays}</td>
           <td className="time">{meetingTimeString}</td>
-          <td className="location">{meeting.facility_descr}</td>
-        </tr>);
+        </tr>
+      );
     }
     return table;
   }
@@ -274,24 +275,36 @@ function CatalogPage() {
         const table = [];
         table.push(
           <tr className="title-header">
-          <th colSpan="4" className='course-title' onClick={() => toggleTableExpansion(tableKey)}>{course.subject} {course.catalog_number}: {course.descr}</th> 
-          
-          <th className="external-buttons">
-            <div className = "button-container">
-            <th className="sis-button"><a target="_blank" rel="noopener noreferrer" href={getSisLink(course.subject, course.catalog_number) }><button className="catalog-button">SIS</button></a></th>
-            <th><a target="_blank" rel="noopener noreferrer" href={getCourseForumLink(course.subject, course.catalog_number)}><button className="catalog-button">theCourseForum</button></a> </th>
-            <th><a target="_blank" rel="noopener noreferrer" href={getVAGradesLink(course.subject, course.catalog_number)}> <button className="catalog-button hide-button">VA Grades</button></a></th>
-            </div>
-          </th>
-          </tr>);
+            <th colSpan="4" className='course-title' onClick={() => toggleTableExpansion(tableKey)}>{course.subject} {course.catalog_number}: {course.descr}</th>
 
-table.push(<tr className={`column-names ${trClassName}`}>          
-        <th className="section-type">Section Type</th>
-          <th className="section-number">Section Number</th>
-          <th className="instructor">Instructor</th>
-          <th className="enrollment">Enrollment</th>
-          <th className="meeting-table"><table><td className='table-header'>Days</td><td className='table-header'>Time</td><td className='table-header'>Location</td></table></th>
-        </tr>);
+            <th className="external-buttons">
+              <div className = "button-container">
+              <th className="sis-button"><a target="_blank" rel="noopener noreferrer" href={getSisLink(course.subject, course.catalog_number) }><button className="catalog-button">SIS</button></a></th>
+              <th><a target="_blank" rel="noopener noreferrer" href={getCourseForumLink(course.subject, course.catalog_number)}><button className="catalog-button">theCourseForum</button></a> </th>
+              <th><a target="_blank" rel="noopener noreferrer" href={getVAGradesLink(course.subject, course.catalog_number)}> <button className="catalog-button hide-button">VA Grades</button></a></th>
+              </div>
+            </th>
+          </tr>
+        );
+
+        table.push(
+          <tr className={`column-names ${trClassName}`}>
+            <th className="section-type">Section Type</th>
+            <th className="section-number">Section Number</th>
+            <th className="instructor">Instructor</th>
+            <th className="enrollment">Enrollment</th>
+            <th className="meeting-table">
+              <table>
+                <tbody>
+                  <tr>
+                    <td className='table-header'>Days</td>
+                    <td className='table-header'>Time</td>
+                  </tr>
+                </tbody>
+              </table>
+            </th>
+          </tr>
+        );
 
         for (const section of course.sessions) {
           const classSectionString = section.topic !== null ? `${section.class_section} - ${section.topic}` : `${section.class_section}`;
