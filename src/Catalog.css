@@ -211,6 +211,31 @@ body{
 
 .meeting-table{
   width: 100%;
+  vertical-align: top;
+}
+
+.meeting-table-head,
+.meeting-table-content,
+.meeting-row {
+  width: 100%;
+}
+
+.meeting-table-head,
+.meeting-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 12px;
+  text-align: center;
+}
+
+.meeting-table-content {
+  display: grid;
+  row-gap: 6px;
+}
+
+.meeting-row .days,
+.meeting-row .time {
+  display: block;
 }
 
 .days{
@@ -247,10 +272,11 @@ tr{
 
 
 .catalogPage .custom-table {
-  width: 1000px; /* Set the fixed width for the entire table */
+  width: 100%;
+  max-width: 1000px; /* Limit the table width on large screens */
   border: 1px solid #fff;
   border-radius: 3px;
-  display: inline-block; 
+  table-layout: fixed;
 }
 
 .custom-table th, .custom-table td {
@@ -338,8 +364,8 @@ tr{
 
 
 /* Style for all rows of the inner table */
-.custom-table tr:nth-child(even) .meeting-table tr,
-.custom-table tr:nth-child(odd) .meeting-table tr {
+.custom-table tr:nth-child(even) .meeting-table .meeting-row,
+.custom-table tr:nth-child(odd) .meeting-table .meeting-row {
   background-color: inherit; /* Inherit background color from outer table */
 }
 
@@ -458,8 +484,8 @@ tr.title-header:hover th{
   }
 
   /* Style for all rows of the inner table */
-  .catalogPage .custom-table tr:nth-child(even) .meeting-table tr,
-  .catalogPage .custom-table tr:nth-child(odd) .meeting-table tr {
+  .catalogPage .custom-table tr:nth-child(even) .meeting-table .meeting-row,
+  .catalogPage .custom-table tr:nth-child(odd) .meeting-table .meeting-row {
       background-color: inherit; /* Inherit background color from outer table */
   }
 

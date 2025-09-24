@@ -147,17 +147,23 @@ function CatalogPage() {
 
 
   const generateMeetingTable = (meetings) => {
-    if (!meetings) {
-      return "TBA";
+    if (!meetings || meetings.length === 0) {
+      return [
+        <div className="meeting-row" key="meeting-tba">
+          <span className="days">TBA</span>
+          <span className="time">TBA</span>
+        </div>
+      ];
     }
-    const table = [];
 
-    for (const meeting of meetings) {
-      const meetingDays = meeting.days === '-' ? 'TBA' : meeting.days;
+    const rows = [];
+
+    for (const [index, meeting] of meetings.entries()) {
+      const meetingDays = meeting?.days === '-' ? 'TBA' : (meeting?.days || 'TBA');
 
       const hasTime =
-        meeting.start_time &&
-        meeting.end_time &&
+        meeting?.start_time &&
+        meeting?.end_time &&
         meeting.start_time !== '-' &&
         meeting.end_time !== '-';
 
@@ -165,15 +171,16 @@ function CatalogPage() {
         ? `${meeting.start_time}-${meeting.end_time}`
         : 'TBA';
 
-      table.push(
-        <tr className='meeting-table'>
-          <td className="days">{meetingDays}</td>
-          <td className="time">{meetingTimeString}</td>
-        </tr>
+      rows.push(
+        <div className="meeting-row" key={`meeting-${meetingDays}-${meetingTimeString}-${index}`}>
+          <span className="days">{meetingDays}</span>
+          <span className="time">{meetingTimeString}</span>
+        </div>
       );
     }
-    return table;
-  }
+
+    return rows;
+  };
 
   const generateInstructorHTML = (instructors) => {
     const elements = [];
@@ -294,14 +301,10 @@ function CatalogPage() {
             <th className="instructor">Instructor</th>
             <th className="enrollment">Enrollment</th>
             <th className="meeting-table">
-              <table>
-                <tbody>
-                  <tr>
-                    <td className='table-header'>Days</td>
-                    <td className='table-header'>Time</td>
-                  </tr>
-                </tbody>
-              </table>
+              <div className='meeting-table-head'>
+                <span className='table-header'>Days</span>
+                <span className='table-header'>Time</span>
+              </div>
             </th>
           </tr>
         );
@@ -314,8 +317,11 @@ function CatalogPage() {
             <td className="section-number">{classSectionString}</td>
             <td className="instructor">{generateInstructorHTML(section.instructors)}</td>
             <td className="enrollment">{`${section.enrollment_total}/${section.class_capacity}`}</td>
-            <td className='meeting-table'><table>
-            {generateMeetingTable(section.meetings)}</table>  </td>
+            <td className='meeting-table'>
+              <div className='meeting-table-content'>
+                {generateMeetingTable(section.meetings)}
+              </div>
+            </td>
           </tr>);
         }
 
