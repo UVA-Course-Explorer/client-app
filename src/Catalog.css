@@ -474,7 +474,7 @@ tr.title-header:hover th{
   /* Style for even rows */
   .catalogPage .custom-table tr:nth-child(even) {
     /* background-color: #fff4e6; */
-    background-color: #f8d7a9; 
+    background-color: #f0f0f0;
   }
   
   /* Style for odd rows */
