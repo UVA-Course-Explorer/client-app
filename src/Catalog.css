@@ -326,7 +326,7 @@ tr{
 .course-title{
   flex: 1 1 240px;
   min-width: 0;
-  font-size: 40px;
+  font-size: 50px;
   font-weight: bold;
   text-align: left;
   color: inherit;
@@ -360,7 +360,12 @@ tr.title-header:hover .course-title{
   text-decoration: underline;
 }
 
-.catalogPage .custom-table button.course-title,
+.catalogPage .custom-table button.course-title {
+  background-color: transparent;
+  box-shadow: none;
+  font-size: 24px;
+}
+
 .catalogPage .custom-table button.course-title:hover,
 .catalogPage .custom-table button.course-title:focus {
   background-color: transparent;
