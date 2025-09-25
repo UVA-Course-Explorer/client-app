@@ -1,17 +1,16 @@
-import React, { useState, useEffect, useCallback} from 'react';
-import { useParams, useNavigate} from 'react-router-dom';
-import './Catalog.css'
-import './Catalog.css'
+import React, { useState, useEffect, useCallback } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import './Catalog.css';
 import { requirementMapping } from './RequirementMap';
 
 function CatalogPage() {
-  const { semester, department, org, number} = useParams();
+  const { semester, department, org, number } = useParams();
   const [data, setData] = useState(null);
   const [metadata, setMetadata] = useState(null);
   const navigate = useNavigate();
 
   const [tableExpansions, setTableExpansions] = useState({});
-  const [allTablesExpanded, setAllTablesExpanded] = useState(false); // state for overall table expansion
+  const [allTablesExpanded, setAllTablesExpanded] = useState(false);
 
   const [allSemesters, setAllSemesters] = useState([]);
   const [selectedSemester, setSelectedSemester] = useState(semester);
@@ -19,7 +18,6 @@ function CatalogPage() {
   const [noDataFound, setNoDataFound] = useState(false);
 
   const [showBackToTop, setShowBackToTop] = useState(false);
-
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -42,21 +40,18 @@ function CatalogPage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-
-    // Fetch all semesters
-    useEffect(() => {
-      async function fetchAllSemesters() {
-        try {
-          const response = await fetch('https://raw.githubusercontent.com/UVA-Course-Explorer/course-data/main/previousSemesters.json');
-          const jsonData = await response.json();
-          setAllSemesters(jsonData.reverse());
-        } catch (error) {
-          console.error('Error fetching semesters:', error);
-        }
+  useEffect(() => {
+    async function fetchAllSemesters() {
+      try {
+        const response = await fetch('https://raw.githubusercontent.com/UVA-Course-Explorer/course-data/main/previousSemesters.json');
+        const jsonData = await response.json();
+        setAllSemesters(jsonData.reverse());
+      } catch (error) {
+        console.error('Error fetching semesters:', error);
       }
-      fetchAllSemesters();
-    }, []);
-
+    }
+    fetchAllSemesters();
+  }, []);
 
   useEffect(() => {
     if (data) {
@@ -75,8 +70,6 @@ function CatalogPage() {
     }
   }, [data, org, number]);
 
-
-
   const fetchCatalogIndexData = useCallback(async () => {
     setNoDataFound(false);
     try {
@@ -86,55 +79,48 @@ function CatalogPage() {
       }
       const jsonData = await response.json();
       setData(jsonData);
-  
+
       const metadataResponse = await fetch(`https://raw.githubusercontent.com/UVA-Course-Explorer/course-data/main/data/${semester}/metadata.json`);
       if (metadataResponse.ok) {
-        const metadata = await metadataResponse.json();
-        setMetadata(metadata);
+        const metadataJson = await metadataResponse.json();
+        setMetadata(metadataJson);
       }
     } catch (error) {
       console.error('Error fetching data:', error);
       setData(null);
       setMetadata(null);
       setNoDataFound(true);
-    } finally {
     }
   }, [department, semester]);
-
-
-
 
   useEffect(() => {
     fetchCatalogIndexData();
   }, [fetchCatalogIndexData]);
 
   useEffect(() => {
-    // Check URL parameters and scroll to the desired table if present
     let scrollKey = null;
-    if(org && number){
+    if (org && number) {
       scrollKey = org + number;
     }
     if (scrollKey) {
       setTimeout(() => {
-      // Use JavaScript to scroll to the specified table
-      const tableElement = document.getElementById(scrollKey);
-      if (tableElement) {
-        tableElement.scrollIntoView({ behavior: 'smooth' });
-      }
+        const tableElement = document.getElementById(scrollKey);
+        if (tableElement) {
+          tableElement.scrollIntoView({ behavior: 'smooth' });
+        }
       }, 750);
     }
   }, [number, org]);
 
-
   const toggleTableExpansion = (tableKey) => {
-    setTableExpansions((prevTableExpansions) => {
-      return { ...prevTableExpansions, [tableKey]: !prevTableExpansions[tableKey] };
-    });
+    setTableExpansions((prevTableExpansions) => ({
+      ...prevTableExpansions,
+      [tableKey]: !prevTableExpansions[tableKey]
+    }));
   };
 
-  // Toggle the expansion state of all tables
   const toggleAllTablesExpansion = () => {
-    setAllTablesExpanded(prev => {
+    setAllTablesExpanded((prev) => {
       const newState = !prev;
       const newExpansionState = Object.keys(tableExpansions).reduce((state, tableKey) => {
         state[tableKey] = newState;
@@ -145,69 +131,64 @@ function CatalogPage() {
     });
   };
 
-
   const generateMeetingTable = (meetings) => {
     if (!meetings || meetings.length === 0) {
       return [
-        <div className="meeting-row" key="meeting-tba">
-          <span className="days">TBA</span>
-          <span className="time">TBA</span>
+        <div className="meeting-slot" key="meeting-tba">
+          <span className="meeting-slot__days">TBA</span>
+          <span className="meeting-slot__time">TBA</span>
         </div>
       ];
     }
 
-    const rows = [];
-
-    for (const [index, meeting] of meetings.entries()) {
-      const meetingDays = meeting?.days === '-' ? 'TBA' : (meeting?.days || 'TBA');
-
+    return meetings.map((meeting, index) => {
+      const meetingDays = meeting?.days === '-' ? 'TBA' : meeting?.days || 'TBA';
       const hasTime =
         meeting?.start_time &&
         meeting?.end_time &&
         meeting.start_time !== '-' &&
         meeting.end_time !== '-';
+      const meetingTimeString = hasTime ? `${meeting.start_time}-${meeting.end_time}` : 'TBA';
 
-      const meetingTimeString = hasTime
-        ? `${meeting.start_time}-${meeting.end_time}`
-        : 'TBA';
-
-      rows.push(
-        <div className="meeting-row" key={`meeting-${meetingDays}-${meetingTimeString}-${index}`}>
-          <span className="days">{meetingDays}</span>
-          <span className="time">{meetingTimeString}</span>
+      return (
+        <div className="meeting-slot" key={`meeting-${meetingDays}-${meetingTimeString}-${index}`}>
+          <span className="meeting-slot__days">{meetingDays}</span>
+          <span className="meeting-slot__time">{meetingTimeString}</span>
         </div>
       );
-    }
-
-    return rows;
+    });
   };
 
-  const generateInstructorHTML = (instructors) => {
-    const elements = [];
-    for (const instructor of instructors){
-      if(instructor.email.length > 0){
-        elements.push(<p><a href={`mailto:${instructor.email}`}>{instructor.name}</a></p>);
-      }
-      else{
-        elements.push(<p>{instructor.name}</p>);
-      }
+  const generateInstructorHTML = (instructors = []) => {
+    if (instructors.length === 0) {
+      return <p>Staff</p>;
     }
-    return elements;
-  }
 
+    return instructors.map((instructor) => {
+      const key = `${instructor.name}-${instructor.email || 'no-email'}`;
+      if (instructor.email?.length > 0) {
+        return (
+          <p key={key}>
+            <a href={`mailto:${instructor.email}`}>{instructor.name}</a>
+          </p>
+        );
+      }
+
+      return <p key={key}>{instructor.name}</p>;
+    });
+  };
 
   const getSisLink = (subject, catalog_number) => {
     return `https://sisuva.admin.virginia.edu/psp/ihprd/UVSS/SA/s/WEBLIB_HCX_CM.H_CLASS_SEARCH.FieldFormula.IScript_Main?catalog_nbr=${catalog_number}&subject=${subject}`;
-}
+  };
 
   const getVAGradesLink = (subject, catalog_number) => {
-    return `https://vagrades.com/uva/${subject}${catalog_number}`
-  }
-
+    return `https://vagrades.com/uva/${subject}${catalog_number}`;
+  };
 
   const getCourseForumLink = (subject, catalog_number) => {
-    return `https://thecourseforum.com/course/${subject}/${catalog_number}`
-  }
+    return `https://thecourseforum.com/course/${subject}/${catalog_number}`;
+  };
 
   const handleSemesterChange = (event) => {
     const newSemester = event.target.value;
@@ -215,142 +196,146 @@ function CatalogPage() {
     navigate(`/catalog/${newSemester}/${department}`);
   };
 
+  const renderCourseCard = (course) => {
+    const tableKey = `${course.subject}${course.catalog_number}`;
+    const isExpanded = Boolean(tableExpansions[tableKey]);
+    const classSectionRows = course.sessions || [];
 
-  const elements = [];
+    return (
+      <article className={`course-card ${isExpanded ? 'course-card--expanded' : ''}`} id={tableKey} key={tableKey}>
+        <header className="course-card__header">
+          <button
+            type="button"
+            className="course-card__toggle"
+            onClick={() => toggleTableExpansion(tableKey)}
+            aria-expanded={isExpanded}
+          >
+            <span className="course-card__title">
+              {course.subject} {course.catalog_number}: {course.descr}
+            </span>
+            <span className="course-card__chevron" aria-hidden="true" />
+          </button>
+          <div className="course-card__actions">
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={getSisLink(course.subject, course.catalog_number)}
+              className="catalog-button"
+            >
+              SIS
+            </a>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={getCourseForumLink(course.subject, course.catalog_number)}
+              className="catalog-button"
+            >
+              theCourseForum
+            </a>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={getVAGradesLink(course.subject, course.catalog_number)}
+              className="catalog-button hide-button"
+            >
+              VA Grades
+            </a>
+          </div>
+        </header>
+        <div className="course-card__body" hidden={!isExpanded}>
+          <div className="session-grid session-grid--header">
+            <div className="session-cell">Section Type</div>
+            <div className="session-cell">Section Number</div>
+            <div className="session-cell">Instructor</div>
+            <div className="session-cell">Enrollment</div>
+            <div className="session-cell">Meetings</div>
+          </div>
+          {classSectionRows.map((section, index) => {
+            const classSectionString = section.topic !== null ? `${section.class_section} - ${section.topic}` : `${section.class_section}`;
+            const sectionKey = `${section.class_section}-${section.topic || 'default'}-${index}`;
 
-
-  async function addRequirementName() {
-    if (department.includes('-')) {
-      elements.push(<h2 className="department-title">{requirementMapping[department]}</h2>);
-    }
-  }
-
-
-  addRequirementName();
-
-
-
-  if (metadata && metadata?.semester && metadata?.last_updated) {
-        // Create a Date object from the UTC time string
-        const utcDate = new Date(metadata.last_updated);
-
-        // Get the user's current timezone
-        const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    
-        // Format the UTC time to the user's timezone
-        const userTimeOptions = { timeZone: userTimezone, hour12: true, year: '2-digit', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'};
-        const userTime = utcDate.toLocaleTimeString(undefined, userTimeOptions);
-    elements.push(<h3>Last Updated on {userTime}</h3>);
-  }
-
-
-
-
-
-  elements.push(
-    <div>
-    <select value={selectedSemester} onChange={handleSemesterChange}>
-      {allSemesters.map((sem) => (
-        <option key={sem.strm} value={sem.strm}>
-          {sem.name}
-        </option>
-      ))}
-    </select>
-    </div>
-  );
-
-
-
-  if(data) {
-
-    elements.push(        
-      <button onClick={toggleAllTablesExpansion} className='toggle-button'>
-        {allTablesExpanded ? 'Minimize' : 'Expand'} All Tables
-      </button>);
-
-    for (const [subject, courseArr] of Object.entries(data)) {
-      elements.push(<h2 className="subject">{subject}</h2>);
-      for (const course of courseArr) {
-
-        const tableKey = `${course.subject}${course.catalog_number}`;
-        const isExpanded = tableExpansions[tableKey];
-
-        const trClassName = `${isExpanded ? 'expanded' : 'collapsed'} animate-expansion`;
-
-        // console.log(`Rendering table ${tableKey}: ${isExpanded ? 'expanded' : 'collapsed'}`);
-        // const trClassName = isExpanded ? 'expanded' : 'collapsed';
-        const table = [];
-        table.push(
-          <tr className="title-header">
-            <th colSpan="4" className='course-title' onClick={() => toggleTableExpansion(tableKey)}>{course.subject} {course.catalog_number}: {course.descr}</th>
-
-            <th className="external-buttons">
-              <div className = "button-container">
-              <th className="sis-button"><a target="_blank" rel="noopener noreferrer" href={getSisLink(course.subject, course.catalog_number) }><button className="catalog-button">SIS</button></a></th>
-              <th><a target="_blank" rel="noopener noreferrer" href={getCourseForumLink(course.subject, course.catalog_number)}><button className="catalog-button">theCourseForum</button></a> </th>
-              <th><a target="_blank" rel="noopener noreferrer" href={getVAGradesLink(course.subject, course.catalog_number)}> <button className="catalog-button hide-button">VA Grades</button></a></th>
+            return (
+              <div className="session-grid" key={sectionKey}>
+                <div className="session-cell">
+                  <span className="cell-label">Section Type</span>
+                  <div className="cell-value">{section.section_type} ({section.units} units)</div>
+                </div>
+                <div className="session-cell">
+                  <span className="cell-label">Section Number</span>
+                  <div className="cell-value">{classSectionString}</div>
+                </div>
+                <div className="session-cell">
+                  <span className="cell-label">Instructor</span>
+                  <div className="cell-value instructor-cell">{generateInstructorHTML(section.instructors)}</div>
+                </div>
+                <div className="session-cell">
+                  <span className="cell-label">Enrollment</span>
+                  <div className="cell-value">{`${section.enrollment_total}/${section.class_capacity}`}</div>
+                </div>
+                <div className="session-cell session-cell--meetings">
+                  <span className="cell-label">Meetings</span>
+                  <div className="cell-value meeting-list">{generateMeetingTable(section.meetings)}</div>
+                </div>
               </div>
-            </th>
-          </tr>
-        );
+            );
+          })}
+        </div>
+      </article>
+    );
+  };
 
-        table.push(
-          <tr className={`column-names ${trClassName}`}>
-            <th className="section-type">Section Type</th>
-            <th className="section-number">Section Number</th>
-            <th className="instructor">Instructor</th>
-            <th className="enrollment">Enrollment</th>
-            <th className="meeting-table">
-              <div className='meeting-table-head'>
-                <span className='table-header'>Days</span>
-                <span className='table-header'>Time</span>
-              </div>
-            </th>
-          </tr>
-        );
+  const departmentTitle = department.includes('-') ? requirementMapping[department] : null;
 
-        for (const section of course.sessions) {
-          const classSectionString = section.topic !== null ? `${section.class_section} - ${section.topic}` : `${section.class_section}`;
-
-          table.push(<tr className={trClassName}>
-            <td className="section-type">{section.section_type} ({section.units} units)</td>
-            <td className="section-number">{classSectionString}</td>
-            <td className="instructor">{generateInstructorHTML(section.instructors)}</td>
-            <td className="enrollment">{`${section.enrollment_total}/${section.class_capacity}`}</td>
-            <td className='meeting-table'>
-              <div className='meeting-table-content'>
-                {generateMeetingTable(section.meetings)}
-              </div>
-            </td>
-          </tr>);
-        }
-
-          elements.push(
-            <div>
-              <table className={'custom-table'} id={tableKey}>
-                <tbody>{table}</tbody>
-              </table>
-            </div>
-          );
-
-          if (isExpanded) {
-            elements.push(<br />);
-            elements.push(<br />);
-          }
-
-      }
-    }
-
-
+  let lastUpdatedText = null;
+  if (metadata?.semester && metadata?.last_updated) {
+    const utcDate = new Date(metadata.last_updated);
+    const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const userTimeOptions = {
+      timeZone: userTimezone,
+      hour12: true,
+      year: '2-digit',
+      month: 'numeric',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric'
+    };
+    lastUpdatedText = utcDate.toLocaleTimeString(undefined, userTimeOptions);
   }
-
-
-
 
   return (
     <div className="catalogPage">
       <div>
-        {elements}
+        {departmentTitle && <h2 className="department-title">{departmentTitle}</h2>}
+        {lastUpdatedText && <h3>Last Updated on {lastUpdatedText}</h3>}
+
+        <div className="semester-select">
+          <label htmlFor="semester-select" className="visually-hidden">
+            Select semester
+          </label>
+          <select id="semester-select" value={selectedSemester} onChange={handleSemesterChange}>
+            {allSemesters.map((sem) => (
+              <option key={sem.strm} value={sem.strm}>
+                {sem.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {data && (
+          <>
+            <button onClick={toggleAllTablesExpansion} className="toggle-button">
+              {allTablesExpanded ? 'Minimize' : 'Expand'} All Tables
+            </button>
+
+            {Object.entries(data).map(([subject, courseArr]) => (
+              <section key={subject}>
+                <h2 className="subject">{subject}</h2>
+                {courseArr.map((course) => renderCourseCard(course))}
+              </section>
+            ))}
+          </>
+        )}
+
         {noDataFound && <h4>No classes found for {department} in the semester.</h4>}
       </div>
       {showBackToTop && (
@@ -360,19 +345,6 @@ function CatalogPage() {
       )}
     </div>
   );
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
 
 export default CatalogPage;
