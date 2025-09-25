@@ -48,7 +48,7 @@ body{
   }
 }
 
-  
+
 @media (prefers-color-scheme: dark) {
   .back-to-top {
     background-color: #ffffff; /* White theme background for dark mode */
@@ -60,157 +60,92 @@ body{
   }
 }
 
-@media (max-width: 768px) {
-  .back-to-top {
-    padding: 10px 20px; /* Increase padding for smaller screens */
-    font-size: 15px; /* Increase font size for smaller screens */
-  }
-}
-
-@media (max-width: 480px) {
-  .back-to-top {
-    padding: 8px 16px; /* Increase padding for very small screens */
-    font-size: 13px; /* Increase font size for very small screens */
-  }
-}
-
-.department-container {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease-out;
-}
-
-.department-container.expanded {
-  max-height: 1000px; /* Adjust this value based on your content */
-  transition: max-height 0.5s ease-in;
-}
-
-.department-table {
-  padding: 15px 0;
-  margin: 0;
-  list-style-type: none;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 15px;
-  width: 100%;
-}
-
-.department-item {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 8px;
-  transition: all 0.2s ease-in-out;
-  text-align: left;
-  box-sizing: border-box;
-}
-
-.department-item:hover {
-  transform: translateY(-3px);
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.department-item a {
-  display: block;
-  padding: 20px;
-  text-decoration: none;
-  color: inherit;
-}
-
-.department-item a .department-name {
-  color: #fff;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-
-/* .minimized-table td {
-  display: none; /* Hide the table contents }*/
-
-/* CSS for Minimized Table */
-/* .minimized-table tr {
-  display: none; /* Hide the table contents */
-/* } */
-
-
-
-
-.expanded-table {
-  display: table;
-}
-
-
-.catalog-section {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #333;
-}
-
-/* Example to limit the width of the entire catalog container */
-.catalog {
-  max-width: 800px; /* Adjust the max-width as needed */
-  margin: 0 auto; /* Center the catalog in its parent container */
-}
-
-
-
-.section-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    font-size: 30px;
-    font-weight: bold;
-    color: white;
-    text-align: left;
-    cursor: pointer;
-    padding: 10px 0;
-}
-
-.chevron {
-    border-style: solid;
-    border-width: 0.1em 0.1em 0 0;
-    content: '';
-    display: inline-block;
-    height: 0.3em;
-    width: 0.3em;
-    transform: rotate(135deg);
-    transition: transform 0.3s ease-out;
-    border-color: #888;
-}
-
-.chevron.expanded {
-    transform: rotate(-45deg);
-}
-
 
 .button-container{
   display: flex;
-  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-start;
 }
 
+.catalogPage .course-container {
+  margin: 24px 0;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(17, 41, 78, 0.35);
+  backdrop-filter: blur(6px);
+  overflow: hidden;
+}
 
+.catalogPage .course-header {
+  background-color: #184276;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px 20px;
+  cursor: pointer;
+}
 
+.catalogPage .course-header:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.85);
+  outline-offset: -3px;
+}
 
+.course-title{
+  font-size: clamp(1.125rem, 2.4vw, 1.9rem);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.catalogPage .table-wrapper {
+  overflow-x: auto;
+}
+
+.catalogPage .custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 560px;
+}
+
+.catalogPage .custom-table th,
+.catalogPage .custom-table td {
+  padding: 12px 16px;
+  text-align: left;
+  vertical-align: top;
+  font-size: 16px;
+}
+
+.catalogPage .custom-table thead th {
+  background-color: rgba(24, 66, 118, 0.85);
+  font-weight: 600;
+}
+
+.catalogPage .custom-table tbody tr:nth-child(even) {
+  background-color: rgba(24, 66, 118, 0.22);
+}
+
+.catalogPage .custom-table tbody tr:nth-child(odd) {
+  background-color: transparent;
+}
 
 .section-type{
-  width: 20%
+  width: 22%;
 }
 
 .section-number{
-  width: 5%
+  width: 18%;
 }
 
 .instructor{
-  width: 20%
+  width: 22%;
 }
 
 .enrollment{
-
+  width: 12%;
 }
 
 .meeting-table{
-  width: 100%;
+  width: 26%;
   vertical-align: top;
 }
 
@@ -223,9 +158,9 @@ body{
 .meeting-table-head,
 .meeting-row {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
   column-gap: 12px;
-  text-align: center;
+  text-align: left;
 }
 
 .meeting-table-content {
@@ -238,17 +173,51 @@ body{
   display: block;
 }
 
-.days{
+.section-cards{
+  display: grid;
+  gap: 16px;
+  padding: 18px 20px;
+  background: rgba(17, 41, 78, 0.25);
 }
 
-.time{
+.section-card{
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  padding: 16px;
+  background: rgba(8, 21, 43, 0.55);
 }
 
-.custom-table button{
-  /* background: #e88c42; */
+.section-card-row{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.section-card-row + .section-card-row{
+  margin-top: 12px;
+}
+
+.section-card-label{
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #d5e3ff;
+}
+
+.section-card-value{
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.section-card-value p{
+  margin: 0;
+}
+
+.catalogPage .catalog-button{
   color: #000000;
   font-size: 15px;
-  padding: 0.5em 0.5em;
+  padding: 0.5em 0.75em;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -258,166 +227,20 @@ body{
   font-weight: bold;
 }
 
-a {
-  font-size: 16px;
-}
-
-p{
-  font-size: 16px;
-}
-
-tr{
-  font-size: 16px;
-}
-
-
-.catalogPage .custom-table {
-  width: 100%;
-  max-width: 1000px; /* Limit the table width on large screens */
-  border: 1px solid #fff;
-  border-radius: 3px;
-  table-layout: fixed;
-}
-
-.custom-table th, .custom-table td {
-  padding: 8px; /* Adjust padding as needed */
-  text-align: center; /* Center-align text within cells */
-}
-.custom-table td {
-  padding: 8px; /* Adjust padding as needed */
-  text-align: center;
-}
-.custom-table th {
-  /* background-color: #656769; */
-  background-color: #184276;
-  text-align: center;
-  /* background-color: #1d1d1e; */
-}
-
-.custom-table .column-names {
-  position: sticky;
-  /* top: 2.5em; */
-}
-
-.custom-table .title-header {
-  position: sticky;
-  /* top: 0; */
-
-  z-index: 5; /* Ensure the header appears above the table content */
-}
-
-.custom-table .title-header th{
-  position: sticky;
-  text-align: left;
-  /* top: 0; */
-  
-  z-index: 5; /* Ensure the header appears above the table content */
-}
-
-.course-title{
-  font-size: 30px;
-  font-weight: bold;
-  padding: 20px;
-
-  text-align: left;
-  flex-grow: 1;
-}
-
-.external-buttons{
-  width: 20%;
-  /* min-width: 350px; */
-    text-align: right;
-}
-
-
-
-
-
-.custom-table .expanded {
-  display: table-row;
-}
-
-.custom-table .collapsed {
-  display: none;
-}
-
-
-
-
-.custom-table tr {
-  border: none; /* Remove all borders for data rows */
-}
-
-/* Style for even rows */
-.custom-table tr:nth-child(even) {
-  /* background-color: #1e2b53; Background color for odd rows */
-  background-color: #1e2b53; /* Background color for odd rows */
-  
-
-}
-
-/* Style for odd rows */
-.custome-table tr:nth-child(odd) {
-  background-color: #191c21; /* Background color for even rows */
-  
-}
-
-
-/* Style for all rows of the inner table */
-.custom-table tr:nth-child(even) .meeting-table .meeting-row,
-.custom-table tr:nth-child(odd) .meeting-table .meeting-row {
-  background-color: inherit; /* Inherit background color from outer table */
-}
-
-h3, h2, .custom-table tr{
-  color: #fff;
-}
-
-h2{
-  font-size: 30px;
-}
-
-ul {
-  list-style-type: none;
-}
-
-.custom-table button:hover{
+.catalogPage .catalog-button:hover{
   background-color: #b4b0b0;
 }
 
+@media (min-width: 768px) {
+  .catalogPage .course-header {
+    flex-direction: row;
+    align-items: center;
+  }
 
-
-
-tr.title-header:hover th{
-  cursor: pointer; /* Optional: Change the cursor to a pointer to indicate it's clickable */
-  text-decoration: underline;
+  .button-container{
+    justify-content: flex-end;
+  }
 }
-
-.toggle-button{
-  /* background: #e88c42; */
-  color: #000000;
-  font-size: 15px;
-  padding: 0.5em 0.5em;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-  sans-serif;
-  font-weight: bold;
-}
-
-.toggle-button:hover{
-  background-color: #d7d3d3;
-}
-
-
-
-
-
-
-
-/* light / dark mode stuff */
 
 @media (prefers-color-scheme: light) {
   .section-title{
@@ -427,7 +250,7 @@ tr.title-header:hover th{
   .chevron {
     border-color: #999;
   }
-  
+
   h1, h2, h3, h4, h5 {
     color: #000000;
   }
@@ -441,15 +264,58 @@ tr.title-header:hover th{
     background: #e9e9e9;
     border-color: #ddd;
   }
-  
+
   .department-item a .department-name {
     color: #000;
   }
 
+  .catalogPage .course-container {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: #ffffff;
+    backdrop-filter: none;
+  }
+
+  .catalogPage .course-header {
+    background-color: #e7eef9;
+  }
+
+  .section-cards {
+    background: rgba(0, 0, 0, 0.03);
+  }
+
+  .section-card {
+    background: #f9fbff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .section-card-label {
+    color: #3c4a66;
+  }
+
+  .catalogPage .custom-table thead th {
+    background-color: #dfe7f5;
+  }
+
+  .catalogPage .custom-table tbody tr:nth-child(even) {
+    background-color: #f2f6fd;
+  }
+
+  .catalogPage .custom-table tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+  }
+
+  .catalogPage .custom-table td,
+  .catalogPage .custom-table th {
+    color: #000000;
+  }
+
+  .catalogPage .catalog-button {
+    background-color: #ffffff;
+    border: 1px solid #000000;
+  }
 
   .catalogPage .catalog-button:hover{
     background-color: #c1baba;
-
   }
 
   .toggle-button{
@@ -458,188 +324,89 @@ tr.title-header:hover th{
     border-radius: 5px;
   }
 
-  .catalogPage .custom-table {
-    border: 1px solid #000000;
-
-  }
-  .catalogPage .custom-table tr{
-    color: #000000;
-  }
-  .catalogPage .custom-table th {
-    /* background-color: #ffdeb3; */
-    background-color: #fff4e6;
-    background-color: #e7e7e7;
-
-  }
-  /* Style for even rows */
-  .catalogPage .custom-table tr:nth-child(even) {
-    /* background-color: #fff4e6; */
-    background-color: #f0f0f0;
-  }
-  
-  /* Style for odd rows */
-  .catalogPage .custom-table tr:nth-child(odd) {
-  background-color: #ffffff; /* Background color for even rows */
-
-  }
-
-  /* Style for all rows of the inner table */
-  .catalogPage .custom-table tr:nth-child(even) .meeting-table .meeting-row,
-  .catalogPage .custom-table tr:nth-child(odd) .meeting-table .meeting-row {
-      background-color: inherit; /* Inherit background color from outer table */
-  }
-
-
-  .catalogPage .custom-table button{
-    /* background: #e88c42; */
-    background-color: #ffffff;
-    border: 1px solid #000000;
-    border-radius: 5px;
-  }
-
 }
-
 .catalogPage .subject {
   font-size: 35px;
 }
 
-@media (max-width: 1000px) {
-  .catalogPage h2{
-    font-size: 14px
+@media (max-width: 1024px) {
+  .catalogPage .course-container {
+    margin: 20px 0;
   }
 
-  .catalogPage h3{
-    font-size: 14px;
-  }
-
-  
-  .catalogPage .section-title{
-    font-size: 20px;
-    cursor: pointer;
-  }
-
-  /* .catalogPage .section-title:hover{
-    cursor: pointer;
-  } */
-
-
-
-  .catalogPage .custom-table {
-    width: 90%;
-  }
-
-  @media (max-width: 768px) {
-    .catalogPage .hide-button {
-        display: none;
-    }
+  .course-title {
+    font-size: clamp(1.05rem, 3.1vw, 1.7rem);
   }
 
   .catalogPage .catalog-button {
-    text-align: right;
-    font-size: 8px;
-    white-space: nowrap; 
-  }
-
-  .toggle-button {
-    font-size: 8px;
-  }
-
-  .catalogPage .external-buttons {
-    padding: 0.2em 0.2em;
-    font-size: 8px;
-    width: 5%;
-  }
-
-  .catalogPage .course-title {
-      font-size: max(min(calc(4.5vw - 10px), 30px), 10px);
-  }
-
-  .catalogPage .custom-table button{
-    font-size: max(min(calc(4vw - 12px), 15px), 8px);
-  }
-
-
-  .catalogPage table {
-    font-size: 8px;
-    border: none;
-    border-collapse: collapse;
-  }
-
-  .catalogPage .subject {
-    font-size: max(min(calc(4.5vw - 10px), 35px), 15px);
-  }
-  
-  .catalogPage a {
-    font-size: max(min(calc(4vw - 12px), 15px), 7px);
-  }
-
-  .catalogPage p{
-    font-size: max(min(calc(4vw - 12px), 15px), 7px);
-  }
-
-  .catalogPage tr{
-    font-size: max(min(calc(4vw - 12px), 15px), 7px);
-  }
-
-  .catalogPage .table-header {
-    font-size: max(min(calc(4vw - 12px), 15px), 7px);
-  }
-
-  .catalogPage .section-type{
-    width: 10%;
-    font-size: max(min(calc(4vw - 12px), 15px), 7px);
-  }
-
-  .catalogPage .section-number{
-    width: 10%;
-    padding: 0px;
-    font-size: max(min(calc(4vw - 12px), 15px), 7px);
-  }
-
-  .catalogPage .instructor{
-    width: 10%;
-    padding: 0px;
-    font-size: max(min(calc(4vw - 12px), 15px), 8px);
-  }
-
-  .catalogPage .enrollment{
-    width: 1%;
-    padding: 0px;
-    font-size: max(min(calc(4vw - 12px), 15px), 8px);
-
-  }
-  .catalogPage .meeting-table{
-    width: 10%;
-  }
-
-  .catalogPage .days{
-    width: 9%;
-  }
-
-  .catalogPage .time{
-    width: 9%;
-  }
-
-  .catalogPage .location{
-    width: 9%;
+    font-size: 14px;
   }
 }
 
-@media (max-width: 768px) { /* Adjust the breakpoint as needed */
+@media (max-width: 768px) {
   .section-title{
     font-size: 20px;
   }
+
   .catalog-section {
-    padding: 10px; /* Add some padding to the section for narrower screens */
+    padding: 10px;
   }
+
   .department-table {
-    grid-template-columns: 1fr; /* One column when the screen is under 768 pixels */
+    grid-template-columns: 1fr;
   }
-  .department-item {
-    /* flex-basis: 100%; /* Set it to 100% to display one item per row on mobile */
-  }
+
   strong{
     font-size: 14px;
   }
 
+  .catalogPage .button-container {
+    justify-content: flex-start;
+  }
+
+  .catalogPage .catalog-button {
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .catalogPage .subject {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+  }
+
+  .section-card-label {
+    font-size: 11px;
+  }
+
+  .section-card-value {
+    font-size: 14px;
+  }
+
+  .section-cards {
+    padding: 16px;
+    gap: 14px;
+  }
+
+  .meeting-table-head,
+  .meeting-row {
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  }
+
+  .catalogPage .hide-button {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .catalogPage .course-header {
+    padding: 16px;
+  }
+
+  .catalogPage .catalog-button {
+    font-size: 12px;
+    padding: 0.45em 0.65em;
+  }
+
+  .section-card {
+    padding: 12px;
+  }
 }

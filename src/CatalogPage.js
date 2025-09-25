@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback} from 'react';
 import { useParams, useNavigate} from 'react-router-dom';
-import './Catalog.css'
-import './Catalog.css'
+import './Catalog.css';
 import { requirementMapping } from './RequirementMap';
 
 function CatalogPage() {
@@ -19,6 +18,7 @@ function CatalogPage() {
   const [noDataFound, setNoDataFound] = useState(false);
 
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
 
   const scrollToTop = () => {
@@ -38,8 +38,18 @@ function CatalogPage() {
       lastScrollY = currentScrollY;
     };
 
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    handleResize();
+
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
 
@@ -183,16 +193,17 @@ function CatalogPage() {
   };
 
   const generateInstructorHTML = (instructors) => {
-    const elements = [];
-    for (const instructor of instructors){
-      if(instructor.email.length > 0){
-        elements.push(<p><a href={`mailto:${instructor.email}`}>{instructor.name}</a></p>);
+    return instructors.map((instructor, index) => {
+      if (instructor.email.length > 0) {
+        return (
+          <p key={`${instructor.name}-${instructor.email}`}>
+            <a href={`mailto:${instructor.email}`}>{instructor.name}</a>
+          </p>
+        );
       }
-      else{
-        elements.push(<p>{instructor.name}</p>);
-      }
-    }
-    return elements;
+
+      return <p key={`${instructor.name}-${index}`}>{instructor.name}</p>;
+    });
   }
 
 
@@ -269,74 +280,128 @@ function CatalogPage() {
       </button>);
 
     for (const [subject, courseArr] of Object.entries(data)) {
-      elements.push(<h2 className="subject">{subject}</h2>);
+      elements.push(<h2 className="subject" key={`subject-${subject}`}>{subject}</h2>);
       for (const course of courseArr) {
 
         const tableKey = `${course.subject}${course.catalog_number}`;
         const isExpanded = tableExpansions[tableKey];
 
-        const trClassName = `${isExpanded ? 'expanded' : 'collapsed'} animate-expansion`;
+        const renderCourseSections = () => {
+          if (!isExpanded) {
+            return null;
+          }
 
-        // console.log(`Rendering table ${tableKey}: ${isExpanded ? 'expanded' : 'collapsed'}`);
-        // const trClassName = isExpanded ? 'expanded' : 'collapsed';
-        const table = [];
-        table.push(
-          <tr className="title-header">
-            <th colSpan="4" className='course-title' onClick={() => toggleTableExpansion(tableKey)}>{course.subject} {course.catalog_number}: {course.descr}</th>
+          if (isMobile) {
+            return (
+              <div className="section-cards">
+                {course.sessions.map((section) => {
+                  const classSectionString = section.topic !== null ? `${section.class_section} - ${section.topic}` : `${section.class_section}`;
 
-            <th className="external-buttons">
-              <div className = "button-container">
-              <th className="sis-button"><a target="_blank" rel="noopener noreferrer" href={getSisLink(course.subject, course.catalog_number) }><button className="catalog-button">SIS</button></a></th>
-              <th><a target="_blank" rel="noopener noreferrer" href={getCourseForumLink(course.subject, course.catalog_number)}><button className="catalog-button">theCourseForum</button></a> </th>
-              <th><a target="_blank" rel="noopener noreferrer" href={getVAGradesLink(course.subject, course.catalog_number)}> <button className="catalog-button hide-button">VA Grades</button></a></th>
+                  return (
+                    <div className="section-card" key={`${tableKey}-${classSectionString}`}>
+                      <div className="section-card-row">
+                        <span className="section-card-label">Section Type</span>
+                        <div className="section-card-value">{section.section_type} ({section.units} units)</div>
+                      </div>
+                      <div className="section-card-row">
+                        <span className="section-card-label">Section Number</span>
+                        <div className="section-card-value">{classSectionString}</div>
+                      </div>
+                      <div className="section-card-row">
+                        <span className="section-card-label">Instructor</span>
+                        <div className="section-card-value">{generateInstructorHTML(section.instructors)}</div>
+                      </div>
+                      <div className="section-card-row">
+                        <span className="section-card-label">Enrollment</span>
+                        <div className="section-card-value">{`${section.enrollment_total}/${section.class_capacity}`}</div>
+                      </div>
+                      <div className="section-card-row">
+                        <span className="section-card-label">Meetings</span>
+                        <div className="section-card-value meeting-card">
+                          {generateMeetingTable(section.meetings)}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
-            </th>
-          </tr>
-        );
+            );
+          }
 
-        table.push(
-          <tr className={`column-names ${trClassName}`}>
-            <th className="section-type">Section Type</th>
-            <th className="section-number">Section Number</th>
-            <th className="instructor">Instructor</th>
-            <th className="enrollment">Enrollment</th>
-            <th className="meeting-table">
-              <div className='meeting-table-head'>
-                <span className='table-header'>Days</span>
-                <span className='table-header'>Time</span>
-              </div>
-            </th>
-          </tr>
-        );
+          return (
+            <div className="table-wrapper">
+              <table className="custom-table" aria-label={`${course.subject} ${course.catalog_number} sections`}>
+                <thead>
+                  <tr className="column-names">
+                    <th className="section-type">Section Type</th>
+                    <th className="section-number">Section Number</th>
+                    <th className="instructor">Instructor</th>
+                    <th className="enrollment">Enrollment</th>
+                    <th className="meeting-table">
+                      <div className='meeting-table-head'>
+                        <span className='table-header'>Days</span>
+                        <span className='table-header'>Time</span>
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {course.sessions.map((section) => {
+                    const classSectionString = section.topic !== null ? `${section.class_section} - ${section.topic}` : `${section.class_section}`;
 
-        for (const section of course.sessions) {
-          const classSectionString = section.topic !== null ? `${section.class_section} - ${section.topic}` : `${section.class_section}`;
-
-          table.push(<tr className={trClassName}>
-            <td className="section-type">{section.section_type} ({section.units} units)</td>
-            <td className="section-number">{classSectionString}</td>
-            <td className="instructor">{generateInstructorHTML(section.instructors)}</td>
-            <td className="enrollment">{`${section.enrollment_total}/${section.class_capacity}`}</td>
-            <td className='meeting-table'>
-              <div className='meeting-table-content'>
-                {generateMeetingTable(section.meetings)}
-              </div>
-            </td>
-          </tr>);
-        }
-
-          elements.push(
-            <div>
-              <table className={'custom-table'} id={tableKey}>
-                <tbody>{table}</tbody>
+                    return (
+                      <tr key={`${tableKey}-${classSectionString}`}>
+                        <td className="section-type">{section.section_type} ({section.units} units)</td>
+                        <td className="section-number">{classSectionString}</td>
+                        <td className="instructor">{generateInstructorHTML(section.instructors)}</td>
+                        <td className="enrollment">{`${section.enrollment_total}/${section.class_capacity}`}</td>
+                        <td className='meeting-table'>
+                          <div className='meeting-table-content'>
+                            {generateMeetingTable(section.meetings)}
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
               </table>
             </div>
           );
+        };
 
-          if (isExpanded) {
-            elements.push(<br />);
-            elements.push(<br />);
-          }
+        const handleToggle = () => toggleTableExpansion(tableKey);
+
+        elements.push(
+          <div className="course-container" id={tableKey} key={`course-${tableKey}`}>
+            <div
+              className="course-header"
+              role="button"
+              tabIndex={0}
+              aria-expanded={isExpanded}
+              onClick={handleToggle}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  handleToggle();
+                }
+              }}
+            >
+              <div className='course-title'>
+                {course.subject} {course.catalog_number}: {course.descr}
+              </div>
+              <div
+                className="button-container"
+                onClick={(event) => event.stopPropagation()}
+                onKeyDown={(event) => event.stopPropagation()}
+              >
+                <a target="_blank" rel="noopener noreferrer" href={getSisLink(course.subject, course.catalog_number) }><button className="catalog-button">SIS</button></a>
+                <a target="_blank" rel="noopener noreferrer" href={getCourseForumLink(course.subject, course.catalog_number)}><button className="catalog-button">theCourseForum</button></a>
+                <a target="_blank" rel="noopener noreferrer" href={getVAGradesLink(course.subject, course.catalog_number)}> <button className="catalog-button hide-button">VA Grades</button></a>
+              </div>
+            </div>
+            {renderCourseSections()}
+          </div>
+        );
 
       }
     }
