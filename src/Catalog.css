@@ -193,7 +193,7 @@ body{
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 12px 20px;
+  padding: 4px 12px;
   flex-wrap: nowrap;
 }
 
@@ -321,6 +321,7 @@ tr{
   /* top: 0; */
   
   z-index: 5; /* Ensure the header appears above the table content */
+  padding: 4px 12px;
 }
 
 .course-title{
