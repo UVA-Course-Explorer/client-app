@@ -1,11 +1,114 @@
-import React, { useState, useEffect, useCallback} from 'react';
-import { useParams, useNavigate} from 'react-router-dom';
-import './Catalog.css'
-import './Catalog.css'
+import React, { useState, useEffect, useCallback } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import './Catalog.css';
 import { requirementMapping } from './RequirementMap';
 
+const CourseCard = ({
+  course,
+  isExpanded,
+  onToggle,
+  getSisLink,
+  getCourseForumLink,
+  getVAGradesLink,
+  generateInstructorHTML,
+  generateMeetingTable,
+}) => {
+  const tableKey = `${course.subject}${course.catalog_number}`;
+  const handleToggle = () => onToggle(tableKey);
+
+  return (
+    <div className={`course-card ${isExpanded ? 'course-card--expanded' : ''}`} id={tableKey}>
+      <div className="course-card__header">
+        <button
+          type="button"
+          className="course-card__toggle"
+          onClick={handleToggle}
+          aria-expanded={isExpanded}
+          aria-controls={`${tableKey}-content`}
+        >
+          <span className="course-card__title" id={`${tableKey}-title`}>
+            {course.subject} {course.catalog_number}: {course.descr}
+          </span>
+          <span
+            className={`course-card__chevron ${isExpanded ? 'course-card__chevron--open' : ''}`}
+            aria-hidden="true"
+          />
+        </button>
+        <div className="course-card__actions">
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={getSisLink(course.subject, course.catalog_number)}
+            className="catalog-button"
+          >
+            SIS
+          </a>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={getCourseForumLink(course.subject, course.catalog_number)}
+            className="catalog-button"
+          >
+            theCourseForum
+          </a>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={getVAGradesLink(course.subject, course.catalog_number)}
+            className="catalog-button catalog-button--optional"
+          >
+            VA Grades
+          </a>
+        </div>
+      </div>
+      {isExpanded && (
+        <div
+          className="course-card__content"
+          id={`${tableKey}-content`}
+          role="region"
+          aria-labelledby={`${tableKey}-title`}
+        >
+          <div className="course-grid course-grid--header" aria-hidden="true">
+            <span className="course-grid__cell course-grid__cell--header">Section Type</span>
+            <span className="course-grid__cell course-grid__cell--header">Section Number</span>
+            <span className="course-grid__cell course-grid__cell--header">Instructor</span>
+            <span className="course-grid__cell course-grid__cell--header">Enrollment</span>
+            <span className="course-grid__cell course-grid__cell--header">Meetings</span>
+          </div>
+          {course.sessions.map((section) => {
+            const classSectionString =
+              section.topic !== null && section.topic !== ''
+                ? `${section.class_section} - ${section.topic}`
+                : `${section.class_section}`;
+
+            return (
+              <div className="course-grid" key={`${section.class_section}-${section.class_number}`}>
+                <div className="course-grid__cell" data-label="Section Type">
+                  {section.section_type} ({section.units} units)
+                </div>
+                <div className="course-grid__cell" data-label="Section Number">
+                  {classSectionString}
+                </div>
+                <div className="course-grid__cell" data-label="Instructor">
+                  {generateInstructorHTML(section.instructors)}
+                </div>
+                <div className="course-grid__cell" data-label="Enrollment">
+                  {`${section.enrollment_total}/${section.class_capacity}`}
+                </div>
+                <div className="course-grid__cell course-grid__cell--meetings" data-label="Meetings">
+                  <div className="meeting-table-content">{generateMeetingTable(section.meetings)}</div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+};
+
 function CatalogPage() {
-  const { semester, department, org, number} = useParams();
+  const { semester, department, org, number } = useParams();
   const [data, setData] = useState(null);
   const [metadata, setMetadata] = useState(null);
   const navigate = useNavigate();
@@ -43,19 +146,19 @@ function CatalogPage() {
   }, []);
 
 
-    // Fetch all semesters
-    useEffect(() => {
-      async function fetchAllSemesters() {
-        try {
-          const response = await fetch('https://raw.githubusercontent.com/UVA-Course-Explorer/course-data/main/previousSemesters.json');
-          const jsonData = await response.json();
-          setAllSemesters(jsonData.reverse());
-        } catch (error) {
-          console.error('Error fetching semesters:', error);
-        }
+  // Fetch all semesters
+  useEffect(() => {
+    async function fetchAllSemesters() {
+      try {
+        const response = await fetch('https://raw.githubusercontent.com/UVA-Course-Explorer/course-data/main/previousSemesters.json');
+        const jsonData = await response.json();
+        setAllSemesters(jsonData.reverse());
+      } catch (error) {
+        console.error('Error fetching semesters:', error);
       }
-      fetchAllSemesters();
-    }, []);
+    }
+    fetchAllSemesters();
+  }, []);
 
 
   useEffect(() => {
@@ -111,16 +214,16 @@ function CatalogPage() {
   useEffect(() => {
     // Check URL parameters and scroll to the desired table if present
     let scrollKey = null;
-    if(org && number){
+    if (org && number) {
       scrollKey = org + number;
     }
     if (scrollKey) {
       setTimeout(() => {
-      // Use JavaScript to scroll to the specified table
-      const tableElement = document.getElementById(scrollKey);
-      if (tableElement) {
-        tableElement.scrollIntoView({ behavior: 'smooth' });
-      }
+        // Use JavaScript to scroll to the specified table
+        const tableElement = document.getElementById(scrollKey);
+        if (tableElement) {
+          tableElement.scrollIntoView({ behavior: 'smooth' });
+        }
       }, 750);
     }
   }, [number, org]);
@@ -134,7 +237,7 @@ function CatalogPage() {
 
   // Toggle the expansion state of all tables
   const toggleAllTablesExpansion = () => {
-    setAllTablesExpanded(prev => {
+    setAllTablesExpanded((prev) => {
       const newState = !prev;
       const newExpansionState = Object.keys(tableExpansions).reduce((state, tableKey) => {
         state[tableKey] = newState;
@@ -147,19 +250,17 @@ function CatalogPage() {
 
 
   const generateMeetingTable = (meetings) => {
-    if (!meetings || meetings.length === 0) {
+    if (!Array.isArray(meetings) || meetings.length === 0) {
       return [
         <div className="meeting-row" key="meeting-tba">
           <span className="days">TBA</span>
           <span className="time">TBA</span>
-        </div>
+        </div>,
       ];
     }
 
-    const rows = [];
-
-    for (const [index, meeting] of meetings.entries()) {
-      const meetingDays = meeting?.days === '-' ? 'TBA' : (meeting?.days || 'TBA');
+    return meetings.map((meeting, index) => {
+      const meetingDays = meeting?.days === '-' ? 'TBA' : meeting?.days || 'TBA';
 
       const hasTime =
         meeting?.start_time &&
@@ -171,29 +272,38 @@ function CatalogPage() {
         ? `${meeting.start_time}-${meeting.end_time}`
         : 'TBA';
 
-      rows.push(
+      return (
         <div className="meeting-row" key={`meeting-${meetingDays}-${meetingTimeString}-${index}`}>
           <span className="days">{meetingDays}</span>
           <span className="time">{meetingTimeString}</span>
         </div>
       );
-    }
-
-    return rows;
+    });
   };
 
   const generateInstructorHTML = (instructors) => {
-    const elements = [];
-    for (const instructor of instructors){
-      if(instructor.email.length > 0){
-        elements.push(<p><a href={`mailto:${instructor.email}`}>{instructor.name}</a></p>);
-      }
-      else{
-        elements.push(<p>{instructor.name}</p>);
-      }
+    if (!Array.isArray(instructors) || instructors.length === 0) {
+      return <p className="instructor-name">TBA</p>;
     }
-    return elements;
-  }
+
+    return instructors.map((instructor) => {
+      const key = `${instructor.name}-${instructor.email || 'no-email'}`;
+
+      if (instructor.email && instructor.email.length > 0) {
+        return (
+          <p key={key} className="instructor-name">
+            <a href={`mailto:${instructor.email}`}>{instructor.name}</a>
+          </p>
+        );
+      }
+
+      return (
+        <p key={key} className="instructor-name">
+          {instructor.name}
+        </p>
+      );
+    });
+  };
 
 
   const getSisLink = (subject, catalog_number) => {
@@ -201,13 +311,12 @@ function CatalogPage() {
 }
 
   const getVAGradesLink = (subject, catalog_number) => {
-    return `https://vagrades.com/uva/${subject}${catalog_number}`
-  }
-
+    return `https://vagrades.com/uva/${subject}${catalog_number}`;
+  };
 
   const getCourseForumLink = (subject, catalog_number) => {
-    return `https://thecourseforum.com/course/${subject}/${catalog_number}`
-  }
+    return `https://thecourseforum.com/course/${subject}/${catalog_number}`;
+  };
 
   const handleSemesterChange = (event) => {
     const newSemester = event.target.value;
@@ -216,145 +325,83 @@ function CatalogPage() {
   };
 
 
-  const elements = [];
+  const requirementName = department.includes('-') ? requirementMapping[department] : null;
 
+  let lastUpdatedText = null;
 
-  async function addRequirementName() {
-    if (department.includes('-')) {
-      elements.push(<h2 className="department-title">{requirementMapping[department]}</h2>);
-    }
+  if (metadata?.last_updated) {
+    const utcDate = new Date(metadata.last_updated);
+    const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const userTimeOptions = {
+      timeZone: userTimezone,
+      hour12: true,
+      year: '2-digit',
+      month: 'numeric',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+    };
+    lastUpdatedText = utcDate.toLocaleTimeString(undefined, userTimeOptions);
   }
 
-
-  addRequirementName();
-
-
-
-  if (metadata && metadata?.semester && metadata?.last_updated) {
-        // Create a Date object from the UTC time string
-        const utcDate = new Date(metadata.last_updated);
-
-        // Get the user's current timezone
-        const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    
-        // Format the UTC time to the user's timezone
-        const userTimeOptions = { timeZone: userTimezone, hour12: true, year: '2-digit', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'};
-        const userTime = utcDate.toLocaleTimeString(undefined, userTimeOptions);
-    elements.push(<h3>Last Updated on {userTime}</h3>);
-  }
-
-
-
-
-
-  elements.push(
-    <div>
-    <select value={selectedSemester} onChange={handleSemesterChange}>
-      {allSemesters.map((sem) => (
-        <option key={sem.strm} value={sem.strm}>
-          {sem.name}
-        </option>
-      ))}
-    </select>
-    </div>
-  );
-
-
-
-  if(data) {
-
-    elements.push(        
-      <button onClick={toggleAllTablesExpansion} className='toggle-button'>
-        {allTablesExpanded ? 'Minimize' : 'Expand'} All Tables
-      </button>);
-
-    for (const [subject, courseArr] of Object.entries(data)) {
-      elements.push(<h2 className="subject">{subject}</h2>);
-      for (const course of courseArr) {
-
-        const tableKey = `${course.subject}${course.catalog_number}`;
-        const isExpanded = tableExpansions[tableKey];
-
-        const trClassName = `${isExpanded ? 'expanded' : 'collapsed'} animate-expansion`;
-
-        // console.log(`Rendering table ${tableKey}: ${isExpanded ? 'expanded' : 'collapsed'}`);
-        // const trClassName = isExpanded ? 'expanded' : 'collapsed';
-        const table = [];
-        table.push(
-          <tr className="title-header">
-            <th colSpan="4" className='course-title' onClick={() => toggleTableExpansion(tableKey)}>{course.subject} {course.catalog_number}: {course.descr}</th>
-
-            <th className="external-buttons">
-              <div className = "button-container">
-              <th className="sis-button"><a target="_blank" rel="noopener noreferrer" href={getSisLink(course.subject, course.catalog_number) }><button className="catalog-button">SIS</button></a></th>
-              <th><a target="_blank" rel="noopener noreferrer" href={getCourseForumLink(course.subject, course.catalog_number)}><button className="catalog-button">theCourseForum</button></a> </th>
-              <th><a target="_blank" rel="noopener noreferrer" href={getVAGradesLink(course.subject, course.catalog_number)}> <button className="catalog-button hide-button">VA Grades</button></a></th>
-              </div>
-            </th>
-          </tr>
-        );
-
-        table.push(
-          <tr className={`column-names ${trClassName}`}>
-            <th className="section-type">Section Type</th>
-            <th className="section-number">Section Number</th>
-            <th className="instructor">Instructor</th>
-            <th className="enrollment">Enrollment</th>
-            <th className="meeting-table">
-              <div className='meeting-table-head'>
-                <span className='table-header'>Days</span>
-                <span className='table-header'>Time</span>
-              </div>
-            </th>
-          </tr>
-        );
-
-        for (const section of course.sessions) {
-          const classSectionString = section.topic !== null ? `${section.class_section} - ${section.topic}` : `${section.class_section}`;
-
-          table.push(<tr className={trClassName}>
-            <td className="section-type">{section.section_type} ({section.units} units)</td>
-            <td className="section-number">{classSectionString}</td>
-            <td className="instructor">{generateInstructorHTML(section.instructors)}</td>
-            <td className="enrollment">{`${section.enrollment_total}/${section.class_capacity}`}</td>
-            <td className='meeting-table'>
-              <div className='meeting-table-content'>
-                {generateMeetingTable(section.meetings)}
-              </div>
-            </td>
-          </tr>);
-        }
-
-          elements.push(
-            <div>
-              <table className={'custom-table'} id={tableKey}>
-                <tbody>{table}</tbody>
-              </table>
-            </div>
-          );
-
-          if (isExpanded) {
-            elements.push(<br />);
-            elements.push(<br />);
-          }
-
-      }
-    }
-
-
-  }
-
-
-
+  const hasCourseData = data && Object.keys(data).length > 0;
 
   return (
     <div className="catalogPage">
-      <div>
-        {elements}
-        {noDataFound && <h4>No classes found for {department} in the semester.</h4>}
+      <div className="catalogPage__intro">
+        {requirementName && <h2 className="department-title">{requirementName}</h2>}
+        {lastUpdatedText && <h3 className="catalogPage__last-updated">Last Updated on {lastUpdatedText}</h3>}
+        <div className="catalogPage__controls">
+          <label className="catalogPage__semester-select">
+            <span className="sr-only">Select semester</span>
+            <select value={selectedSemester} onChange={handleSemesterChange}>
+              {allSemesters.map((sem) => (
+                <option key={sem.strm} value={sem.strm}>
+                  {sem.name}
+                </option>
+              ))}
+            </select>
+          </label>
+          {hasCourseData && (
+            <button type="button" onClick={toggleAllTablesExpansion} className="toggle-button">
+              {allTablesExpanded ? 'Minimize All Courses' : 'Expand All Courses'}
+            </button>
+          )}
+        </div>
       </div>
+
+      {hasCourseData ? (
+        Object.entries(data).map(([subject, courseArr]) => (
+          <section key={subject} className="subject-section">
+            <h2 className="subject">{subject}</h2>
+            <div className="subject-courses">
+              {courseArr.map((course) => {
+                const tableKey = `${course.subject}${course.catalog_number}`;
+                const isExpanded = Boolean(tableExpansions[tableKey]);
+
+                return (
+                  <CourseCard
+                    key={tableKey}
+                    course={course}
+                    isExpanded={isExpanded}
+                    onToggle={toggleTableExpansion}
+                    getSisLink={getSisLink}
+                    getCourseForumLink={getCourseForumLink}
+                    getVAGradesLink={getVAGradesLink}
+                    generateInstructorHTML={generateInstructorHTML}
+                    generateMeetingTable={generateMeetingTable}
+                  />
+                );
+              })}
+            </div>
+          </section>
+        ))
+      ) : (
+        noDataFound && <h4>No classes found for {department} in the semester.</h4>
+      )}
+
       {showBackToTop && (
-        <button onClick={scrollToTop} className="back-to-top show">
+        <button onClick={scrollToTop} className="back-to-top show" aria-label="Back to top">
           ↑
         </button>
       )}
