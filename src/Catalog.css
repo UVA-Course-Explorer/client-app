@@ -203,6 +203,7 @@ body{
 .course-table-container{
   width: 100%;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .course-table-container .custom-table{
@@ -292,11 +293,11 @@ tr{
 
 
 .catalogPage .custom-table {
-  width: 100%;
+  width: clamp(600px, 100%, 1000px);
   max-width: 1000px; /* Limit the table width on large screens */
   border: 1px solid #fff;
   border-radius: 3px;
-  table-layout: fixed;
+  table-layout: auto;
 }
 
 .custom-table th, .custom-table td {
