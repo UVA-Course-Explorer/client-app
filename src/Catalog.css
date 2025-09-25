@@ -1,77 +1,85 @@
-
-
-table{
-  width: 100%; /* Set the fixed width for the entire table */
-  border: none;
-  border-spacing: 0;
-}
-
-body{
+body {
   overflow-x: hidden;
 }
 
+.catalog,
+.catalogPage {
+  padding: 0 1.5rem 3rem;
+}
+
+.catalog {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.catalogPage {
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
 .back-to-top {
   position: fixed;
   bottom: 20px;
   right: 20px;
   padding: 10px 20px;
-  background-color: #ffffff; /* White theme background */
-  color: #000000; /* White theme text color */
+  background-color: #ffffff;
+  color: #000000;
   border: none;
-  border-radius: 5px;
+  border-radius: 50%;
   cursor: pointer;
-  opacity: 0; /* Start with hidden */
+  opacity: 0;
   transition: opacity 0.3s ease-in-out, background-color 0.3s ease-in-out;
-  font-size: 15px; /* Default font size */
+  font-size: 15px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-  sans-serif;
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
   font-weight: bold;
-  z-index: 1000; /* Ensure it appears in front of other elements */
-  border-radius: 50%; /* Make the button circular */
-
+  z-index: 1000;
 }
 
 .back-to-top:hover {
-  background-color: #d7d3d3; /* Light theme hover background */
+  background-color: #d7d3d3;
 }
 
 .back-to-top.show {
-  opacity: 1; /* Fade in when the button should be visible */
+  opacity: 1;
 }
 
-
-@media (prefers-color-scheme: light) {
-  .back-to-top {
-    border: 1px solid #000000; /* Add a black border in light mode */
-  }
+.catalog-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #333;
 }
 
-  
-@media (prefers-color-scheme: dark) {
-  .back-to-top {
-    background-color: #ffffff; /* White theme background for dark mode */
-    color: #000000; /* White theme text color for dark mode */
-  }
-
-  .back-to-top:hover {
-    background-color: #d7d3d3; /* Light theme hover background for dark mode */
-  }
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: 30px;
+  font-weight: bold;
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+  padding: 10px 0;
 }
 
-@media (max-width: 768px) {
-  .back-to-top {
-    padding: 10px 20px; /* Increase padding for smaller screens */
-    font-size: 15px; /* Increase font size for smaller screens */
-  }
+.chevron {
+  border-style: solid;
+  border-width: 0.1em 0.1em 0 0;
+  content: '';
+  display: inline-block;
+  height: 0.3em;
+  width: 0.3em;
+  transform: rotate(135deg);
+  transition: transform 0.3s ease-out;
+  border-color: #888;
 }
 
-@media (max-width: 480px) {
-  .back-to-top {
-    padding: 8px 16px; /* Increase padding for very small screens */
-    font-size: 13px; /* Increase font size for very small screens */
-  }
+.chevron.expanded {
+  transform: rotate(-45deg);
 }
 
 .department-container {
@@ -81,7 +89,7 @@ body{
 }
 
 .department-container.expanded {
-  max-height: 1000px; /* Adjust this value based on your content */
+  max-height: 1000px;
   transition: max-height 0.5s ease-in;
 }
 
@@ -90,7 +98,7 @@ body{
   margin: 0;
   list-style-type: none;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-gap: 15px;
   width: 100%;
 }
@@ -121,314 +129,315 @@ body{
   font-weight: bold;
 }
 
-
-/* .minimized-table td {
-  display: none; /* Hide the table contents }*/
-
-/* CSS for Minimized Table */
-/* .minimized-table tr {
-  display: none; /* Hide the table contents */
-/* } */
-
-
-
-
-.expanded-table {
-  display: table;
+.catalogPage .subject {
+  font-size: 35px;
+  margin: 2rem 0 1rem;
 }
 
-
-.catalog-section {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #333;
-}
-
-/* Example to limit the width of the entire catalog container */
-.catalog {
-  max-width: 800px; /* Adjust the max-width as needed */
-  margin: 0 auto; /* Center the catalog in its parent container */
-}
-
-
-
-.section-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    font-size: 30px;
-    font-weight: bold;
-    color: white;
-    text-align: left;
-    cursor: pointer;
-    padding: 10px 0;
-}
-
-.chevron {
-    border-style: solid;
-    border-width: 0.1em 0.1em 0 0;
-    content: '';
-    display: inline-block;
-    height: 0.3em;
-    width: 0.3em;
-    transform: rotate(135deg);
-    transition: transform 0.3s ease-out;
-    border-color: #888;
-}
-
-.chevron.expanded {
-    transform: rotate(-45deg);
-}
-
-
-.button-container{
-  display: flex;
-  justify-content: flex-end;
-}
-
-
-
-
-
-.section-type{
-  width: 20%
-}
-
-.section-number{
-  width: 5%
-}
-
-.instructor{
-  width: 20%
-}
-
-.enrollment{
-
-}
-
-.meeting-table{
-  width: 100%;
-  vertical-align: top;
-}
-
-.meeting-table-head,
-.meeting-table-content,
-.meeting-row {
-  width: 100%;
-}
-
-.meeting-table-head,
-.meeting-row {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: 12px;
-  text-align: center;
-}
-
-.meeting-table-content {
-  display: grid;
-  row-gap: 6px;
-}
-
-.meeting-row .days,
-.meeting-row .time {
-  display: block;
-}
-
-.days{
-}
-
-.time{
-}
-
-.custom-table button{
-  /* background: #e88c42; */
+.catalogPage .toggle-button {
   color: #000000;
-  font-size: 15px;
-  padding: 0.5em 0.5em;
+  font-size: 0.95rem;
+  padding: 0.6em 1.2em;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-  sans-serif;
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
   font-weight: bold;
+  background-color: #ffffff;
+  margin: 1rem 0 2rem;
+  transition: background-color 0.2s ease;
 }
 
-a {
-  font-size: 16px;
-}
-
-p{
-  font-size: 16px;
-}
-
-tr{
-  font-size: 16px;
-}
-
-
-.catalogPage .custom-table {
-  width: 100%;
-  max-width: 1000px; /* Limit the table width on large screens */
-  border: 1px solid #fff;
-  border-radius: 3px;
-  table-layout: fixed;
-}
-
-.custom-table th, .custom-table td {
-  padding: 8px; /* Adjust padding as needed */
-  text-align: center; /* Center-align text within cells */
-}
-.custom-table td {
-  padding: 8px; /* Adjust padding as needed */
-  text-align: center;
-}
-.custom-table th {
-  /* background-color: #656769; */
-  background-color: #184276;
-  text-align: center;
-  /* background-color: #1d1d1e; */
-}
-
-.custom-table .column-names {
-  position: sticky;
-  /* top: 2.5em; */
-}
-
-.custom-table .title-header {
-  position: sticky;
-  /* top: 0; */
-
-  z-index: 5; /* Ensure the header appears above the table content */
-}
-
-.custom-table .title-header th{
-  position: sticky;
-  text-align: left;
-  /* top: 0; */
-  
-  z-index: 5; /* Ensure the header appears above the table content */
-}
-
-.course-title{
-  font-size: 30px;
-  font-weight: bold;
-  padding: 20px;
-
-  text-align: left;
-  flex-grow: 1;
-}
-
-.external-buttons{
-  width: 20%;
-  /* min-width: 350px; */
-    text-align: right;
-}
-
-
-
-
-
-.custom-table .expanded {
-  display: table-row;
-}
-
-.custom-table .collapsed {
-  display: none;
-}
-
-
-
-
-.custom-table tr {
-  border: none; /* Remove all borders for data rows */
-}
-
-/* Style for even rows */
-.custom-table tr:nth-child(even) {
-  /* background-color: #1e2b53; Background color for odd rows */
-  background-color: #1e2b53; /* Background color for odd rows */
-  
-
-}
-
-/* Style for odd rows */
-.custome-table tr:nth-child(odd) {
-  background-color: #191c21; /* Background color for even rows */
-  
-}
-
-
-/* Style for all rows of the inner table */
-.custom-table tr:nth-child(even) .meeting-table .meeting-row,
-.custom-table tr:nth-child(odd) .meeting-table .meeting-row {
-  background-color: inherit; /* Inherit background color from outer table */
-}
-
-h3, h2, .custom-table tr{
-  color: #fff;
-}
-
-h2{
-  font-size: 30px;
-}
-
-ul {
-  list-style-type: none;
-}
-
-.custom-table button:hover{
-  background-color: #b4b0b0;
-}
-
-
-
-
-tr.title-header:hover th{
-  cursor: pointer; /* Optional: Change the cursor to a pointer to indicate it's clickable */
-  text-decoration: underline;
-}
-
-.toggle-button{
-  /* background: #e88c42; */
-  color: #000000;
-  font-size: 15px;
-  padding: 0.5em 0.5em;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-  sans-serif;
-  font-weight: bold;
-}
-
-.toggle-button:hover{
+.catalogPage .toggle-button:hover {
   background-color: #d7d3d3;
 }
 
+.catalogPage .catalog-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45em 1em;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #000000;
+  background-color: #ffffff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
 
+.catalogPage .catalog-button:hover {
+  background-color: #b4b0b0;
+}
 
+.semester-select {
+  margin: 1rem 0;
+}
 
+.semester-select select {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: transparent;
+  color: inherit;
+  font-size: 1rem;
+}
 
+.semester-select select:focus {
+  outline: 2px solid #4c8bf5;
+  outline-offset: 2px;
+}
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
 
-/* light / dark mode stuff */
+.course-card {
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  background: rgba(24, 66, 118, 0.35);
+  overflow: hidden;
+  backdrop-filter: blur(6px);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.course-card:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+}
+
+.course-card__header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.25rem 1.25rem 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.course-card__toggle {
+  background: none;
+  border: none;
+  color: inherit;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+}
+
+.course-card__title {
+  flex: 1 1 auto;
+}
+
+.course-card__chevron {
+  border-style: solid;
+  border-width: 0 0.18em 0.18em 0;
+  display: inline-block;
+  padding: 0.35em;
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+.course-card--expanded .course-card__chevron {
+  transform: rotate(-135deg);
+}
+
+.course-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.course-card__body {
+  padding: 0 1.25rem 1.25rem;
+}
+
+.session-grid {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.session-grid:first-of-type {
+  border-top: none;
+}
+
+.session-grid--header {
+  display: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.75rem;
+  opacity: 0.85;
+}
+
+.session-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.cell-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.7;
+}
+
+.cell-value {
+  font-size: 0.95rem;
+}
+
+.instructor-cell p {
+  margin: 0;
+}
+
+.instructor-cell p + p {
+  margin-top: 0.25rem;
+}
+
+.meeting-list {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.meeting-slot {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.45rem 0.75rem;
+  border-radius: 6px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.meeting-slot__days {
+  font-weight: 600;
+}
+
+.meeting-slot__time {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 768px) {
+  .course-card__header {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .course-card__actions {
+    justify-content: flex-end;
+  }
+
+  .course-card__body {
+    padding-bottom: 1.75rem;
+  }
+
+  .session-grid {
+    grid-template-columns: 1.3fr 1fr 1.1fr 0.9fr 1.2fr;
+    align-items: center;
+    padding: 0.85rem 0;
+  }
+
+  .session-grid--header {
+    display: grid;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .session-grid--header .session-cell {
+    padding-right: 1rem;
+  }
+
+  .session-grid .cell-label {
+    display: none;
+  }
+
+  .session-cell--meetings {
+    align-self: stretch;
+  }
+
+  .meeting-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0.5rem;
+  }
+
+  .meeting-slot {
+    background-color: rgba(0, 0, 0, 0.25);
+  }
+}
+
+@media (max-width: 767px) {
+  .section-title {
+    font-size: 1.3rem;
+  }
+
+  .department-table {
+    grid-template-columns: 1fr;
+  }
+
+  .catalogPage .subject {
+    font-size: 1.75rem;
+  }
+
+  .catalogPage .hide-button {
+    display: none;
+  }
+
+  .catalogPage .catalog-button {
+    flex: 1 1 45%;
+    justify-content: center;
+  }
+
+  .course-card__actions {
+    gap: 0.75rem;
+  }
+
+  .session-grid {
+    padding: 1rem 0;
+  }
+
+  .meeting-slot {
+    justify-content: flex-start;
+  }
+}
 
 @media (prefers-color-scheme: light) {
-  .section-title{
+  .back-to-top {
+    border: 1px solid #000000;
+  }
+
+  .section-title {
     color: #000000;
   }
 
   .chevron {
     border-color: #999;
   }
-  
-  h1, h2, h3, h4, h5 {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
     color: #000000;
   }
 
@@ -441,205 +450,48 @@ tr.title-header:hover th{
     background: #e9e9e9;
     border-color: #ddd;
   }
-  
+
   .department-item a .department-name {
     color: #000;
   }
 
-
-  .catalogPage .catalog-button:hover{
-    background-color: #c1baba;
-
-  }
-
-  .toggle-button{
+  .catalogPage .toggle-button {
     background-color: #ffffff;
     border: 1px solid #000000;
-    border-radius: 5px;
-  }
-
-  .catalogPage .custom-table {
-    border: 1px solid #000000;
-
-  }
-  .catalogPage .custom-table tr{
-    color: #000000;
-  }
-  .catalogPage .custom-table th {
-    /* background-color: #ffdeb3; */
-    background-color: #fff4e6;
-    background-color: #e7e7e7;
-
-  }
-  /* Style for even rows */
-  .catalogPage .custom-table tr:nth-child(even) {
-    /* background-color: #fff4e6; */
-    background-color: #f0f0f0;
-  }
-  
-  /* Style for odd rows */
-  .catalogPage .custom-table tr:nth-child(odd) {
-  background-color: #ffffff; /* Background color for even rows */
-
-  }
-
-  /* Style for all rows of the inner table */
-  .catalogPage .custom-table tr:nth-child(even) .meeting-table .meeting-row,
-  .catalogPage .custom-table tr:nth-child(odd) .meeting-table .meeting-row {
-      background-color: inherit; /* Inherit background color from outer table */
-  }
-
-
-  .catalogPage .custom-table button{
-    /* background: #e88c42; */
-    background-color: #ffffff;
-    border: 1px solid #000000;
-    border-radius: 5px;
-  }
-
-}
-
-.catalogPage .subject {
-  font-size: 35px;
-}
-
-@media (max-width: 1000px) {
-  .catalogPage h2{
-    font-size: 14px
-  }
-
-  .catalogPage h3{
-    font-size: 14px;
-  }
-
-  
-  .catalogPage .section-title{
-    font-size: 20px;
-    cursor: pointer;
-  }
-
-  /* .catalogPage .section-title:hover{
-    cursor: pointer;
-  } */
-
-
-
-  .catalogPage .custom-table {
-    width: 90%;
-  }
-
-  @media (max-width: 768px) {
-    .catalogPage .hide-button {
-        display: none;
-    }
   }
 
   .catalogPage .catalog-button {
-    text-align: right;
-    font-size: 8px;
-    white-space: nowrap; 
+    background-color: #ffffff;
+    border: 1px solid #000000;
   }
 
-  .toggle-button {
-    font-size: 8px;
+  .catalogPage .catalog-button:hover {
+    background-color: #c1baba;
   }
 
-  .catalogPage .external-buttons {
-    padding: 0.2em 0.2em;
-    font-size: 8px;
-    width: 5%;
+  .course-card {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(0, 0, 0, 0.15);
   }
 
-  .catalogPage .course-title {
-      font-size: max(min(calc(4.5vw - 10px), 30px), 10px);
+  .course-card:hover {
+    border-color: rgba(0, 0, 0, 0.3);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
   }
 
-  .catalogPage .custom-table button{
-    font-size: max(min(calc(4vw - 12px), 15px), 8px);
+  .course-card__header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   }
 
-
-  .catalogPage table {
-    font-size: 8px;
-    border: none;
-    border-collapse: collapse;
+  .session-grid {
+    border-color: rgba(0, 0, 0, 0.1);
   }
 
-  .catalogPage .subject {
-    font-size: max(min(calc(4.5vw - 10px), 35px), 15px);
-  }
-  
-  .catalogPage a {
-    font-size: max(min(calc(4vw - 12px), 15px), 7px);
+  .session-grid--header {
+    border-color: rgba(0, 0, 0, 0.1);
   }
 
-  .catalogPage p{
-    font-size: max(min(calc(4vw - 12px), 15px), 7px);
+  .meeting-slot {
+    background-color: rgba(0, 0, 0, 0.05);
   }
-
-  .catalogPage tr{
-    font-size: max(min(calc(4vw - 12px), 15px), 7px);
-  }
-
-  .catalogPage .table-header {
-    font-size: max(min(calc(4vw - 12px), 15px), 7px);
-  }
-
-  .catalogPage .section-type{
-    width: 10%;
-    font-size: max(min(calc(4vw - 12px), 15px), 7px);
-  }
-
-  .catalogPage .section-number{
-    width: 10%;
-    padding: 0px;
-    font-size: max(min(calc(4vw - 12px), 15px), 7px);
-  }
-
-  .catalogPage .instructor{
-    width: 10%;
-    padding: 0px;
-    font-size: max(min(calc(4vw - 12px), 15px), 8px);
-  }
-
-  .catalogPage .enrollment{
-    width: 1%;
-    padding: 0px;
-    font-size: max(min(calc(4vw - 12px), 15px), 8px);
-
-  }
-  .catalogPage .meeting-table{
-    width: 10%;
-  }
-
-  .catalogPage .days{
-    width: 9%;
-  }
-
-  .catalogPage .time{
-    width: 9%;
-  }
-
-  .catalogPage .location{
-    width: 9%;
-  }
-}
-
-@media (max-width: 768px) { /* Adjust the breakpoint as needed */
-  .section-title{
-    font-size: 20px;
-  }
-  .catalog-section {
-    padding: 10px; /* Add some padding to the section for narrower screens */
-  }
-  .department-table {
-    grid-template-columns: 1fr; /* One column when the screen is under 768 pixels */
-  }
-  .department-item {
-    /* flex-basis: 100%; /* Set it to 100% to display one item per row on mobile */
-  }
-  strong{
-    font-size: 14px;
-  }
-
 }
