@@ -326,7 +326,7 @@ function CatalogPage() {
         }
 
           elements.push(
-            <div className="table-wrapper" key={`${tableKey}-wrapper`}>
+            <div className="table-container" key={`${tableKey}-wrapper`}>
               <table className={'custom-table'} id={tableKey}>
                 <tbody>{table}</tbody>
               </table>

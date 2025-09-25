@@ -187,6 +187,9 @@ body{
 .button-container{
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 
@@ -224,13 +227,13 @@ body{
 .meeting-row {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: 12px;
+  column-gap: clamp(6px, 2vw, 12px);
   text-align: center;
 }
 
 .meeting-table-content {
   display: grid;
-  row-gap: 6px;
+  row-gap: clamp(4px, 1.6vw, 10px);
 }
 
 .meeting-row .days,
@@ -271,31 +274,31 @@ tr{
 }
 
 
-.catalogPage .custom-table {
-  width: 100%;
-  max-width: 1000px; /* Limit the table width on large screens */
-  border: 1px solid #fff;
-  border-radius: 3px;
-  table-layout: auto;
-}
 
-.catalogPage .table-wrapper {
+.catalogPage .table-container {
   width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
   margin: 0 auto 20px;
 }
 
-.catalogPage .table-wrapper table {
-  min-width: 720px;
+.catalogPage .custom-table {
+  width: 100%;
+  max-width: 100%;
+  border: 1px solid #fff;
+  border-radius: 3px;
+  table-layout: fixed;
+  border-collapse: collapse;
 }
 
-.custom-table th, .custom-table td {
-  padding: 8px; /* Adjust padding as needed */
+.custom-table th,
+.custom-table td {
+  padding: clamp(6px, 1.6vw, 12px); /* Adjust padding responsively */
   text-align: center; /* Center-align text within cells */
+  vertical-align: top;
+  word-break: break-word;
+  white-space: normal;
 }
 .custom-table td {
-  padding: 8px; /* Adjust padding as needed */
+  padding: clamp(6px, 1.6vw, 12px); /* Adjust padding as needed */
   text-align: center;
 }
 .custom-table th {
@@ -326,18 +329,16 @@ tr{
 }
 
 .course-title{
-  font-size: 30px;
+  font-size: clamp(20px, 3.5vw, 30px);
   font-weight: bold;
-  padding: 20px;
-
+  padding: clamp(12px, 3.2vw, 20px);
   text-align: left;
   flex-grow: 1;
 }
 
 .external-buttons{
   width: 20%;
-  /* min-width: 350px; */
-    text-align: right;
+  text-align: right;
 }
 
 
@@ -515,128 +516,64 @@ tr.title-header:hover th{
 }
 
 @media (max-width: 1000px) {
-  .catalogPage h2{
-    font-size: 14px
-  }
-
-  .catalogPage h3{
+  .catalogPage h2 {
     font-size: 14px;
   }
 
-  
-  .catalogPage .section-title{
+  .catalogPage h3 {
+    font-size: 14px;
+  }
+
+  .catalogPage .section-title {
     font-size: 20px;
     cursor: pointer;
   }
 
-  /* .catalogPage .section-title:hover{
-    cursor: pointer;
-  } */
-
-
-
-  .catalogPage .custom-table {
-    width: 100%;
-  }
-
-  @media (max-width: 768px) {
-    .catalogPage .hide-button {
-        display: none;
-    }
-  }
-
-  .catalogPage .catalog-button {
-    text-align: right;
-    font-size: 8px;
-    white-space: nowrap; 
-  }
-
-  .toggle-button {
-    font-size: 8px;
-  }
-
-  .catalogPage .external-buttons {
-    padding: 0.2em 0.2em;
-    font-size: 8px;
-    width: 5%;
-  }
-
-  .catalogPage .course-title {
-      font-size: max(min(calc(4.5vw - 10px), 30px), 10px);
-  }
-
-  .catalogPage .custom-table button{
-    font-size: max(min(calc(4vw - 12px), 15px), 8px);
-  }
-
-  .catalogPage .table-wrapper table {
-    min-width: 640px;
-  }
-
-
   .catalogPage table {
-    font-size: 8px;
+    font-size: clamp(10px, 2.6vw, 14px);
     border: none;
     border-collapse: collapse;
   }
 
   .catalogPage .subject {
-    font-size: max(min(calc(4.5vw - 10px), 35px), 15px);
-  }
-  
-  .catalogPage a {
-    font-size: max(min(calc(4vw - 12px), 15px), 7px);
+    font-size: clamp(18px, 5vw, 28px);
   }
 
-  .catalogPage p{
-    font-size: max(min(calc(4vw - 12px), 15px), 7px);
+  .catalogPage a,
+  .catalogPage p {
+    font-size: clamp(10px, 2.6vw, 14px);
   }
 
-  .catalogPage tr{
-    font-size: max(min(calc(4vw - 12px), 15px), 7px);
+  .catalogPage .course-title {
+    font-size: clamp(16px, 4vw, 24px);
+    padding: clamp(10px, 3vw, 18px);
   }
 
+  .catalogPage .custom-table button {
+    font-size: clamp(10px, 2.8vw, 14px);
+  }
+
+  .catalogPage .catalog-button {
+    text-align: right;
+    font-size: clamp(10px, 2.8vw, 14px);
+    white-space: nowrap;
+  }
+
+  .catalogPage .external-buttons {
+    padding: 0.2em 0.2em;
+    width: auto;
+  }
+
+  .toggle-button {
+    font-size: clamp(10px, 2.8vw, 14px);
+  }
+
+  .catalogPage .section-type,
+  .catalogPage .section-number,
+  .catalogPage .instructor,
+  .catalogPage .enrollment,
   .catalogPage .table-header {
-    font-size: max(min(calc(4vw - 12px), 15px), 7px);
-  }
-
-  .catalogPage .section-type{
-    width: 10%;
-    font-size: max(min(calc(4vw - 12px), 15px), 7px);
-  }
-
-  .catalogPage .section-number{
-    width: 10%;
-    padding: 0px;
-    font-size: max(min(calc(4vw - 12px), 15px), 7px);
-  }
-
-  .catalogPage .instructor{
-    width: 10%;
-    padding: 0px;
-    font-size: max(min(calc(4vw - 12px), 15px), 8px);
-  }
-
-  .catalogPage .enrollment{
-    width: 1%;
-    padding: 0px;
-    font-size: max(min(calc(4vw - 12px), 15px), 8px);
-
-  }
-  .catalogPage .meeting-table{
-    width: 10%;
-  }
-
-  .catalogPage .days{
-    width: 9%;
-  }
-
-  .catalogPage .time{
-    width: 9%;
-  }
-
-  .catalogPage .location{
-    width: 9%;
+    font-size: clamp(10px, 2.6vw, 14px);
   }
 }
 
@@ -657,11 +594,20 @@ tr.title-header:hover th{
     font-size: 14px;
   }
 
+  .catalogPage .hide-button {
+    display: none;
+  }
+
 }
 
 @media (max-width: 640px) {
-  .catalogPage .table-wrapper table {
-    min-width: 560px;
+  .catalogPage table {
+    font-size: clamp(10px, 3vw, 12px);
+  }
+
+  .catalogPage .custom-table th,
+  .catalogPage .custom-table td {
+    padding: clamp(4px, 1.4vw, 8px);
   }
 
   .catalogPage .button-container {
@@ -671,7 +617,8 @@ tr.title-header:hover th{
   }
 
   .catalogPage .external-buttons {
-    width: auto;
+    width: 100%;
+    text-align: right;
   }
 
   .catalogPage .catalog-button {
