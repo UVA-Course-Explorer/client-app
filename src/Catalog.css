@@ -187,6 +187,27 @@ body{
 .button-container{
   display: flex;
   justify-content: flex-end;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.catalog-link{
+  display: inline-flex;
+  text-decoration: none;
+}
+
+.catalog-link .catalog-button{
+  width: 100%;
+}
+
+.course-table-container{
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.course-table-container .custom-table{
+  min-width: 600px;
 }
 
 
@@ -272,11 +293,11 @@ tr{
 
 
 .catalogPage .custom-table {
-  width: 100%;
+  width: clamp(600px, 100%, 1000px);
   max-width: 1000px; /* Limit the table width on large screens */
   border: 1px solid #fff;
   border-radius: 3px;
-  table-layout: fixed;
+  table-layout: auto;
 }
 
 .custom-table th, .custom-table td {
@@ -537,7 +558,16 @@ tr.title-header:hover th{
   .catalogPage .catalog-button {
     text-align: right;
     font-size: 8px;
-    white-space: nowrap; 
+    white-space: nowrap;
+  }
+
+  .catalogPage .button-container{
+    justify-content: flex-start;
+    gap: 0.25rem;
+  }
+
+  .catalogPage .external-buttons{
+    width: auto;
   }
 
   .toggle-button {
@@ -628,6 +658,19 @@ tr.title-header:hover th{
 @media (max-width: 768px) { /* Adjust the breakpoint as needed */
   .section-title{
     font-size: 20px;
+  }
+  .catalogPage .course-table-container{
+    margin-bottom: 1.5rem;
+  }
+  .catalogPage .button-container{
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .catalogPage .button-container .catalog-link{
+    width: 100%;
+  }
+  .catalogPage .catalog-button{
+    width: 100%;
   }
   .catalog-section {
     padding: 10px; /* Add some padding to the section for narrower screens */
