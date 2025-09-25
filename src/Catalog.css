@@ -600,8 +600,8 @@ ul {
     gap: 6px;
   }
 
-  .catalogPage .course-title {
-      font-size: max(min(calc(11vw + 8px), 44px), 26px);
+  .catalogPage .custom-table button.course-title {
+      font-size: clamp(11px, 3.2vw, 14px);
   }
 
   .catalogPage .custom-table button{
