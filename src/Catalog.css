@@ -184,9 +184,17 @@ body{
 }
 
 
-.button-container{
+.title-header-cell {
+  padding: 0;
+}
+
+.title-header-content {
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 20px;
+  flex-wrap: nowrap;
 }
 
 
@@ -226,6 +234,7 @@ body{
   grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap: 12px;
   text-align: center;
+  align-items: center;
 }
 
 .meeting-table-content {
@@ -315,18 +324,61 @@ tr{
 }
 
 .course-title{
-  font-size: 30px;
+  flex: 1 1 240px;
+  min-width: 0;
+  font-size: 40px;
   font-weight: bold;
-  padding: 20px;
-
   text-align: left;
-  flex-grow: 1;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: normal;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.custom-table .title-header .course-title {
+  color: inherit;
+}
+
+.course-title:focus-visible{
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.course-title:hover{
+  background: none;
+  box-shadow: none;
+  text-decoration: underline;
+}
+
+tr.title-header:hover .course-title{
+  text-decoration: underline;
+}
+
+.catalogPage .custom-table button.course-title,
+.catalogPage .custom-table button.course-title:hover,
+.catalogPage .custom-table button.course-title:focus {
+  background-color: transparent;
+  box-shadow: none;
 }
 
 .external-buttons{
-  width: 20%;
-  /* min-width: 350px; */
-    text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  flex-wrap: nowrap;
+}
+
+.external-buttons a{
+  display: inline-flex;
 }
 
 
@@ -387,11 +439,6 @@ ul {
 
 
 
-
-tr.title-header:hover th{
-  cursor: pointer; /* Optional: Change the cursor to a pointer to indicate it's clickable */
-  text-decoration: underline;
-}
 
 .toggle-button{
   /* background: #e88c42; */
@@ -545,13 +592,11 @@ tr.title-header:hover th{
   }
 
   .catalogPage .external-buttons {
-    padding: 0.2em 0.2em;
-    font-size: 8px;
-    width: 5%;
+    gap: 6px;
   }
 
   .catalogPage .course-title {
-      font-size: max(min(calc(4.5vw - 10px), 30px), 10px);
+      font-size: max(min(calc(11vw + 8px), 44px), 26px);
   }
 
   .catalogPage .custom-table button{
@@ -622,6 +667,88 @@ tr.title-header:hover th{
 
   .catalogPage .location{
     width: 9%;
+  }
+}
+
+@media (max-width: 600px) {
+  .catalogPage .custom-table {
+    width: 100%;
+    table-layout: auto;
+  }
+
+  .catalogPage .custom-table th,
+  .catalogPage .custom-table td {
+    padding: 6px 4px;
+    white-space: normal;
+    word-break: break-word;
+    font-size: 11px;
+  }
+
+  .catalogPage .section-type {
+    width: 18%;
+  }
+
+  .catalogPage .section-number {
+    width: 14%;
+  }
+
+  .catalogPage .instructor {
+    width: 20%;
+  }
+
+  .catalogPage .enrollment {
+    width: 18%;
+  }
+
+  .catalogPage .meeting-table {
+    width: 30%;
+    min-width: 92px;
+    padding-right: 0;
+  }
+
+  .catalogPage .meeting-table .days,
+  .catalogPage .meeting-table .time {
+    width: 100%;
+  }
+
+  .catalogPage .meeting-table-head,
+  .catalogPage .meeting-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
+  .catalogPage .meeting-table-head .table-header {
+    font-size: 10px;
+    text-align: left;
+  }
+
+  .catalogPage .meeting-table .days,
+  .catalogPage .meeting-table .time {
+    text-align: left;
+    white-space: normal;
+    word-break: normal;
+    font-size: 10px;
+    display: block;
+    line-height: 1.2;
+  }
+
+  .catalogPage .meeting-table .time {
+    font-size: 9px;
+  }
+
+  .catalogPage .meeting-row + .meeting-row {
+    padding-top: 4px;
+  }
+
+  .catalogPage .title-header-content {
+    padding: 10px 12px;
+  }
+
+  .catalogPage .external-buttons {
+    justify-content: flex-end;
+    gap: 6px;
   }
 }
 

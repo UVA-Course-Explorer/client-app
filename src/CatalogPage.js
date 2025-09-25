@@ -168,7 +168,7 @@ function CatalogPage() {
         meeting.end_time !== '-';
 
       const meetingTimeString = hasTime
-        ? `${meeting.start_time}-${meeting.end_time}`
+        ? `${meeting.start_time} - ${meeting.end_time}`
         : 'TBA';
 
       rows.push(
@@ -282,13 +282,38 @@ function CatalogPage() {
         const table = [];
         table.push(
           <tr className="title-header">
-            <th colSpan="4" className='course-title' onClick={() => toggleTableExpansion(tableKey)}>{course.subject} {course.catalog_number}: {course.descr}</th>
-
-            <th className="external-buttons">
-              <div className = "button-container">
-              <th className="sis-button"><a target="_blank" rel="noopener noreferrer" href={getSisLink(course.subject, course.catalog_number) }><button className="catalog-button">SIS</button></a></th>
-              <th><a target="_blank" rel="noopener noreferrer" href={getCourseForumLink(course.subject, course.catalog_number)}><button className="catalog-button">theCourseForum</button></a> </th>
-              <th><a target="_blank" rel="noopener noreferrer" href={getVAGradesLink(course.subject, course.catalog_number)}> <button className="catalog-button hide-button">VA Grades</button></a></th>
+            <th colSpan="5" className="title-header-cell">
+              <div className="title-header-content">
+                <button
+                  type="button"
+                  className='course-title'
+                  onClick={() => toggleTableExpansion(tableKey)}
+                >
+                  {course.subject} {course.catalog_number}: {course.descr}
+                </button>
+                <div className="external-buttons">
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href={getSisLink(course.subject, course.catalog_number)}
+                  >
+                    <button className="catalog-button">SIS</button>
+                  </a>
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href={getCourseForumLink(course.subject, course.catalog_number)}
+                  >
+                    <button className="catalog-button">theCourseForum</button>
+                  </a>
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href={getVAGradesLink(course.subject, course.catalog_number)}
+                  >
+                    <button className="catalog-button hide-button">VA Grades</button>
+                  </a>
+                </div>
               </div>
             </th>
           </tr>
