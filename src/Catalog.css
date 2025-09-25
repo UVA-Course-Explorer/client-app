@@ -643,3 +643,33 @@ tr.title-header:hover th{
   }
 
 }
+
+@media (max-width: 600px) {
+  .catalogPage .custom-table {
+    table-layout: auto;
+  }
+
+  .catalogPage .section-type,
+  .catalogPage .section-number,
+  .catalogPage .instructor,
+  .catalogPage .enrollment,
+  .catalogPage .meeting-table {
+    width: auto;
+  }
+
+  .catalogPage .meeting-table {
+    min-width: 140px;
+  }
+
+  .catalogPage .meeting-table-head,
+  .catalogPage .meeting-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 8px;
+    text-align: left;
+  }
+
+  .catalogPage .meeting-row .days,
+  .catalogPage .meeting-row .time {
+    word-break: break-word;
+  }
+}
