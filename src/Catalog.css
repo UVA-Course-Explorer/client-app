@@ -187,6 +187,26 @@ body{
 .button-container{
   display: flex;
   justify-content: flex-end;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.catalog-link{
+  display: inline-flex;
+  text-decoration: none;
+}
+
+.catalog-link .catalog-button{
+  width: 100%;
+}
+
+.course-table-container{
+  width: 100%;
+  overflow-x: auto;
+}
+
+.course-table-container .custom-table{
+  min-width: 600px;
 }
 
 
@@ -537,7 +557,16 @@ tr.title-header:hover th{
   .catalogPage .catalog-button {
     text-align: right;
     font-size: 8px;
-    white-space: nowrap; 
+    white-space: nowrap;
+  }
+
+  .catalogPage .button-container{
+    justify-content: flex-start;
+    gap: 0.25rem;
+  }
+
+  .catalogPage .external-buttons{
+    width: auto;
   }
 
   .toggle-button {
@@ -628,6 +657,19 @@ tr.title-header:hover th{
 @media (max-width: 768px) { /* Adjust the breakpoint as needed */
   .section-title{
     font-size: 20px;
+  }
+  .catalogPage .course-table-container{
+    margin-bottom: 1.5rem;
+  }
+  .catalogPage .button-container{
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .catalogPage .button-container .catalog-link{
+    width: 100%;
+  }
+  .catalogPage .catalog-button{
+    width: 100%;
   }
   .catalog-section {
     padding: 10px; /* Add some padding to the section for narrower screens */
