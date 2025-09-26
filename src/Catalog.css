@@ -550,6 +550,12 @@ ul {
     border-radius: 5px;
   }
 
+  .catalogPage .custom-table button.course-title {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+  }
+
 }
 
 .catalogPage .subject {
