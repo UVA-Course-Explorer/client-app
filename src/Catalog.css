@@ -74,6 +74,28 @@ body{
   }
 }
 
+@media (max-width: 768px) {
+  .catalogPage .custom-table {
+    table-layout: auto;
+  }
+
+  .meeting-table-head,
+  .meeting-row {
+    grid-template-columns: 1fr;
+    row-gap: 6px;
+    text-align: left;
+    justify-items: start;
+  }
+
+  .meeting-table-head {
+    column-gap: 0;
+  }
+
+  .meeting-row .time {
+    margin-top: 2px;
+  }
+}
+
 .department-container {
   max-height: 0;
   overflow: hidden;
@@ -247,6 +269,10 @@ body{
   display: block;
 }
 
+.meeting-table-head .table-header {
+  display: block;
+}
+
 .days{
 }
 
@@ -279,6 +305,12 @@ tr{
   font-size: 16px;
 }
 
+
+.catalog-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
 
 .catalogPage .custom-table {
   width: 100%;
