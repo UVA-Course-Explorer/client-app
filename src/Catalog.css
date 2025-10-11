@@ -556,6 +556,14 @@ ul {
     box-shadow: none;
   }
 
+  .catalogPage tr.title-header th {
+    background-color: #fffaf1;
+  }
+
+  .catalogPage .title-header-content {
+    background-color: #fffaf1;
+  }
+
 }
 
 .catalogPage .subject {
