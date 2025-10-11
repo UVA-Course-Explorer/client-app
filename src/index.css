@@ -290,4 +290,46 @@ select:hover{
   }
 }
 
+/*
+ * Transformer visualization tweaks
+ * Ensure the output projection matrices share the same neutral gray palette
+ * as the surrounding MHA heads and MLP weights.
+ */
+:root {
+  --transformer-component-gray: #3d4048;
+  --transformer-component-border: #585c65;
+}
+
+.matrix.output-projection,
+.output-projection-matrix,
+.layer-output-projection {
+  background-color: var(--transformer-component-gray);
+  border-color: var(--transformer-component-border);
+  color: #f2f4f8;
+}
+
+.matrix.output-projection svg rect,
+.output-projection-matrix svg rect,
+.layer-output-projection svg rect {
+  fill: var(--transformer-component-gray);
+  stroke: var(--transformer-component-border);
+}
+
+@media (prefers-color-scheme: light) {
+  .matrix.output-projection,
+  .output-projection-matrix,
+  .layer-output-projection {
+    background-color: #d5d8e0;
+    border-color: #aab0bb;
+    color: #1a1c20;
+  }
+
+  .matrix.output-projection svg rect,
+  .output-projection-matrix svg rect,
+  .layer-output-projection svg rect {
+    fill: #d5d8e0;
+    stroke: #aab0bb;
+  }
+}
+
 
