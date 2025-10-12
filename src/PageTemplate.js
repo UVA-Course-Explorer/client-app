@@ -1,19 +1,30 @@
 import Modal from 'react-modal';
-import React, { useState} from "react";
+import React, { useEffect, useState } from "react";
 import Catalog from './Catalog';
 import SearchComponent from './SearchComponent';
 import CatalogPage from './CatalogPage';
 import './modalStyles.css'
 import {latestSemester} from './LatestSemester';
 import AllSemesters from './AllSemesters';
+import { useSettings } from './SettingsContext';
 
 
 
 function PageTemplate(props){
-    
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  Modal.setAppElement('#root');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const { settings, updateSetting } = useSettings();
+
+  useEffect(() => {
+    if (typeof document === 'undefined') {
+      return;
+    }
+    const appRoot = document.getElementById('root');
+    if (appRoot) {
+      Modal.setAppElement(appRoot);
+    }
+  }, []);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -21,6 +32,14 @@ function PageTemplate(props){
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+
+  const openSettingsModal = () => {
+    setIsSettingsOpen(true);
+  };
+
+  const closeSettingsModal = () => {
+    setIsSettingsOpen(false);
   };
 
 
@@ -49,8 +68,46 @@ function PageTemplate(props){
     <div className="App">
       <header className="App-header">
 
-        { renderTarget !== "catalog-page" && <button onClick={openModal} className="fixed-button" style={{textAlign: "center"}}><span className='info-character'>i</span></button>}
-      
+        <button
+          onClick={openSettingsModal}
+          className="fixed-button settings-button"
+          style={{textAlign: "center"}}
+          aria-label="Open settings"
+        >
+          <span aria-hidden="true">⚙️</span>
+        </button>
+        { renderTarget !== "catalog-page" && <button onClick={openModal} className="fixed-button info-button" style={{textAlign: "center"}} aria-label="Open info modal"><span className='info-character'>i</span></button>}
+
+        <Modal
+          isOpen={isSettingsOpen}
+          onRequestClose={closeSettingsModal}
+          contentLabel="Settings"
+          className="modal settings-modal"
+        >
+          <div className='scroll-div settings-content'>
+            <h2 className="modal-content">Settings</h2>
+            <div className="settings-row">
+              <div className="settings-copy">
+                <p className="settings-title">Auto-follow camera</p>
+                <p className="settings-description">
+                  Automatically centers the visualization on the active layer so you can follow the main action without manual panning.
+                </p>
+              </div>
+              <label className="settings-toggle">
+                <input
+                  type="checkbox"
+                  checked={settings.autoFollowCamera}
+                  onChange={(event) => updateSetting('autoFollowCamera', event.target.checked)}
+                />
+                <span>{settings.autoFollowCamera ? 'On' : 'Off'}</span>
+              </label>
+            </div>
+          </div>
+          <div>
+            <button onClick={closeSettingsModal} className="close-button" aria-label="Close settings">X</button>
+          </div>
+        </Modal>
+
         <div className="modal-background">
         <Modal
           isOpen={isModalOpen}
@@ -92,7 +149,7 @@ function PageTemplate(props){
             We hope you find this tool useful 😊.
           </div>
           <div>
-            <button onClick={closeModal} className="close-button">X</button>
+            <button onClick={closeModal} className="close-button" aria-label="Close info">X</button>
           </div>
         </Modal>
         </div>
