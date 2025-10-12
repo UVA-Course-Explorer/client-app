@@ -3,6 +3,7 @@ import { useParams, useNavigate} from 'react-router-dom';
 import './Catalog.css'
 import './Catalog.css'
 import { requirementMapping } from './RequirementMap';
+import { useSettings } from './SettingsContext';
 
 function CatalogPage() {
   const { semester, department, org, number} = useParams();
@@ -12,6 +13,7 @@ function CatalogPage() {
 
   const [tableExpansions, setTableExpansions] = useState({});
   const [allTablesExpanded, setAllTablesExpanded] = useState(false); // state for overall table expansion
+  const [activeCourseKey, setActiveCourseKey] = useState(null);
 
   const [allSemesters, setAllSemesters] = useState([]);
   const [selectedSemester, setSelectedSemester] = useState(semester);
@@ -19,6 +21,8 @@ function CatalogPage() {
   const [noDataFound, setNoDataFound] = useState(false);
 
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const { settings } = useSettings();
+  const autoFollowCamera = settings.autoFollowCamera;
 
 
   const scrollToTop = () => {
@@ -69,6 +73,9 @@ function CatalogPage() {
       }
       if (org && number) {
         newTableExpansions[`${org}${number}`] = true;
+        setActiveCourseKey(`${org}${number}`);
+      } else {
+        setActiveCourseKey(null);
       }
       setTableExpansions(newTableExpansions);
       setAllTablesExpanded(false);
@@ -114,21 +121,28 @@ function CatalogPage() {
     if(org && number){
       scrollKey = org + number;
     }
-    if (scrollKey) {
+    if (scrollKey && autoFollowCamera) {
       setTimeout(() => {
       // Use JavaScript to scroll to the specified table
       const tableElement = document.getElementById(scrollKey);
       if (tableElement) {
-        tableElement.scrollIntoView({ behavior: 'smooth' });
+        tableElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
       }, 750);
     }
-  }, [number, org]);
+  }, [number, org, autoFollowCamera]);
 
 
   const toggleTableExpansion = (tableKey) => {
     setTableExpansions((prevTableExpansions) => {
-      return { ...prevTableExpansions, [tableKey]: !prevTableExpansions[tableKey] };
+      const shouldExpand = !prevTableExpansions[tableKey];
+      setActiveCourseKey((previousActive) => {
+        if (shouldExpand) {
+          return tableKey;
+        }
+        return previousActive === tableKey ? null : previousActive;
+      });
+      return { ...prevTableExpansions, [tableKey]: shouldExpand };
     });
   };
 
@@ -141,9 +155,23 @@ function CatalogPage() {
         return state;
       }, {});
       setTableExpansions(newExpansionState);
+      setActiveCourseKey(null);
       return newState;
     });
   };
+
+  useEffect(() => {
+    if (!autoFollowCamera || !activeCourseKey) {
+      return;
+    }
+    if (!tableExpansions[activeCourseKey]) {
+      return;
+    }
+    const element = document.getElementById(activeCourseKey);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, [autoFollowCamera, activeCourseKey, tableExpansions]);
 
 
   const generateMeetingTable = (meetings) => {

@@ -54,6 +54,14 @@
   margin: "0 auto";
 }
 
+.settings-button {
+  right: 4.5em;
+}
+
+.info-button {
+  right: 1em;
+}
+
 .fixed-button:hover {
     background: #c9732c;
 }
@@ -83,6 +91,54 @@
   overflow-y: scroll;
   justify-content: center; /* Horizontal centering */
   padding-right: 10%;
+}
+
+.settings-modal {
+  max-width: 40rem;
+  width: 90%;
+  height: auto;
+  max-height: 80vh;
+}
+
+.settings-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+}
+
+.settings-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5em;
+}
+
+.settings-copy {
+  flex: 1;
+}
+
+.settings-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.35em;
+}
+
+.settings-description {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  opacity: 0.85;
+}
+
+.settings-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  font-size: 1rem;
+}
+
+.settings-toggle input[type="checkbox"] {
+  width: 1.2em;
+  height: 1.2em;
 }
 
 /* modalStyles.css */
