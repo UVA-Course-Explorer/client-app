@@ -218,7 +218,8 @@ body{
 }
 
 .meeting-table{
-  width: 100%;
+  width: auto;
+  max-width: 100%;
   vertical-align: top;
 }
 
@@ -245,6 +246,17 @@ body{
 .meeting-row .days,
 .meeting-row .time {
   display: block;
+  word-break: break-word;
+}
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-wrapper + .table-wrapper {
+  margin-top: 16px;
 }
 
 .days{
@@ -397,6 +409,50 @@ tr.title-header:hover .course-title{
 
 .custom-table .collapsed {
   display: none;
+}
+
+@media (max-width: 768px) {
+  .custom-table th,
+  .custom-table td {
+    font-size: 14px;
+    padding: 6px;
+  }
+
+  .course-title {
+    font-size: 24px;
+  }
+
+  .meeting-table-head,
+  .meeting-row {
+    column-gap: 8px;
+  }
+}
+
+@media (max-width: 600px) {
+  .meeting-table-head,
+  .meeting-row {
+    grid-template-columns: 1fr;
+    row-gap: 2px;
+    text-align: left;
+  }
+
+  .meeting-table-head {
+    font-weight: bold;
+  }
+
+  .meeting-row .days::before {
+    content: 'Days: ';
+    font-weight: 600;
+  }
+
+  .meeting-row .time {
+    margin-top: 2px;
+  }
+
+  .meeting-row .time::before {
+    content: 'Time: ';
+    font-weight: 600;
+  }
 }
 
 
