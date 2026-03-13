@@ -387,6 +387,99 @@ tr.title-header:hover .course-title{
   display: inline-flex;
 }
 
+.enrollment-history-panel {
+  width: 100%;
+  max-width: 1000px;
+  box-sizing: border-box;
+  border: 1px solid rgba(226, 232, 240, 0.24);
+  border-top: none;
+  padding: 16px 18px 20px;
+  background: rgba(15, 23, 42, 0.48);
+}
+
+.enrollment-history-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.enrollment-history-header h4 {
+  margin: 0;
+}
+
+.enrollment-history-caption,
+.enrollment-history-status {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  opacity: 0.88;
+}
+
+.enrollment-history-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.enrollment-history-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.enrollment-history-search {
+  flex: 1 1 260px;
+  min-width: 220px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(226, 232, 240, 0.25);
+  background: rgba(15, 23, 42, 0.68);
+  color: inherit;
+}
+
+.enrollment-history-toolbar button {
+  color: #000000;
+  font-size: 14px;
+  padding: 0.45em 0.75em;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+  font-weight: bold;
+  background: #ffffff;
+}
+
+.enrollment-history-checklist {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 8px 16px;
+  max-height: 220px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.enrollment-history-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.enrollment-history-option input {
+  margin-top: 3px;
+}
+
+.enrollment-history-plot {
+  margin-top: 16px;
+}
+
 
 
 
@@ -556,6 +649,17 @@ ul {
     box-shadow: none;
   }
 
+  .enrollment-history-panel {
+    border-color: rgba(15, 23, 42, 0.14);
+    background: #ffffff;
+  }
+
+  .enrollment-history-search {
+    border-color: rgba(15, 23, 42, 0.16);
+    background: #ffffff;
+    color: #000000;
+  }
+
 }
 
 .catalogPage .subject {
@@ -609,6 +713,14 @@ ul {
 
   .catalogPage .custom-table button.course-title {
       font-size: clamp(11px, 3.2vw, 14px);
+  }
+
+  .enrollment-history-caption,
+  .enrollment-history-status,
+  .enrollment-history-option,
+  .enrollment-history-search,
+  .enrollment-history-toolbar button {
+    font-size: 12px;
   }
 
   .catalogPage .custom-table button{
@@ -761,6 +873,20 @@ ul {
   .catalogPage .external-buttons {
     justify-content: flex-end;
     gap: 6px;
+  }
+
+  .enrollment-history-panel {
+    padding: 12px;
+  }
+
+  .enrollment-history-search {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .enrollment-history-checklist {
+    grid-template-columns: 1fr;
+    max-height: 240px;
   }
 }
 

@@ -1,22 +1,30 @@
-import React, { useState, useEffect, useCallback} from 'react';
+import React, { Suspense, lazy, useState, useEffect, useCallback} from 'react';
 import { useParams, useNavigate} from 'react-router-dom';
 import './Catalog.css'
 import './Catalog.css'
 import { requirementMapping } from './RequirementMap';
+
+
+const EnrollmentHistoryPanel = lazy(() => import('./EnrollmentHistoryPanel'));
 
 function CatalogPage() {
   const { semester, department, org, number} = useParams();
   const [data, setData] = useState(null);
   const [metadata, setMetadata] = useState(null);
   const navigate = useNavigate();
+  const routeCourseKey = org && number ? `${org}${number}` : null;
 
   const [tableExpansions, setTableExpansions] = useState({});
   const [allTablesExpanded, setAllTablesExpanded] = useState(false); // state for overall table expansion
+  const [activeCourseKey, setActiveCourseKey] = useState(routeCourseKey);
 
   const [allSemesters, setAllSemesters] = useState([]);
   const [selectedSemester, setSelectedSemester] = useState(semester);
 
   const [noDataFound, setNoDataFound] = useState(false);
+  const [departmentHistory, setDepartmentHistory] = useState(null);
+  const [historyStatus, setHistoryStatus] = useState('idle');
+  const [historyError, setHistoryError] = useState(null);
 
   const [showBackToTop, setShowBackToTop] = useState(false);
 
@@ -41,6 +49,20 @@ function CatalogPage() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    setSelectedSemester(semester);
+    setDepartmentHistory(null);
+    setHistoryStatus('idle');
+    setHistoryError(null);
+    setActiveCourseKey(routeCourseKey);
+  }, [department, semester, routeCourseKey]);
+
+  useEffect(() => {
+    if (routeCourseKey) {
+      setActiveCourseKey(routeCourseKey);
+    }
+  }, [routeCourseKey]);
 
 
     // Fetch all semesters
@@ -109,6 +131,49 @@ function CatalogPage() {
   }, [fetchCatalogIndexData]);
 
   useEffect(() => {
+    if (!activeCourseKey || departmentHistory || historyStatus !== 'idle') {
+      return;
+    }
+
+    let isActive = true;
+
+    async function fetchDepartmentHistory() {
+      setHistoryStatus('loading');
+      setHistoryError(null);
+
+      try {
+        const response = await fetch(`https://raw.githubusercontent.com/UVA-Course-Explorer/course-data/main/history/${semester}/${department}.json`);
+        if (!response.ok) {
+          throw new Error('Enrollment history has not been published for this department yet.');
+        }
+
+        const jsonData = await response.json();
+        if (!isActive) {
+          return;
+        }
+
+        setDepartmentHistory(jsonData);
+        setHistoryStatus('success');
+      } catch (error) {
+        if (!isActive) {
+          return;
+        }
+
+        console.error('Error fetching enrollment history:', error);
+        setDepartmentHistory(null);
+        setHistoryStatus('error');
+        setHistoryError(error.message);
+      }
+    }
+
+    fetchDepartmentHistory();
+
+    return () => {
+      isActive = false;
+    };
+  }, [activeCourseKey, department, departmentHistory, historyStatus, semester]);
+
+  useEffect(() => {
     // Check URL parameters and scroll to the desired table if present
     let scrollKey = null;
     if(org && number){
@@ -130,6 +195,20 @@ function CatalogPage() {
     setTableExpansions((prevTableExpansions) => {
       return { ...prevTableExpansions, [tableKey]: !prevTableExpansions[tableKey] };
     });
+  };
+
+  const handleCourseTitleClick = (tableKey) => {
+    const shouldExpand = !tableExpansions[tableKey];
+    toggleTableExpansion(tableKey);
+
+    if (shouldExpand) {
+      setActiveCourseKey(tableKey);
+      return;
+    }
+
+    if (activeCourseKey === tableKey) {
+      setActiveCourseKey(null);
+    }
   };
 
   // Toggle the expansion state of all tables
@@ -268,7 +347,14 @@ function CatalogPage() {
       for (const course of courseArr) {
 
         const tableKey = `${course.subject}${course.catalog_number}`;
+        const courseTitle = `${course.subject} ${course.catalog_number}: ${course.descr}`;
+        const historyCourseKey = `${course.subject}::${course.catalog_number}`;
         const isExpanded = tableExpansions[tableKey];
+        const showEnrollmentHistory = isExpanded && activeCourseKey === tableKey;
+        const effectiveHistoryStatus = showEnrollmentHistory && !departmentHistory && !historyError
+          ? 'loading'
+          : historyStatus;
+        const historyCourse = departmentHistory?.courses?.[historyCourseKey];
 
         const trClassName = `${isExpanded ? 'expanded' : 'collapsed'} animate-expansion`;
 
@@ -282,9 +368,9 @@ function CatalogPage() {
                 <button
                   type="button"
                   className='course-title'
-                  onClick={() => toggleTableExpansion(tableKey)}
+                  onClick={() => handleCourseTitleClick(tableKey)}
                 >
-                  {course.subject} {course.catalog_number}: {course.descr}
+                  {courseTitle}
                 </button>
                 <div className="external-buttons">
                   <a
@@ -339,10 +425,20 @@ function CatalogPage() {
         }
 
           elements.push(
-            <div>
+            <div key={`${tableKey}-table`}>
               <table className={'custom-table'} id={tableKey}>
                 <tbody>{table}</tbody>
               </table>
+              {showEnrollmentHistory && (
+                <Suspense fallback={<div className="enrollment-history-panel"><p className="enrollment-history-status">Loading enrollment history...</p></div>}>
+                  <EnrollmentHistoryPanel
+                    courseTitle={courseTitle}
+                    historyCourse={historyCourse}
+                    historyStatus={effectiveHistoryStatus}
+                    historyError={historyError}
+                  />
+                </Suspense>
+              )}
             </div>
           );
 
