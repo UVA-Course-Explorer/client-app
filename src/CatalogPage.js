@@ -349,7 +349,7 @@ function CatalogPage() {
                     {showEnrollmentButton && (
                       <button
                         type="button"
-                        className="catalog-button"
+                        className="catalog-button desktop-only-button"
                         onClick={() => openEnrollmentHistory(course.subject, course.catalog_number)}
                       >
                         Enrollment Graph

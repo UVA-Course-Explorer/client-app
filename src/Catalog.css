@@ -689,6 +689,10 @@ ul {
 }
 
 @media (max-width: 1000px) {
+  .catalogPage .desktop-only-button {
+    display: none;
+  }
+
   .catalogPage h2{
     font-size: 14px
   }
