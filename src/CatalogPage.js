@@ -490,12 +490,6 @@ function CatalogPage() {
 
             {selectedCourse && (
               <div className="enrollment-history-screen">
-                {renderCourseTable({
-                  course: selectedCourse,
-                  isExpanded: true,
-                  showEnrollmentButton: false,
-                  useStaticTitle: true,
-                })}
                 <Suspense
                   fallback={(
                     <div className="enrollment-history-panel">
@@ -510,6 +504,12 @@ function CatalogPage() {
                     historyError={historyError}
                   />
                 </Suspense>
+                {renderCourseTable({
+                  course: selectedCourse,
+                  isExpanded: true,
+                  showEnrollmentButton: false,
+                  useStaticTitle: true,
+                })}
               </div>
             )}
           </>
