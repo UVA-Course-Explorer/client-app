@@ -352,7 +352,7 @@ function CatalogPage() {
                         className="catalog-button desktop-only-button"
                         onClick={() => openEnrollmentHistory(course.subject, course.catalog_number)}
                       >
-                        Enrollment Graph
+                        Enrollment 📈
                       </button>
                     )}
                     <a
@@ -470,13 +470,6 @@ function CatalogPage() {
                 type="button"
                 className="toggle-button"
                 onClick={() => navigate(`/catalog/${semester}/${department}/${org}/${number}`)}
-              >
-                Back to Class
-              </button>
-              <button
-                type="button"
-                className="toggle-button"
-                onClick={() => navigate(`/catalog/${semester}/${department}`)}
               >
                 Back to Department
               </button>
