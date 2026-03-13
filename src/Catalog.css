@@ -894,24 +894,62 @@ ul {
 
   .catalogPage .title-header-content {
     padding: 10px 12px;
+    align-items: flex-start;
+    flex-wrap: wrap;
   }
 
   .catalogPage .external-buttons {
-    justify-content: flex-end;
+    width: 100%;
+    justify-content: flex-start;
     gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .catalogPage .external-buttons > button,
+  .catalogPage .external-buttons > a {
+    flex: 1 1 140px;
+  }
+
+  .catalogPage .external-buttons > button,
+  .catalogPage .external-buttons > a > button {
+    width: 100%;
   }
 
   .enrollment-history-screen-nav {
     margin: 12px 0;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .enrollment-history-screen-nav .toggle-button {
+    width: 100%;
   }
 
   .enrollment-history-panel {
     padding: 12px;
   }
 
+  .enrollment-history-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   .enrollment-history-search {
     min-width: 0;
     width: 100%;
+  }
+
+  .enrollment-history-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .enrollment-history-toolbar button {
+    width: 100%;
+  }
+
+  .enrollment-history-plot {
+    min-height: 360px;
   }
 
   .enrollment-history-checklist {
