@@ -367,6 +367,10 @@ tr.title-header:hover .course-title{
   font-size: 24px;
 }
 
+.catalogPage .custom-table .course-title-static {
+  cursor: default;
+}
+
 .catalogPage .custom-table button.course-title:hover,
 .catalogPage .custom-table button.course-title:focus {
   background-color: transparent;
@@ -385,6 +389,20 @@ tr.title-header:hover .course-title{
 
 .external-buttons a{
   display: inline-flex;
+}
+
+.enrollment-history-screen {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.enrollment-history-screen-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 16px 0;
 }
 
 .enrollment-history-panel {
@@ -649,6 +667,10 @@ ul {
     box-shadow: none;
   }
 
+  .catalogPage .custom-table .course-title-static {
+    color: inherit;
+  }
+
   .enrollment-history-panel {
     border-color: rgba(15, 23, 42, 0.14);
     background: #ffffff;
@@ -708,6 +730,10 @@ ul {
   }
 
   .catalogPage .external-buttons {
+    gap: 6px;
+  }
+
+  .enrollment-history-screen-nav {
     gap: 6px;
   }
 
@@ -873,6 +899,10 @@ ul {
   .catalogPage .external-buttons {
     justify-content: flex-end;
     gap: 6px;
+  }
+
+  .enrollment-history-screen-nav {
+    margin: 12px 0;
   }
 
   .enrollment-history-panel {
