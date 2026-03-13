@@ -1,4 +1,4 @@
-const latestSemester = 1262;
-const latestSemsterName = "Spring 2026";
+const latestSemester = 1268;
+const latestSemsterName = "Fall 2026";
 
 export { latestSemester, latestSemsterName };
