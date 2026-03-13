@@ -131,7 +131,7 @@ function CatalogPage() {
   }, [fetchCatalogIndexData]);
 
   useEffect(() => {
-    if (!activeCourseKey || departmentHistory || historyStatus !== 'idle') {
+    if (!activeCourseKey || departmentHistory) {
       return;
     }
 
@@ -171,7 +171,7 @@ function CatalogPage() {
     return () => {
       isActive = false;
     };
-  }, [activeCourseKey, department, departmentHistory, historyStatus, semester]);
+  }, [activeCourseKey, department, departmentHistory, semester]);
 
   useEffect(() => {
     // Check URL parameters and scroll to the desired table if present

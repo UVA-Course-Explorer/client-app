@@ -72,7 +72,7 @@ function PageTemplate(props){
             <li>How will artificial intelligence impact society? 🤖</li>
 
             <br></br>
-            <span>You can also search for a specific class with its department and course number (CS 1110). We have indexed courses from previous semesters dating back to Fall 2021. <b>Disclaimer</b>: We log search queries, but do not save any user-specific information.</span>
+            <span>You can also search for a specific class with its department and course number (CS 1110). The catalog includes every semester since Summer 2020, and Fall 2026 is the latest live semester. <b>Disclaimer</b>: We log search queries, but do not save any user-specific information.</span>
             
             <br></br>
             <br></br>
@@ -80,7 +80,7 @@ function PageTemplate(props){
             <br></br>
             <br></br>
 
-            <span>Our catalog contains course information for all semesters since Summer 2020. We are currently updating the 2026 Spring catalog every hour and the 2026 Winter catalog daily.</span>
+            <span>We currently refresh the Fall 2026 catalog every hour and the Winter 2026 catalog daily. Course pages also include section-level enrollment history when historical snapshots are available.</span>
             <br></br>
             <br></br>
 
