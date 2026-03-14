@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useState, useEffect, useCallback } from 'react';
+import React, { Suspense, lazy, useState, useEffect, useCallback, useLayoutEffect, useRef } from 'react';
 import { useParams, useNavigate, useMatch } from 'react-router-dom';
 import './Catalog.css';
 import { requirementMapping } from './RequirementMap';
@@ -47,6 +47,7 @@ function CatalogPage() {
   const [historyStatus, setHistoryStatus] = useState('idle');
   const [historyError, setHistoryError] = useState(null);
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const hasJumpedToRouteCourseRef = useRef(false);
 
   const selectedCourse = findCourseByRoute(data, org, number);
   const selectedCourseTitle = selectedCourse
@@ -87,6 +88,7 @@ function CatalogPage() {
     setHistoryStatus('idle');
     setHistoryError(null);
     setActiveCourseKey(isEnrollmentHistoryRoute ? null : routeCourseKey);
+    hasJumpedToRouteCourseRef.current = false;
   }, [department, semester, routeCourseKey, isEnrollmentHistoryRoute]);
 
   useEffect(() => {
@@ -198,18 +200,26 @@ function CatalogPage() {
     };
   }, [department, isEnrollmentHistoryRoute, routeCourseKey, semester]);
 
-  useEffect(() => {
-    if (!org || !number || isEnrollmentHistoryRoute) {
+  useLayoutEffect(() => {
+    if (
+      !routeCourseKey ||
+      isEnrollmentHistoryRoute ||
+      !data ||
+      !tableExpansions[routeCourseKey] ||
+      hasJumpedToRouteCourseRef.current
+    ) {
       return;
     }
 
-    setTimeout(() => {
-      const tableElement = document.getElementById(`${org}${number}`);
-      if (tableElement) {
-        tableElement.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 750);
-  }, [number, org, isEnrollmentHistoryRoute]);
+    const tableElement = document.getElementById(routeCourseKey);
+    if (!tableElement) {
+      return;
+    }
+
+    const elementTop = window.scrollY + tableElement.getBoundingClientRect().top;
+    hasJumpedToRouteCourseRef.current = true;
+    window.scrollTo({ top: Math.max(0, elementTop - 12), behavior: 'auto' });
+  }, [routeCourseKey, data, tableExpansions, isEnrollmentHistoryRoute]);
 
   const toggleTableExpansion = (tableKey) => {
     setTableExpansions((prevTableExpansions) => (
@@ -346,15 +356,6 @@ function CatalogPage() {
                     </button>
                   )}
                   <div className="external-buttons">
-                    {showEnrollmentButton && (
-                      <button
-                        type="button"
-                        className="catalog-button desktop-only-button"
-                        onClick={() => openEnrollmentHistory(course.subject, course.catalog_number)}
-                      >
-                        Enrollment 📈
-                      </button>
-                    )}
                     <a
                       target="_blank"
                       rel="noopener noreferrer"
@@ -369,6 +370,15 @@ function CatalogPage() {
                     >
                       <button className="catalog-button">theCourseForum</button>
                     </a>
+                    {showEnrollmentButton && (
+                      <button
+                        type="button"
+                        className="catalog-button desktop-only-button"
+                        onClick={() => openEnrollmentHistory(course.subject, course.catalog_number)}
+                      >
+                        Enrollment 📈
+                      </button>
+                    )}
                   </div>
                 </div>
               </th>
