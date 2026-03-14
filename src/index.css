@@ -78,16 +78,32 @@ select {
   color: #fff;
   font-size: 20px;
   padding: 1rem 2rem;
+  padding-right: 3.5rem;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   margin: 1rem;
   text-align: center;
   border: 2px solid white; /* Adding a white solid border */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #ffffff 50%),
+    linear-gradient(135deg, #ffffff 50%, transparent 50%);
+  background-position:
+    calc(100% - 1.4rem) calc(50% - 0.2rem),
+    calc(100% - 1rem) calc(50% - 0.2rem);
+  background-size: 0.45rem 0.45rem, 0.45rem 0.45rem;
+  background-repeat: no-repeat;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
   'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
   sans-serif;
   font-weight: bold;
+}
+
+select::-ms-expand {
+  display: none;
 }
 
 select:hover{
@@ -255,6 +271,9 @@ select:hover{
 
     color: #000000;
     border: 2px solid black; /* Adding a white solid border */
+    background-image:
+      linear-gradient(45deg, transparent 50%, #000000 50%),
+      linear-gradient(135deg, #000000 50%, transparent 50%);
   }
 
 
@@ -289,5 +308,4 @@ select:hover{
     background: #f48b70;
   }
 }
-
 
