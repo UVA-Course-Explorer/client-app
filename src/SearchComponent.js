@@ -21,7 +21,7 @@ shuffleArray(searchOptions); // Shuffle the search options
 
 function renderCourseResultCard(result, key, handleMoreLikeThisRequest, academicLevelFilter, semesterFilter) {
   return (
-    <div key={key}>
+    <div key={key} className="search-result-card">
       <CourseResultComponent
         name={result.name}
         level={result.level}

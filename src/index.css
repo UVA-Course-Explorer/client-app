@@ -201,6 +201,16 @@ select:hover{
   margin: 2rem auto 0 auto;
 }
 
+.teacher-result-group .search-result-card {
+  width: 100%;
+}
+
+.teacher-result-group .accordion {
+  width: 100%;
+  max-width: none;
+  margin: 1rem 0 0 0;
+}
+
 .teacher-result-header {
   background-color: #1e2b53;
   border-radius: 10px;
