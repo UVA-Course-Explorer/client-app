@@ -48,7 +48,10 @@ function renderCourseResultCard(result, key, handleMoreLikeThisRequest, academic
 
 function buildTeacherSearchResults(teacherGroups, handleMoreLikeThisRequest, academicLevelFilter, semesterFilter) {
   if (!Array.isArray(teacherGroups)) {
-    return [];
+    return {
+      hasVisibleCourses: false,
+      elements: [],
+    };
   }
 
   const nonEmptyTeacherGroups = teacherGroups.filter(
@@ -56,32 +59,38 @@ function buildTeacherSearchResults(teacherGroups, handleMoreLikeThisRequest, aca
   );
 
   if (nonEmptyTeacherGroups.length === 0) {
-    return [
-      <div key="teacher-search-empty" className="search-empty-state">
-        No classes found for that instructor with the current filters.
-      </div>
-    ];
+    return {
+      hasVisibleCourses: false,
+      elements: [
+        <div key="teacher-search-empty" className="search-empty-state">
+          No classes found for that instructor with the current filters.
+        </div>
+      ],
+    };
   }
 
-  return nonEmptyTeacherGroups.map((teacherGroup, groupIndex) => (
-    <div key={`${teacherGroup.teacherName}-${groupIndex}`} className="teacher-result-group">
-      <div className="teacher-result-header">
-        <div className="teacher-result-title">{teacherGroup.teacherName}</div>
-        <div className="teacher-result-meta">
-          {teacherGroup.courses.length} class{teacherGroup.courses.length === 1 ? '' : 'es'}
+  return {
+    hasVisibleCourses: true,
+    elements: nonEmptyTeacherGroups.map((teacherGroup, groupIndex) => (
+      <div key={`${teacherGroup.teacherName}-${groupIndex}`} className="teacher-result-group">
+        <div className="teacher-result-header">
+          <div className="teacher-result-title">{teacherGroup.teacherName}</div>
+          <div className="teacher-result-meta">
+            {teacherGroup.courses.length} class{teacherGroup.courses.length === 1 ? '' : 'es'}
+          </div>
         </div>
+        {teacherGroup.courses.map((course, courseIndex) => (
+          renderCourseResultCard(
+            course,
+            `${teacherGroup.teacherName}-${course.mnemonic}-${course.catalog_number}-${courseIndex}`,
+            handleMoreLikeThisRequest,
+            academicLevelFilter,
+            semesterFilter
+          )
+        ))}
       </div>
-      {teacherGroup.courses.map((course, courseIndex) => (
-        renderCourseResultCard(
-          course,
-          `${teacherGroup.teacherName}-${course.mnemonic}-${course.catalog_number}-${courseIndex}`,
-          handleMoreLikeThisRequest,
-          academicLevelFilter,
-          semesterFilter
-        )
-      ))}
-    </div>
-  ));
+    )),
+  };
 }
 
 
@@ -91,12 +100,30 @@ function buildSearchResults(responseData, handleMoreLikeThisRequest, academicLev
   }
 
   if (responseData.resultType === "teacher_grouped") {
-    return buildTeacherSearchResults(
+    const teacherSearchResults = buildTeacherSearchResults(
       responseData.teacherGroups,
       handleMoreLikeThisRequest,
       academicLevelFilter,
       semesterFilter
     );
+
+    if (teacherSearchResults.hasVisibleCourses) {
+      return teacherSearchResults.elements;
+    }
+
+    if (Array.isArray(responseData.resultData) && responseData.resultData.length > 0) {
+      return responseData.resultData.map((result, index) => (
+        renderCourseResultCard(
+          result,
+          `${result.matched_teacher || "teacher"}-${result.mnemonic}-${result.catalog_number}-${index}`,
+          handleMoreLikeThisRequest,
+          academicLevelFilter,
+          semesterFilter
+        )
+      ));
+    }
+
+    return teacherSearchResults.elements;
   }
 
   if (Array.isArray(responseData.resultData)) {
