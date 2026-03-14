@@ -72,6 +72,17 @@ function PageTemplate(props){
             <li>How will artificial intelligence impact society? 🤖</li>
 
             <br></br>
+            <span>You can also search by instructor. We handle queries with titles like professor or doctor, and if multiple instructors match we group the results by instructor while still respecting your semester and academic level filters.</span>
+            <br></br><br></br>
+            <span>Some instructor queries to try from the most active instructors in the current catalog data:</span>
+            <br></br><br></br>
+            <li>Professor Abby Fines</li>
+            <li>classes taught by Justin Kirkland</li>
+            <li>Dr. Homa Alemzadeh</li>
+            <li>courses with Afsaneh Doryab</li>
+            <li>teacher Miaomiao Zhang</li>
+
+            <br></br>
             <span>You can also search for a specific class with its department and course number (CS 1110). The catalog includes every semester since Summer 2020, and Fall 2026 is the latest live semester. <b>Disclaimer</b>: We log search queries, but do not save any user-specific information.</span>
             
             <br></br>

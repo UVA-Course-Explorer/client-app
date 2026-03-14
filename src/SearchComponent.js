@@ -19,6 +19,102 @@ const searchOptions = SampleSearches;
 shuffleArray(searchOptions); // Shuffle the search options
 
 
+function renderCourseResultCard(result, key, handleMoreLikeThisRequest, academicLevelFilter, semesterFilter) {
+  return (
+    <div key={key}>
+      <CourseResultComponent
+        name={result.name}
+        level={result.level}
+        catalog_number={result.catalog_number}
+        class_number={result.class_number}
+        subject={result.subject}
+        description={result.description}
+        mnemonic={result.mnemonic}
+        strm={result.strm}
+        similarity_score={result.similarity_score}
+        credits={result.credits}
+        group={result.group}
+        matchedTeacher={result.matched_teacher}
+        teacherLatestTaughtStrm={result.teacher_latest_taught_strm}
+        teacherSemesterCount={result.teacher_semester_count}
+        onMoreLikeThisClick={handleMoreLikeThisRequest}
+        academicLevelFilter={academicLevelFilter}
+        semesterFilter={semesterFilter}
+      />
+    </div>
+  );
+}
+
+
+function buildTeacherSearchResults(teacherGroups, handleMoreLikeThisRequest, academicLevelFilter, semesterFilter) {
+  if (!Array.isArray(teacherGroups)) {
+    return [];
+  }
+
+  const nonEmptyTeacherGroups = teacherGroups.filter(
+    (teacherGroup) => Array.isArray(teacherGroup.courses) && teacherGroup.courses.length > 0
+  );
+
+  if (nonEmptyTeacherGroups.length === 0) {
+    return [
+      <div key="teacher-search-empty" className="search-empty-state">
+        No classes found for that instructor with the current filters.
+      </div>
+    ];
+  }
+
+  return nonEmptyTeacherGroups.map((teacherGroup, groupIndex) => (
+    <div key={`${teacherGroup.teacherName}-${groupIndex}`} className="teacher-result-group">
+      <div className="teacher-result-header">
+        <div className="teacher-result-title">{teacherGroup.teacherName}</div>
+        <div className="teacher-result-meta">
+          {teacherGroup.courses.length} class{teacherGroup.courses.length === 1 ? '' : 'es'}
+        </div>
+      </div>
+      {teacherGroup.courses.map((course, courseIndex) => (
+        renderCourseResultCard(
+          course,
+          `${teacherGroup.teacherName}-${course.mnemonic}-${course.catalog_number}-${courseIndex}`,
+          handleMoreLikeThisRequest,
+          academicLevelFilter,
+          semesterFilter
+        )
+      ))}
+    </div>
+  ));
+}
+
+
+function buildSearchResults(responseData, handleMoreLikeThisRequest, academicLevelFilter, semesterFilter) {
+  if (!responseData) {
+    return [];
+  }
+
+  if (responseData.resultType === "teacher_grouped") {
+    return buildTeacherSearchResults(
+      responseData.teacherGroups,
+      handleMoreLikeThisRequest,
+      academicLevelFilter,
+      semesterFilter
+    );
+  }
+
+  if (Array.isArray(responseData.resultData)) {
+    return responseData.resultData.map((result, index) => (
+      renderCourseResultCard(
+        result,
+        `${result.mnemonic}-${result.catalog_number}-${index}`,
+        handleMoreLikeThisRequest,
+        academicLevelFilter,
+        semesterFilter
+      )
+    ));
+  }
+
+  return [];
+}
+
+
 function SearchComponent() {
   const [searchInput, setSearchInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -132,37 +228,6 @@ function SearchComponent() {
     });
   };
 
-// eslint-disable-next-line
-  function generateSearchResults(data) {
-    if (data && Array.isArray(data)) {
-      const searchResults = data.map((result, index) => (
-        <div key={index}>
-          <CourseResultComponent  
-            name={result.name}
-            level={result.level}
-            catalog_number={result.catalog_number}
-            class_number={result.class_number}
-            subject={result.subject}
-            description={result.description}
-            mnemonic={result.mnemonic}
-            strm={result.strm}
-            similarity_score={result.similarity_score}
-            credits={result.credits}
-            group={result.group}
-            onMoreLikeThisClick={handleMoreLikeThisRequest}
-            academicLevelFilter={academicLevelFilter}
-            semesterFilter={semesterFilter}/>
-        </div>
-      ));
-      setIsLoading(false);
-      return searchResults; // Return the populated array if data is available
-    } else {
-      setIsLoading(false);
-      return []; // Return an empty array if data is not available or not an array
-    }
-  }
-
-
   const handleSearchInputChange = (event) => {
     const inputText = event.target.value;
     if (inputText.length <= maxLength) {
@@ -174,6 +239,34 @@ function SearchComponent() {
   // stateRef.searchInput = searchInput;
   stateRef.semesterFilter = semesterFilter;
   stateRef.academicLevelFilter = academicLevelFilter;
+
+  const handleMoreLikeThisRequest = useCallback(async (mnemonicInput, catalogNumberInput) => {
+    scrollToTop();
+    setSearchInput(`${mnemonicInput} ${catalogNumberInput}`);
+
+    const encodedQuery = encodeURIComponent(`${mnemonicInput} ${catalogNumberInput}`);
+    setIsLoading(true);
+
+    const response = await fetch("https://server-app.fly.dev/similar_courses", {
+    // const response = await fetch("/similar_courses", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        mnemonic: mnemonicInput,
+        catalog_number: catalogNumberInput,
+        academicLevelFilter: stateRef.academicLevelFilter,
+        semesterFilter: stateRef.semesterFilter,
+        getGraphData: false 
+      })
+    });
+
+    const data = await response.json();
+    setSearchResults(buildSearchResults(data, handleMoreLikeThisRequest, academicLevelFilter, semesterFilter));
+    setIsLoading(false);
+    navigate(`/search/${encodedQuery}?academicLevel=${academicLevelFilter}&semester=${semesterFilter}`);
+  }, [academicLevelFilter, semesterFilter, navigate]);
 
 
 const memoizedHandleSearch = useCallback(async (shouldNavigate = true) => {
@@ -199,44 +292,13 @@ const memoizedHandleSearch = useCallback(async (shouldNavigate = true) => {
     }),
   });
   const data = await response.json();
-  const resultData = data["resultData"];
-  setSearchResults(generateSearchResults(resultData));
+  setSearchResults(buildSearchResults(data, handleMoreLikeThisRequest, academicLevelFilter, semesterFilter));
+  setIsLoading(false);
 
   if (shouldNavigate) {
     navigate(`/search/${encodedQuery}?academicLevel=${academicLevelFilter}&semester=${semesterFilter}`);
   }
-}, [searchInput, academicLevelFilter, semesterFilter, generateSearchResults, navigate]);
-
-
-
-
-  const handleMoreLikeThisRequest = async (mnemonicInput, catalogNumberInput) => {
-    scrollToTop();
-    setSearchInput(`${mnemonicInput} ${catalogNumberInput}`);
-
-    const encodedQuery = encodeURIComponent(`${mnemonicInput} ${catalogNumberInput}`);
-    setIsLoading(true);
-
-    const response = await fetch("https://server-app.fly.dev/similar_courses", {
-    // const response = await fetch("/similar_courses", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        mnemonic: mnemonicInput,
-        catalog_number: catalogNumberInput,
-        academicLevelFilter: stateRef.academicLevelFilter,
-        semesterFilter: stateRef.semesterFilter,
-        getGraphData: false 
-      })
-    });
-
-    const data = await response.json();
-    const resultData = data["resultData"];
-    setSearchResults(generateSearchResults(resultData));
-    navigate(`/search/${encodedQuery}?academicLevel=${academicLevelFilter}&semester=${semesterFilter}`);
-  };
+}, [searchInput, academicLevelFilter, semesterFilter, navigate, handleMoreLikeThisRequest]);
 
 
   useEffect(() => {

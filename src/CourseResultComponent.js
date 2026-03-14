@@ -32,6 +32,7 @@ function mapNumberToSeasonWithMiddleDigits(number) {
 }
 
 const CourseResultComponent = (props) => {
+  const isTeacherResult = Boolean(props.matchedTeacher);
 
 
   const handleMoreLikeThisButtonClick = () => {
@@ -74,10 +75,12 @@ const CourseResultComponent = (props) => {
 
 
 
-            <div style={{display: 'flex' , flexDirection: 'row', flexWrap: 'nowrap', justifyContent: 'space-between', alignItems: 'center'}}>
-              <div className="search-info">Similarity Score: {(props.similarity_score * 100).toFixed(1)}%</div>
+            <div style={{display: 'flex' , flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '0.75rem'}}>
+              {!isTeacherResult && <div className="search-info">Similarity Score: {(props.similarity_score * 100).toFixed(1)}%</div>}
               <div className="search-info">Credits: {props.credits}</div>
-              <div className="search-info">Latest Sem: {mapNumberToSeasonWithMiddleDigits(props.strm)}</div>
+              {!isTeacherResult && <div className="search-info">Latest Sem: {mapNumberToSeasonWithMiddleDigits(props.strm)}</div>}
+              {isTeacherResult && <div className="search-info">Latest With Instructor: {mapNumberToSeasonWithMiddleDigits(props.teacherLatestTaughtStrm)}</div>}
+              {isTeacherResult && <div className="search-info">Semesters Taught: {props.teacherSemesterCount}</div>}
             </div>
             <button className="moreLikeThisButton" onClick={handleMoreLikeThisButtonClick}>Find more like this</button>
           </div>

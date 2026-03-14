@@ -195,12 +195,57 @@ select:hover{
   font-weight: 700;
 }
 
+.teacher-result-group {
+  width: 80%;
+  max-width: 2000px;
+  margin: 2rem auto 0 auto;
+}
+
+.teacher-result-header {
+  background-color: #1e2b53;
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  color: white;
+  text-align: left;
+}
+
+.teacher-result-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.teacher-result-meta {
+  margin-top: 0.35rem;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+.search-empty-state {
+  width: 80%;
+  max-width: 1200px;
+  margin: 2rem auto;
+  background-color: #162246;
+  border-radius: 10px;
+  color: white;
+  padding: 1rem 1.25rem;
+  text-align: center;
+  font-weight: 700;
+}
+
 @media screen and (max-width: 80%) {
   body {
     font-size: 12px;
   }
 
   .accordion {
+    width: 90%;
+  }
+
+  .teacher-result-group {
+    width: 90%;
+  }
+
+  .search-empty-state {
     width: 90%;
   }
 }
@@ -229,6 +274,10 @@ select:hover{
     width: 70%;
   }
 
+  .teacher-result-group {
+    width: 70%;
+  }
+
 }
 
 @media (min-width: 2000px) {
@@ -236,6 +285,10 @@ select:hover{
     font-size: calc(1vw); /* Adjust the formula as needed */
   }
   .accordion {
+    width: 70%;
+  }
+
+  .teacher-result-group {
     width: 70%;
   }
 }
@@ -307,5 +360,16 @@ select:hover{
   .moreLikeThisButton:hover {
     background: #f48b70;
   }
-}
 
+  .teacher-result-header {
+    background-color: #ffdeb3;
+    color: #000000;
+    border: 2px solid black;
+  }
+
+  .search-empty-state {
+    background-color: #fff;
+    color: #000000;
+    border: 2px solid black;
+  }
+}
