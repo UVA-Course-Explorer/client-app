@@ -824,6 +824,12 @@ ul {
 }
 
 @media (max-width: 600px) {
+  .catalogPage .catalog-button {
+    text-align: center;
+    font-size: 11px;
+    padding: 6px 12px;
+  }
+
   .catalogPage .custom-table {
     width: 100%;
     table-layout: auto;
@@ -902,7 +908,8 @@ ul {
   }
 
   .catalogPage .external-buttons {
-    width: 100%;
+    width: auto;
+    max-width: 100%;
     justify-content: flex-start;
     gap: 6px;
     flex-wrap: wrap;
@@ -910,12 +917,13 @@ ul {
 
   .catalogPage .external-buttons > button,
   .catalogPage .external-buttons > a {
-    flex: 1 1 140px;
+    flex: 0 0 auto;
   }
 
   .catalogPage .external-buttons > button,
   .catalogPage .external-buttons > a > button {
-    width: 100%;
+    width: auto;
+    min-width: 0;
   }
 
   .enrollment-history-screen-nav {
